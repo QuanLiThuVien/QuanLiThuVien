@@ -1,7 +1,7 @@
 ﻿create database QuanLiThuVien
 create table QuanTri
 (
-	ID nvarchar(10) primary key,
+	ID nvarchar(10) primary key not null,
 	HoTen nvarchar(250),
 	TenNguoiDung nvarchar(250),
 	MatKhau nvarchar(20),
@@ -54,40 +54,37 @@ create table PhieuMuon
 	ID bigint primary key identity not null,
 	ID_DocGia nvarchar(20) references DocGia(ID),
 	ID_NguoiDung nvarchar(10) references QuanTri(ID),
-	NgayMuon datetime,
-	NgayGHTra datetime,
+	NgayMuon date,
+	NgayGHTra date,           
 )
 create table ChiTietPhieuMuon
 (
+	ID bigint primary key identity not null,
 	ID_PhieuMuon bigint references PhieuMuon(ID),
+	ID_DauSach bigint references DauSach(ID),
 	ID_Sach bigint references Sach(ID),
 	SoLuong float,
 	TinhTrang nvarchar(250)
 )
 
-create table DangKi
-(
-	ID bigint primary key identity not null, 
-	ID_DocGia nvarchar(20) references DocGia(ID),
-	ID_Sach bigint references Sach(ID),
-	NgayDK datetime,
-	TinhTrang nvarchar(20)
-)
-
 create table PhieuTra
 (
 	ID bigint primary key identity,
-	ID_PhieuMuon bigint references PhieuMuon(ID),
-	NgayTra datetime
+	ID_DocGia nvarchar(20) references DocGia(ID),
+	ID_NguoiDung nvarchar(10) references QuanTri(ID),
+	NgayTra date
 )
 create table ChiTietPhieuTra
 (
 	ID bigint primary key identity,
 	ID_PhieuTra bigint references PhieuTra(ID),
+	ID_DauSach bigint references DauSach(ID),
+	SoLuong float,
 	ID_Sach bigint references Sach(ID),
+	
 )
 /*================= PHẦN NHẬP DỮ LIỆU =================*/
-
+-- Nhập dữ liệu cho bảng  loại sách
 insert into LoaiSach (Ten) values
 (N'Tiểu thuyết'),
 (N'Văn học Cổ điển'),
@@ -101,7 +98,7 @@ insert into LoaiSach (Ten) values
 (N'Tiếng anh'),
 (N'Y dược'),
 (N'Pháp luật')
-
+-- Nhập dữ liệu cho bảng tac giả
 insert into TacGia(HoTen,NoiCongTac) values 
 (N'Hoàng Đạo Thủy',N''),
 (N'Đỗ Hoàng Diệu',N''),
@@ -111,7 +108,7 @@ insert into TacGia(HoTen,NoiCongTac) values
 (N'Thùy Uyên',N''),
 (N'Thích Nhất Hạnh',N''),
 (N'Trúc Khê',N'')
-
+-- Nhập dữ liệu cho bảng đầu sách
 insert into DauSach (MieuTa,Soluong,Ten,TrangThai) values
 (N'',10,N'Hà Nội Thanh Lịch',N''),
 (N'',10,N'Lam Vỹ',N''),
@@ -125,7 +122,7 @@ insert into DauSach (MieuTa,Soluong,Ten,TrangThai) values
 (N'',10,N'Hương Vị Của Đất',N''),
 (N'',10,N'Giai Thoại Dan Gian Việt Nam',N''),
 (N'',10,N'Góc Nhin Sử Việt - Cao Bá Quát',N'')
-
+-- Nhập dữ liệu cho bảng độc giả
 insert into DocGia (ID,HoTen,DiaChi,SDT,NgayCapThe,NgayHetHan,NamTotNghiep,Email,SLuongGioiHan,NgayGioiHan) values
 ('DG001',N'Thái Văn Thiên','82/10 Võ Thị Hồi, Hóc Môn, TP HCM','0907095201','14/10/2016','10/14/2017','2018','thaithienars@gmail.com','4','20'),
 ('DG002',N'Phạm Lê Duy Anh','12/26 Trần Bình Trọng, Quận 5, TP HCM','0903102845','17/9/2016','17/9/2017','2018','duyanhpham@gmail.com','4','20'),
@@ -133,10 +130,122 @@ insert into DocGia (ID,HoTen,DiaChi,SDT,NgayCapThe,NgayHetHan,NamTotNghiep,Email
 ('DG005',N'Huỳnh Hữu Duy','102/14 Nguyễn Văn Linh, Quận 7, TP HCM','01217346472','20/9/2016','20/9/2017','2018','duyhuynh@gmail.com','4','20'),
 ('DG006',N'Phan Thị Kim Loan','26/4 QL 1A, Thủ Đức, TP HCM','0902748132','15/5/2015','15/5/2018','','kimloanpt@gmail.com','5','30'),
 ('DG007',N'Cao Thái Phương Thanh','26/3 An Dương Vương, Quận 5, TP HCM','0973274824','28/4/2015','28/4/2017','','caothaiphuongthai@gmail.com','5','30')
+go
+-- Nhập dữ liệu cho bảng sách.
+-- Nhập dữ liệu cho bảng phiếu mượn
+-- Nhập dữ liệu cho bảng chi tiết phiếu mượn
+-- Nhập dữ liệu cho bảng phiếu trả
+-- Nhập dữ liệu cho bảng chi tiết phiếu trả.
+
+--Thực thi câu truy vấn cho yêu cầu đồ án.
+
+	-- thống kê số lượng tồn của đầu sách tại một thời điểm
+		-- lấy dữ liệu từ bảng đầu sách
+ create proc sp_SoLuongDauSach
+as
+begin
+	select Ten, Loai, TrangThai, MieuTa, Soluong,ID
+	from DauSach
+end
+go
+				
+	-- lấy dữ liệu từ bảng chi tiết phiếu mượn
+			create proc sp_SoLuongMuon
+			@ngay nvarchar(50)
+			as
+			begin
+				select sum(ChiTietPhieuMuon.SoLuong),ChiTietPhieuMuon.ID_DauSach
+				from ChiTietPhieuMuon, PhieuMuon
+				where ChiTietPhieuMuon.ID_PhieuMuon= PhieuMuon.ID and PhieuMuon.NgayMuon between convert(date,'20/10/2016',103) and convert(date,@ngay,103)
+				group by ChiTietPhieuMuon.ID_DauSach
+			end
+			go
+	-- lấy dữ liệu từ bảng chi tiết phiếu trả
+			create proc sp_SoLuongTra
+			@ngay nvarchar(50)
+			as
+				begin
+				select sum(ChiTietPhieuTra.SoLuong),ChiTietPhieuTra.ID_DauSach
+				from ChiTietPhieuTra,PhieuTra
+				where ChiTietPhieuTra.ID_PhieuTra=PhieuTra.ID and PhieuTra.NgayTra between convert(date,'20/10/2016',103) and convert(date,@ngay,103)
+				group by ChiTietPhieuTra.ID_DauSach
+			end
+			go
+	-- Danh sách sách mượn sách mượn của độc giả trong một khoảng thời gian
+		create proc sp_DanhSachSachMuon
+		@ngaybatdau nvarchar(50),
+		@ngayketthuc nvarchar(50)
+		as
+		begin
+			select *
+			 from ChiTietPhieuMuon, PhieuMuon 
+			 where ChiTietPhieuMuon.ID_PhieuMuon=PhieuMuon.ID 
+			 and NgayMuon between convert(date,@ngaybatdau,103) and convert(date,@ngayketthuc,103)
+		end
+		go
+	-- Số lượng sách mượn trong một khoảng thời gian
+	create proc sp_SoLuongSachMuon
+	@ngaybatdau nvarchar(50),
+	@ngayketthuc nvarchar(50)
+	as
+	begin
+		select sum(SoLuong)
+		from ChiTietPhieuMuon,PhieuMuon
+		where ChiTietPhieuMuon.ID_PhieuMuon=PhieuMuon.ID
+		 and NgayMuon between convert(date,@ngaybatdau,103) and convert(date,@ngayketthuc,103)
+		 group by ChiTietPhieuMuon.ID_PhieuMuon
+	end
+	go
+	-- Pro mượn sách
+		-- Nhập phiếu mượn
+		create proc NhapPhieuMuon
+		@ID_DocGia nvarchar(50),
+		@ID_QuanTri nvarchar(10),
+		@NgayMuon nvarchar(50),
+		@ngaygioihantra nvarchar(50)
+		as
+		begin
+			insert into PhieuMuon  values(@ID_DocGia,@ID_QuanTri, convert(date,@NgayMuon,103), convert(date,@ngaygioihantra,103))
+		end
+		go
+		-- Nhập chi tiết phiếu mượn
+		create proc NhapChiTietPhieuMuon
+		@ID_PhieuMuon bigint,
+		@ID_DauSach bigint,
+		@ID_Sach bigint,
+		@Soluong float
+		as 
+		begin
+			insert into ChiTietPhieuMuon(ID_PhieuMuon,ID_DauSach,ID_Sach,SoLuong) values(@ID_PhieuMuon, @ID_DauSach,@ID_Sach,@Soluong)
+		end
+		go
+	-- Pro trả sách.
+		-- Nhập phiếu trả
+		create proc NhapPhieuTra
+		@ID_DocGia nvarchar(20),
+		@ID_NguoiDung nvarchar(20),
+		@NgayTra nvarchar(50)
+		as
+		begin
+			insert into PhieuTra(ID_DocGia,ID_NguoiDung,NgayTra) values(@ID_DocGia,@ID_NguoiDung,convert(date,@NgayTra,103))
+		end
+		go
+		-- Nhập chi tiết phiếu trả
+		create proc NhapChiTietPhieuTra
+		@ID_PhieuTra bigint,
+		@ID_DauSach bigint,
+		@Soluong float,
+		@ID_Sach bigint
+		as
+		begin
+			insert into ChiTietPhieuTra(ID_PhieuTra,ID_DauSach,SoLuong,ID_Sach) values(@ID_PhieuTra,@ID_DauSach,@Soluong,@ID_Sach)
+		end
+		go
 
 
 
 
+			
 
 
 
