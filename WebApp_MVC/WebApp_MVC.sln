@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp_MVC", "WebApp_MVC\We
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{91209C57-08E0-4792-899C-3EDC2A7AB26F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormMHPL", "..\..\..\..\..\Downloads\Compressed\MHPL\FormMHPL\FormMHPL\FormMHPL.csproj", "{8712FDA3-A8CB-45A1-8B70-86B90950F32D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormMHPL", "..\..\..\..\Downloads\Compressed\MHPL\FormMHPL\FormMHPL\FormMHPL.csproj", "{8712FDA3-A8CB-45A1-8B70-86B90950F32D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
