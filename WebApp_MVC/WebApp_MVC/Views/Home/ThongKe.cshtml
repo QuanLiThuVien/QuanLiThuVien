@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "ThongKe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/CSS/trasach.css" rel="stylesheet" />
+<div id="tieude">
+    <h1>Thống kê số lượng sách mượn</h1>
+</div>
+<div id="huongdansudung">
+    <h3>Hướng dẫn sử dụng</h3>
+    <h4>
+        B1: Thủ thư nhập thông tin ngày tháng cần thông kê.<br /><br />
+        B2: Thủ thư bấm vào button thống kê để tiến hành thống kê.<br /><br />
+        B3: Thủ thư bấm xuất file excel để xuất kết quả đã thống kê.<br /><br />
+    </h4>
+</div><hr />
+<div id="nhapthongtin" class="col-lg-4">
+    <h3>Nhập thông tin</h3><hr />
+    <p> Nhập ngày theo dạng: ngày/tháng/năm</p>
+    <form>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Ngày bắt đầu</label>
+            <input type="email" class="form-control" id="madocgia" placeholder="Ngày bắt đầu">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Ngày kết thúc</label>
+            <input type="password" class="form-control" id="masach" placeholder="Ngày kết thúc">
+        </div>
+
+        <button type="submit" class="btn btn-default">Thống kê</button>
+    </form>
+</div>
+<div id="ketqua" class="col-lg-8">
+    <h3>Kết quả thống kê</h3>
+    <table class="table">
+        <tr>
+            <th>Tên đọc giả</th>
+            <th>Ngày mượn</th>
+            <th>Số lượng</th>
+        </tr>
+    </table>
+    <p>Tổng số sách:</p>
+    <input type="text" class="form-control" disabled /><br />
+    <button class="btn btn-default">Xuất kết quả</button>
+</div>

@@ -1,21 +1,17 @@
-﻿body{
+﻿body {
     margin:0;
     padding:0;
 }
 #tieude{
-    padding-top:50px;
     text-align:center;
+    padding-top:50px;
 }
 #huongdansudung{
     background-color:aquamarine;
 }
-#thongtindocgia{
+#nhapthongtin{
     border-right:groove;
 }
-#timkiemsach{
-     border-right:groove;
-}
-#thongtinphieumuon{
+#thongtinphieutra{
 
 }
-

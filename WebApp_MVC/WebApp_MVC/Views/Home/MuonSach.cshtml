@@ -4,91 +4,72 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="~/Content/CSS/muonsach.css" rel="stylesheet" />
-<div>
-    <h2>Mượn sách</h2>
-<br />
-  <div class="col-lg-6" id="thongtindocgia" >
-      <h2>
-          Độc giả
-      </h2><br />
-      <form class="form-inline">
-          <div class="form-group">
-              <label class="sr-only" for="exampleInputEmail3">Mã/tên</label>
-              <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Nhập mã hoặc tên đọc giả để tìm kiếm">
-          </div>
-          <button type="submit" class="btn btn-default">Tìm kiếm</button>
-      </form>
-        <div id="danhsach">
-            <h3>Thông tin đọc giả</h3>
-            <!--Bảng thông tin đọc giả-->
-            <table class="table-hover" width="500" >
-                <tr>
-                    <th>Mã độc giả</th>
-                    <th>Tên độc giả</th>
-                    <th>Ngày hết hạn</th>
-                    <th>Số lượng giới hạn</th>
-                </tr>
-            </table>
-            <hr />
-            <h3>Sách đã mượn</h3>
-            <!-- Bảng thông tin sách đọc giả đã mượn-->
-            <table class="table-hover" width="500">
-             <tr>
-                 <th>Tên sách</th>
-                 <th>Tác giả</th>
-                 <th>Tình trạng</th>
-             </tr>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                </tr>
-                <tr>
-                    <th colspan="2">Sách còn nợ</th>
-                    <th>3</th>
-                </tr>
-            </table>        
+<div id="tieude">
+    <h1> Mượn sách</h1>
+</div><hr />
+<div id="huongdansudung">
+    <h3>Hướng dẫn sử dụng</h3>
+    <h4>
+        B1: Thủ thư sẽ kiểm tra thông tin đọc giả bằng cách gõ tên hoặc mã đọc giả vào ô tìm kiếm
+        <br /><br />
+        B2: Nếu thông tin đọc giả hợp lệ và có thể cho mượn, thủ thư sẽ nhập mã hoặc tên sách
+        vào ô tìm kiếm sách. Lúc này danh sách sẽ hiện ra và thủ thư sẽ chọn cuốn sách để
+        thêm vào phiếu mượn.<br /><br />
+        B3: Thủ thư bấm xuất phiếu mượn để hoàn tất việc mượn sách.
+
+    </h4>
+</div><hr />
+<div id="thongtindocgia" class="col-lg-3">
+    <h3>Tìm kiếm đọc giả</h3>
+    <form>
+        <div class="form-group">
+            <label>
+                <input type="text" name="timkiem" class="form-control" placeholder="Nhập mã hoặc tên" /><br />
+                <button class="btn btn-default">Tìm kiếm</button>
+            </label>
         </div>
+    </form>
+    <br />
+    <h3> Thông tin đọc giả</h3>
+    <p>Tên đọc giả</p>
+    <p>Ngày hết hạn</p>
+    <p>Số lượng sách còn nợ</p>
+</div>
+<div id="timkiemsach" class="col-lg-5">
+    <h3>Danh mục sách</h3>
+    <form class="form-inline">
+        <div class="form-group">
+            <label class="sr-only" for="exampleInputEmail3">Mã/tên sách</label>
+            <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Mã hoặc tên sách">
+        </div>
+        <button type="submit" class="btn btn-default">Tìm kiếm</button>
+    </form>
+    <hr />
+    <p>Kết quả tìm kiếm</p>
+    <table class="table table-bordered">
+        <tr>
+            <th>Tên sách</th>
+            <th>Tác giả</th>
+            <th>Tình trạng</th>
+            <th>#</th>
+        </tr>
+    </table>
+</div>
+<div id="thongtinphieumuon" class="col-lg-4">
 
-    </div>
-  <div class="col-lg-6" id="danhsachsachmuon">
-      <h2>
-          Danh sách sách mượn
-      </h2>
-      <br />
-      <!--Nhập thông tin sách-->
-      <h2>Thông tin sách</h2>
-      <form class="form-group">
-          <label>Tên sách/Mã sách
-          <input type="text" class="form-control" />
-          </label><br />
-          <label>
-              Số lượng<input type="text" class="form-control" />
-          </label><br />
-       <button type="button" class="btn btn-default">Thêm</button>
-      </form>
-      <!--Danh sách sách đang mượn-->
-      <h2>Danh sách sách đang mượn</h2>
-        <table class="table-hover" width="500">
-            <tr>
-                <th>Tên sách</th>
-                <th>Tác giả</th>
-                <th>Số lượng</th>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-            </tr>
-            <tr>
-                <th colspan="2">Tổng số</th>
-                <td>1</td>
-            </tr>
-        </table>
-   
-    </div>
-    </div>
+    <h3>Thông tin phiếu mượn</h3>
 
-
-    
-
+    <table class="table table-bordered" id="thongtinphieumuon" width="400">
+        <tr>
+            <th>Tên sách</th>
+            <th>Ngày mượn</th>
+            <th>Ngày phải trả</th>
+            <th>#</th>
+        </tr>
+    </table>
+    <label>
+        Tổng số lượng sách:
+        <input type="text" class="form-control" disabled />
+    </label>
+    <button class="btn btn-default"> Xuất phiếu mượn</button>
+</div>

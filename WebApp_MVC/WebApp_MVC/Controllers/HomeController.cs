@@ -17,5 +17,13 @@ namespace WebApp_MVC.Controllers
         {
             return View();
         }
+        public ActionResult TraSach()
+        {
+            return View();
+        }
+        public ActionResult ThongKe()
+        {
+            return View();
+        }
     }
 }
