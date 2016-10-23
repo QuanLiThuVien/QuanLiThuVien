@@ -42,9 +42,9 @@ create table DocGia
 	HoTen nvarchar(100),
 	DiaChi nvarchar(250),
 	SDT nvarchar(11),
-	NgayCapThe datetime,
-	NgayHetHan datetime,
-	NamTotNghiep datetime,
+	NgayCapThe date,
+	NgayHetHan date,
+	NamTotNghiep date,
 	Email nvarchar(30),
 	SLuongGioiHan float,
 	NgayGioiHan float
