@@ -1,13 +1,8 @@
 ﻿create database QuanLiThuVien
-create table QuanTri
-(
-	ID nvarchar(10) primary key not null,
-	HoTen nvarchar(250),
-	TenNguoiDung nvarchar(250),
-	MatKhau nvarchar(20),
-	SDT nvarchar(11),
-	DiaChi nvarchar(max)
-)
+go
+use QuanLiThuVien
+
+go
 create table LoaiSach
 (
 	ID bigint primary key identity not null,
@@ -42,8 +37,8 @@ create table DocGia
 	HoTen nvarchar(100),
 	DiaChi nvarchar(250),
 	SDT nvarchar(11),
-	NgayCapThe datetime,
-	NgayHetHan datetime,
+	NgayCapThe nvarchar(50),
+	NgayHetHan nvarchar(50),
 	NamTotNghiep varchar(4),
 	Email nvarchar(30),
 	SLuongGioiHan float,
@@ -53,7 +48,6 @@ create table PhieuMuon
 (
 	ID bigint primary key identity not null,
 	ID_DocGia nvarchar(20) references DocGia(ID),
-	ID_NguoiDung nvarchar(10) references QuanTri(ID),
 	NgayMuon datetime,
 	NgayGHTra datetime,           
 )
@@ -71,8 +65,7 @@ create table PhieuTra
 (
 	ID bigint primary key identity,
 	ID_DocGia nvarchar(20) references DocGia(ID),
-	ID_NguoiDung nvarchar(10) references QuanTri(ID),
-	NgayTra date
+	NgayTra datetime
 )
 create table ChiTietPhieuTra
 (
@@ -224,126 +217,128 @@ insert into Sach (ID_DauSach, TinhTrang, GhiChu) values
 ('10',N'Khả Dụng',''),
 ('10',N'Khả Dụng',''),
 ('10',N'Khả Dụng','')
+go
 -- NhậNp dữ liệu cho bảng độc giả 
 insert into DocGia (ID,HoTen,DiaChi,SDT,NgayCapThe,NgayHetHan,NamTotNghiep,Email,SLuongGioiHan,NgayGioiHan) values
-('DG001',N'Thái Văn Thiên','82/10 Võ Thị Hồi, Hóc Môn, TP HCM','0907095201',convert(date,'14/10/2016',103),convert(date,'10/14/2017',103),'2018','thaithienars@gmail.com','4','20'),
-('DG002',N'Phạm Lê Duy Anh','12/26 Trần Bình Trọng, Quận 5, TP HCM','0903102845',convert(date,'17/9/2016',103),convert(date,'17/9/2017',103),'2018','duyanhpham@gmail.com','4','20'),
-('DG003',N'Thạch Thị Kiều Linh','30/23 D1, Bình Thanh, TP HCM','01223731932',convert(date,'23/3/2016',103),convert(date,'23/3/2017',103),'2019','kieulinhpham@gmail.com','4','20'),
-('DG005',N'Huỳnh Hữu Duy','102/14 Nguyễn Văn Linh, Quận 7, TP HCM','01217346472',convert(date,'20/9/2016',103),convert(date,'20/9/2017',103),'2018','duyhuynh@gmail.com','4','20'),
-('DG006',N'Nguyễn Thanh Thư','245/23 Quốc Lộ 22, Hóc Môn, TP HCM','01882748383',convert(date,'14/2/2014',103),convert(date,'14/2/2017',103),'2018','thanhthunguyen@gmail.com','4','20'),
-('DG007',N'Lý Chí Cường','37/17 Bà Hạt, Quận 10, TP HCM','0903136078',convert(date,'17/8/2015',103),convert(date,'17/8/2017',103),'2018','lychicuong2246@gmail.com','4','20'),
-('DG008',N'Phùng Thái Thiên Trang','204 An Dương Vương, Quận 5, TP HCM','0903721837',convert(date,'1/1/2013',103),convert(date,'1/1/2019',103),'','thientrangphung@gmail.com','5','30'),
-('DG009',N'Phan Thị Kim Loan','26/4 QL 1A, Thủ Đức, TP HCM','0902748132',convert(date,'15/5/2015',103),convert(date,'15/5/2018',103),'','kimloanpt@gmail.com','5','30'),
-('DG010',N'Cao Thái Phương Thanh','26/3 An Dương Vương, Quận 5, TP HCM','0973274824',convert(date,'28/4/2015',103),convert(date,'28/4/2017',103),'','caothaiphuongthai@gmail.com','5','30')
+('DG001',N'Thái Văn Thiên','82/10 Võ Thị Hồi, Hóc Môn, TP HCM','0907095201','14/10/2016','14/10/2017','2018','thaithienars@gmail.com',4,20),
+('DG002',N'Phạm Lê Duy Anh','12/26 Trần Bình Trọng, Quận 5, TP HCM','0903102845','17/9/2016','17/9/2017','2018','duyanhpham@gmail.com',4,20),
+('DG003',N'Thạch Thị Kiều Linh','30/23 D1, Bình Thanh, TP HCM','01223731932','23/3/2016','23/3/2017','2019','kieulinhpham@gmail.com',4,20),
+('DG005',N'Huỳnh Hữu Duy','102/14 Nguyễn Văn Linh, Quận 7, TP HCM','01217346472','9/9/2016','20/9/2017','2018','duyhuynh@gmail.com',4,20),
+('DG006',N'Nguyễn Thanh Thư','245/23 Quốc Lộ 22, Hóc Môn, TP HCM','01882748383','14/2/2014','14/2/2017','2018','thanhthunguyen@gmail.com',4,20),
+('DG007',N'Lý Chí Cường','37/17 Bà Hạt, Quận 10, TP HCM','0903136078','17/8/2015','17/8/2017','2018','lychicuong2246@gmail.com',4,20),
+('DG008',N'Phùng Thái Thiên Trang','204 An Dương Vương, Quận 5, TP HCM','0903721837','1/1/2013','1/1/2019','','thientrangphung@gmail.com',5,30),
+('DG009',N'Phan Thị Kim Loan','26/4 QL 1A, Thủ Đức, TP HCM','0902748132','15/5/2015','15/5/2018','','kimloanpt@gmail.com',5,30),
+('DG010',N'Cao Thái Phương Thanh','26/3 An Dương Vương, Quận 5, TP HCM','0973274824','28/4/2015','28/4/2017','','caothaiphuongthai@gmail.com',5,30)
 go
 -- Nhập dữ liệu cho bảng phiếu mượn
-insert into PhieuMuon (ID_DocGia, ID_NguoiDung, NgayMuon, NgayGHTra) values
-('DG002','',convert(date,'6/3/2016',103),convert(date,'26/3/2016',103)),
-('DG004','',convert(date,'7/3/2016',103),convert(date,'27/3/2016',103)),
-('DG002','',convert(date,'9/3/2016',103),convert(date,'29/3/2016',103)),
-('DG005','',convert(date,'9/3/2016',103),convert(date,'29/3/2016',103)),
-('DG001','',convert(date,'9/3/2016',103),convert(date,'29/3/2016',103)),
-('DG008','',convert(date,'13/3/2016',103),convert(date,'13/4/2016',103)),
-('DG010','',convert(date,'13/3/2016',103),convert(date,'13/4/2016',103)),
-('DG006','',convert(date,'13/3/2016',103),convert(date,'3/4/2016',103)),
-('DG007','',convert(date,'17/3/2016',103),convert(date,'7/4/2016',103)),
-('DG001','',convert(date,'17/3/2016',103),convert(date,'7/4/2016',103)),
-('DG002','',convert(date,'20/3/2016',103),convert(date,'10/4/2016',103)),
-('DG003','',convert(date,'20/3/2016',103),convert(date,'10/4/2016',103)),
-('DG004','',convert(date,'20/3/2016',103),convert(date,'10/4/2016',103)),
-('DG009','',convert(date,'25/3/2016',103),convert(date,'25/4/2016',103)),
-('DG010','',convert(date,'25/3/2016',103),convert(date,'25/3/2016',103)),
-('DG004','',convert(date,'2/4/2016',103),convert(date,'22/4/2016',103)),
-('DG005','',convert(date,'2/4/2016',103),convert(date,'22/4/2016',103)),
-('DG007','',convert(date,'2/4/2016',103),convert(date,'22/4/2016',103)),
-('DG001','',convert(date,'6/4/2016',103),convert(date,'26/4/2016',103)),
-('DG008','',convert(date,'6/4/2016',103),convert(date,'6/5/2016',103)),
-('DG006','',convert(date,'6/4/2016',103),convert(date,'26/4/2016',103)),
-('DG007','',convert(date,'10/4/2016',103),convert(date,'30/4/2016',103)),
-('DG010','',convert(date,'10/4/2016',103),convert(date,'10/5/2016',103)),
-('DG007','',convert(date,'15/4/2016',103),convert(date,'15/5/2016',103)),
-('DG001','',convert(date,'15/4/2016',103),convert(date,'5/5/2016',103))
+insert into PhieuMuon values
+--('DG002','3/6/2016','3/26/2016'),
+('DG002','3/7/2016','3/27/2016'),
+('DG002','3/9/2016','3/29/2016'),
+('DG005','3/9/2016','3/29/2016'),
+('DG001','3/9/2016','3/29/2016'),
+('DG008','3/13/2016','4/13/2016'),
+('DG010','3/13/2016','4/13/2016'),
+('DG006','3/13/2016','4/3/2016'),
+('DG007','3/17/2016','4/7/2016'),
+('DG001','3/17/2016','4/7/2016'),
+('DG002','3/20/2016','4/10/2016'),
+('DG003','3/20/2016','4/10/2016'),
+('DG002','3/20/2016','4/10/2016'),
+('DG009','3/25/2016','4/25/2016'),
+('DG010','3/25/2016','3/27/2016'),
+('DG002','4/2/2016','4/22/2016'),
+('DG005','4/2/2016','4/22/2016'),
+('DG007','4/2/2016','4/22/2016'),
+('DG001','4/6/2016','4/26/2016'),
+('DG008','4/6/2016','5/6/2016'),
+('DG006','4/6/2016','4/26/2016'),
+('DG007','4/10/2016','4/30/2016'),
+('DG010','4/10/2016','5/10/2016'),
+('DG007','5/14/2016','5/15/2016'),
+('DG001','4/15/2016','5/5/2016')
 -- Nhập dữ liệu cho bảng chi tiết phiếu mượn
 insert into ChiTietPhieuMuon (ID_PhieuMuon,ID_DauSach,ID_Sach, SoLuong, TinhTrang) values
-('','1','1','1',N'Đã Trả'),
-('','1','2','1',N'Đã Trả'),
-('','1','3','1',N'Đã Trả'),
-('','1','4','1',N'Đã Trả'),
-('','1','5','1',N'Đã Trả'),
-('','1','6','1',N'Đã Trả'),
-('','1','7','1',N'Đã Trả'),
-('','1','8','1',N'Đã Trả'),
-('','1','9','1',N'Đã Trả'),
-('','1','10','1',N'Đã Trả'),
-('','2','11','1',N'Đã Trả'),
-('','2','12','1',N'Đã Trả'),
-('','2','13','1',N'Đã Trả'),
-('','2','14','1',N'Đã Trả'),
-('','2','15','1',N'Đã Trả'),
-('','2','16','1',N'Đã Trả'),
-('','2','17','1',N'Đã Trả'),
-('','2','18','1',N'Đã Trả'),
-('','2','19','1',N'Đã Trả'),
-('','2','20','1',N'Đã Trả'),
-('','3','21','1',N'Đã Trả'),
-('','3','22','1',N'Đã Trả'),
-('','3','23','1',N'Đã Trả'),
-('','3','24','1',N'Đã Trả'),
-('','3','25','1',N'Đã Trả')
+('25','1','1','1',N'Đã Trả'),
+('26','1','2','1',N'Đã Trả'),
+('27','1','3','1',N'Đã Trả'),
+('28','1','4','1',N'Đã Trả'),
+('29','1','5','1',N'Đã Trả'),
+('30','1','6','1',N'Đã Trả'),
+('31','1','7','1',N'Đã Trả'),
+('32','1','8','1',N'Đã Trả'),
+('33','1','9','1',N'Đã Trả'),
+('34','1','10','1',N'Đã Trả'),
+('35','2','11','1',N'Đã Trả'),
+('36','2','12','1',N'Đã Trả'),
+('37','2','13','1',N'Đã Trả'),
+('38','2','14','1',N'Đã Trả'),
+('39','2','15','1',N'Đã Trả'),
+('40','2','16','1',N'Đã Trả'),
+('41','2','17','1',N'Đã Trả'),
+('42','2','18','1',N'Đã Trả'),
+('43','2','19','1',N'Đã Trả'),
+('44','2','20','1',N'Đã Trả'),
+('45','3','21','1',N'Đã Trả'),
+('46','3','22','1',N'Đã Trả'),
+('47','3','23','1',N'Đã Trả'),
+('48','3','24','1',N'Đã Trả')
+go
 -- Nhập dữ liệu cho bảng phiếu trả
-insert into PhieuTra (ID_DocGia,ID_NguoiDung, NgayTra) values 
-('DG002','',CONVERT(date,'10/3/2016',103)),
-('DG004','',CONVERT(date,'15/3/2016',103)),
-('DG002','',CONVERT(date,'20/3/2016',103)),
-('DG005','',CONVERT(date,'25/3/2016',103)),
-('DG001','',CONVERT(date,'27/3/2016',103)),
-('DG008','',CONVERT(date,'17/3/2016',103)),
-('DG010','',CONVERT(date,'20/3/2016',103)),
-('DG006','',CONVERT(date,'21/3/2016',103)),
-('DG007','',CONVERT(date,'27/3/2016',103)),
-('DG001','',CONVERT(date,'29/3/2016',103)),
-('DG002','',CONVERT(date,'25/3/2016',103)),
-('DG003','',CONVERT(date,'27/32016',103)),
-('DG004','',CONVERT(date,'29/3/2016',103)),
-('DG009','',CONVERT(date,'10/4/2016',103)),
-('DG010','',CONVERT(date,'12/4/2016',103)),
-('DG004','',CONVERT(date,'13/4/2016',103)),
-('DG005','',CONVERT(date,'13/4/2016',103)),
-('DG007','',CONVERT(date,'16/4/2016',103)),
-('DG001','',CONVERT(date,'19/4/2016',103)),
-('DG008','',CONVERT(date,'20/4/2016',103)),
-('DG006','',CONVERT(date,'21/4/2016',103)),
-('DG007','',CONVERT(date,'25/4/2016',103)),
-('DG010','',CONVERT(date,'29/4/2016',103)),
-('DG007','',CONVERT(date,'1/5/2016',103)),
-('DG001','',CONVERT(date,'2/5/2016',103))
+insert into PhieuTra (ID_DocGia,NgayTra) values 
+('DG002','10/5/2016'),
+('DG002','3/15/2016'),
+('DG002','3/20/2016'),
+('DG005','3/25/2016'),
+('DG001','3/27/2016'),
+('DG008','3/17/2016'),
+('DG010','3/20/2016'),
+('DG006','3/21/2016'),
+('DG007','3/27/2016'),
+('DG001','3/29/2016'),
+('DG002','3/25/2016'),
+('DG003','3/27/2016'),
+('DG002','3/29/2016'),
+('DG009','4/10/2016'),
+('DG010','4/12/2016'),
+('DG002','4/13/2016'),
+('DG005','4/13/2016'),
+('DG007','4/16/2016'),
+('DG001','4/19/2016'),
+('DG008','4/20/2016'),
+('DG006','4/21/2016'),
+('DG007','4/25/2016'),
+('DG010','4/25/2016'),
+('DG007','5/1/2016'),
+('DG001','5/2/2016')
 -- Nhập dữ liệu cho bảng chi tiết phiếu trả.
 insert into ChiTietPhieuTra (ID_PhieuTra,ID_DauSach,ID_Sach,SoLuong) values
-('','1','1','1'),
-('','1','2','1'),
-('','1','3','1'),
-('','1','4','1'),
-('','1','5','1'),
-('','1','6','1'),
-('','1','7','1'),
-('','1','8','1'),
-('','1','9','1'),
-('','1','10','1'),
-('','2','11','1'),
-('','2','12','1'),
-('','2','13','1'),
-('','2','14','1'),
-('','2','15','1'),
-('','2','16','1'),
-('','2','17','1'),
-('','2','18','1'),
-('','2','19','1'),
-('','2','20','1'),
-('','3','21','1'),
-('','3','22','1'),
-('','3','23','1'),
-('','3','24','1'),
-('','3','25','1')
+('26','1','1','1'),
+('27','1','2','1'),
+('28','1','3','1'),
+('29','1','4','1'),
+('30','1','5','1'),
+('31','1','6','1'),
+('32','1','7','1'),
+('33','1','8','1'),
+('34','1','9','1'),
+('35','1','10','1'),
+('36','2','11','1'),
+('37','2','12','1'),
+('38','2','13','1'),
+('39','2','14','1'),
+('40','2','15','1'),
+('41','2','16','1'),
+('42','2','17','1'),
+('43','2','18','1'),
+('44','2','19','1'),
+('45','2','20','1'),
+('46','3','21','1'),
+('47','3','22','1'),
+('48','3','23','1'),
+('49','3','24','1'),
+('50','3','25','1')
+go
 --Thực thi câu truy vấn cho yêu cầu đồ án.
 
 	-- thống kê số lượng tồn của đầu sách tại một thời điểm
@@ -355,28 +350,33 @@ begin
 	from DauSach
 end
 go
+exec sp_SoLuongDauSach
+go
 				
 	-- lấy dữ liệu từ bảng chi tiết phiếu mượn
+	go
 			create proc sp_SoLuongMuon
 			@ngay nvarchar(50)
 			as
 			begin
-				select sum(ChiTietPhieuMuon.SoLuong),ChiTietPhieuMuon.ID_DauSach
+				select sum(ChiTietPhieuMuon.SoLuong) as SoLuong,ChiTietPhieuMuon.ID_DauSach
 				from ChiTietPhieuMuon, PhieuMuon
-				where ChiTietPhieuMuon.ID_PhieuMuon= PhieuMuon.ID and PhieuMuon.NgayMuon between convert(date,'20/10/2016',103) and convert(date,@ngay,103)
+				where ChiTietPhieuMuon.ID_PhieuMuon= PhieuMuon.ID and PhieuMuon.NgayMuon between '3/7/2016' and @ngay
 				group by ChiTietPhieuMuon.ID_DauSach
 			end
-			go
+go
 	-- lấy dữ liệu từ bảng chi tiết phiếu trả
 			create proc sp_SoLuongTra
 			@ngay nvarchar(50)
 			as
 				begin
-				select sum(ChiTietPhieuTra.SoLuong),ChiTietPhieuTra.ID_DauSach
+				select sum(ChiTietPhieuTra.SoLuong) as SoLuong,ChiTietPhieuTra.ID_DauSach
 				from ChiTietPhieuTra,PhieuTra
-				where ChiTietPhieuTra.ID_PhieuTra=PhieuTra.ID and PhieuTra.NgayTra between convert(date,'20/10/2016',103) and convert(date,@ngay,103)
+				where ChiTietPhieuTra.ID_PhieuTra=PhieuTra.ID and PhieuTra.NgayTra between '3/7/2016' and @ngay
 				group by ChiTietPhieuTra.ID_DauSach
 			end
+			go
+			exec sp_SoLuongTra '5/14/2016'
 			go
 	-- Danh sách sách mượn sách mượn của độc giả trong một khoảng thời gian
 		create proc sp_DanhSachSachMuon
@@ -387,8 +387,10 @@ go
 			select *
 			 from ChiTietPhieuMuon, PhieuMuon 
 			 where ChiTietPhieuMuon.ID_PhieuMuon=PhieuMuon.ID 
-			 and NgayMuon between convert(date,@ngaybatdau,103) and convert(date,@ngayketthuc,103)
+			 and NgayMuon between @ngaybatdau and @ngayketthuc
 		end
+		go
+		exec sp_DanhSachSachMuon '3/7/2016', '5/14/2016'
 		go
 	-- Số lượng sách mượn trong một khoảng thời gian
 	create proc sp_SoLuongSachMuon
@@ -396,23 +398,24 @@ go
 	@ngayketthuc nvarchar(50)
 	as
 	begin
-		select sum(SoLuong)
+		select sum(SoLuong) as SoLuong,PhieuMuon.ID_DocGia
 		from ChiTietPhieuMuon,PhieuMuon
 		where ChiTietPhieuMuon.ID_PhieuMuon=PhieuMuon.ID
-		 and NgayMuon between convert(date,@ngaybatdau,103) and convert(date,@ngayketthuc,103)
-		 group by ChiTietPhieuMuon.ID_PhieuMuon
+		 and NgayMuon between @ngaybatdau and @ngayketthuc
+		 group by ChiTietPhieuMuon.ID_PhieuMuon,PhieuMuon.ID_DocGia
 	end
+	go
+	exec sp_SoLuongSachMuon '3/7/2016', '5/14/2016'
 	go
 	-- Pro mượn sách
 		-- Nhập phiếu mượn
 		create proc NhapPhieuMuon
 		@ID_DocGia nvarchar(50),
-		@ID_QuanTri nvarchar(10),
 		@NgayMuon nvarchar(50),
 		@ngaygioihantra nvarchar(50)
 		as
 		begin
-			insert into PhieuMuon  values(@ID_DocGia,@ID_QuanTri, convert(date,@NgayMuon,103), convert(date,@ngaygioihantra,103))
+			insert into PhieuMuon  values(@ID_DocGia,@NgayMuon,@ngaygioihantra)
 		end
 		go
 		-- Nhập chi tiết phiếu mượn
@@ -430,11 +433,10 @@ go
 		-- Nhập phiếu trả
 		create proc NhapPhieuTra
 		@ID_DocGia nvarchar(20),
-		@ID_NguoiDung nvarchar(20),
 		@NgayTra nvarchar(50)
 		as
 		begin
-			insert into PhieuTra(ID_DocGia,ID_NguoiDung,NgayTra) values(@ID_DocGia,@ID_NguoiDung,convert(date,@NgayTra,103))
+			insert into PhieuTra(ID_DocGia,NgayTra) values(@ID_DocGia,@NgayTra)
 		end
 		go
 		-- Nhập chi tiết phiếu trả
@@ -448,6 +450,25 @@ go
 			insert into ChiTietPhieuTra(ID_PhieuTra,ID_DauSach,SoLuong,ID_Sach) values(@ID_PhieuTra,@ID_DauSach,@Soluong,@ID_Sach)
 		end
 		go
+		-- proc hiển thị thông tin sách
+		create proc sp_thongtinsach
+		as
+		begin
+			select * from DauSach d join Sach s on d.ID=s.ID_DauSach
+			where TinhTrang=N'Khả Dụng'
+		end
+		go
+		exec sp_thongtinsach
+		go
+		-- proc hiển thị thông tin đọc giả
+		create proc sp_thongtindocgia
+		as
+		begin
+		select * from DocGia
+		end
+		go
+
+
 
 
 

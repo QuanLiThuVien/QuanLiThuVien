@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WebApp_MVC.Models;
+using WebApp_MVC;
 
 namespace WebApp_MVC.Controllers
 {

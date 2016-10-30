@@ -27,7 +27,7 @@ namespace Model
         public string SDT { get; set; }
         public Nullable<System.DateTime> NgayCapThe { get; set; }
         public Nullable<System.DateTime> NgayHetHan { get; set; }
-        public Nullable<System.DateTime> NamTotNghiep { get; set; }
+        public string NamTotNghiep { get; set; }
         public string Email { get; set; }
         public Nullable<double> SLuongGioiHan { get; set; }
         public Nullable<double> NgayGioiHan { get; set; }

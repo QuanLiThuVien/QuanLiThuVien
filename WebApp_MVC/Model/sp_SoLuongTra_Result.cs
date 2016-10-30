@@ -13,7 +13,7 @@ namespace Model
     
     public partial class sp_SoLuongTra_Result
     {
-        public Nullable<double> Column1 { get; set; }
+        public Nullable<double> SoLuong { get; set; }
         public Nullable<long> ID_DauSach { get; set; }
     }
 }

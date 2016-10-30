@@ -22,13 +22,11 @@ namespace Model
     
         public long ID { get; set; }
         public string ID_DocGia { get; set; }
-        public string ID_NguoiDung { get; set; }
         public Nullable<System.DateTime> NgayMuon { get; set; }
         public Nullable<System.DateTime> NgayGHTra { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietPhieuMuon> ChiTietPhieuMuons { get; set; }
         public virtual DocGia DocGia { get; set; }
-        public virtual QuanTri QuanTri { get; set; }
     }
 }

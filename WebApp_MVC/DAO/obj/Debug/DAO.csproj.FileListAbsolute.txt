@@ -1,0 +1,5 @@
+C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\DAO\bin\Debug\DAO.dll
+C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\DAO\bin\Debug\DAO.pdb
+C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\DAO\obj\Debug\DAO.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\DAO\obj\Debug\DAO.dll
+C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\DAO\obj\Debug\DAO.pdb

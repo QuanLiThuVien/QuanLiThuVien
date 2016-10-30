@@ -15,10 +15,10 @@ namespace Model
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class QuanLiThuVienEntities : DbContext
+    public partial class QuanLiThuVien : DbContext
     {
-        public QuanLiThuVienEntities()
-            : base("name=QuanLiThuVienEntities")
+        public QuanLiThuVien()
+            : base("name=QuanLiThuVien")
         {
         }
     
@@ -34,7 +34,6 @@ namespace Model
         public virtual DbSet<LoaiSach> LoaiSaches { get; set; }
         public virtual DbSet<PhieuMuon> PhieuMuons { get; set; }
         public virtual DbSet<PhieuTra> PhieuTras { get; set; }
-        public virtual DbSet<QuanTri> QuanTris { get; set; }
         public virtual DbSet<Sach> Saches { get; set; }
         public virtual DbSet<TacGia> TacGias { get; set; }
     
@@ -80,21 +79,34 @@ namespace Model
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("NhapChiTietPhieuTra", iD_PhieuTraParameter, iD_DauSachParameter, soluongParameter, iD_SachParameter);
         }
     
-        public virtual int NhapPhieuTra(string iD_DocGia, string iD_NguoiDung, string ngayTra)
+        public virtual int NhapPhieuMuon(string iD_DocGia, string ngayMuon, string ngaygioihantra)
         {
             var iD_DocGiaParameter = iD_DocGia != null ?
                 new ObjectParameter("ID_DocGia", iD_DocGia) :
                 new ObjectParameter("ID_DocGia", typeof(string));
     
-            var iD_NguoiDungParameter = iD_NguoiDung != null ?
-                new ObjectParameter("ID_NguoiDung", iD_NguoiDung) :
-                new ObjectParameter("ID_NguoiDung", typeof(string));
+            var ngayMuonParameter = ngayMuon != null ?
+                new ObjectParameter("NgayMuon", ngayMuon) :
+                new ObjectParameter("NgayMuon", typeof(string));
+    
+            var ngaygioihantraParameter = ngaygioihantra != null ?
+                new ObjectParameter("ngaygioihantra", ngaygioihantra) :
+                new ObjectParameter("ngaygioihantra", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("NhapPhieuMuon", iD_DocGiaParameter, ngayMuonParameter, ngaygioihantraParameter);
+        }
+    
+        public virtual int NhapPhieuTra(string iD_DocGia, string ngayTra)
+        {
+            var iD_DocGiaParameter = iD_DocGia != null ?
+                new ObjectParameter("ID_DocGia", iD_DocGia) :
+                new ObjectParameter("ID_DocGia", typeof(string));
     
             var ngayTraParameter = ngayTra != null ?
                 new ObjectParameter("NgayTra", ngayTra) :
                 new ObjectParameter("NgayTra", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("NhapPhieuTra", iD_DocGiaParameter, iD_NguoiDungParameter, ngayTraParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("NhapPhieuTra", iD_DocGiaParameter, ngayTraParameter);
         }
     
         public virtual ObjectResult<sp_DanhSachSachMuon_Result> sp_DanhSachSachMuon(string ngaybatdau, string ngayketthuc)
@@ -124,7 +136,7 @@ namespace Model
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_SoLuongMuon_Result>("sp_SoLuongMuon", ngayParameter);
         }
     
-        public virtual ObjectResult<Nullable<double>> sp_SoLuongSachMuon(string ngaybatdau, string ngayketthuc)
+        public virtual ObjectResult<sp_SoLuongSachMuon_Result> sp_SoLuongSachMuon(string ngaybatdau, string ngayketthuc)
         {
             var ngaybatdauParameter = ngaybatdau != null ?
                 new ObjectParameter("ngaybatdau", ngaybatdau) :
@@ -134,7 +146,7 @@ namespace Model
                 new ObjectParameter("ngayketthuc", ngayketthuc) :
                 new ObjectParameter("ngayketthuc", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<double>>("sp_SoLuongSachMuon", ngaybatdauParameter, ngayketthucParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_SoLuongSachMuon_Result>("sp_SoLuongSachMuon", ngaybatdauParameter, ngayketthucParameter);
         }
     
         public virtual ObjectResult<sp_SoLuongTra_Result> sp_SoLuongTra(string ngay)
@@ -144,6 +156,24 @@ namespace Model
                 new ObjectParameter("ngay", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_SoLuongTra_Result>("sp_SoLuongTra", ngayParameter);
+        }
+    
+        public virtual ObjectResult<sp_timkiemdocgia_Result> sp_timkiemdocgia(string tendocgia)
+        {
+            var tendocgiaParameter = tendocgia != null ?
+                new ObjectParameter("tendocgia", tendocgia) :
+                new ObjectParameter("tendocgia", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_timkiemdocgia_Result>("sp_timkiemdocgia", tendocgiaParameter);
+        }
+    
+        public virtual ObjectResult<string> sp_timkiemsach(Nullable<int> masach)
+        {
+            var masachParameter = masach.HasValue ?
+                new ObjectParameter("masach", masach) :
+                new ObjectParameter("masach", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("sp_timkiemsach", masachParameter);
         }
     }
 }

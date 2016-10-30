@@ -21,7 +21,6 @@ namespace Model
         public string TinhTrang { get; set; }
         public long ID1 { get; set; }
         public string ID_DocGia { get; set; }
-        public string ID_NguoiDung { get; set; }
         public Nullable<System.DateTime> NgayMuon { get; set; }
         public Nullable<System.DateTime> NgayGHTra { get; set; }
     }

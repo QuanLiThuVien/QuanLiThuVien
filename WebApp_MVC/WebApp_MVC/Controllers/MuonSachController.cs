@@ -13,18 +13,10 @@ namespace WebApp_MVC.Controllers
         {
             return View();
         }
-        public ActionResult TimKiemDocGia( string ma, string ten)
-        {
-            return View("/Home/MuonSach");
-        }
         [HttpPost]
         public ActionResult LuuPhieuMuon(FormCollection form)
         {
             return View();
-        }
-        public ActionResult timkiemsach(string ma, string ten)
-        {
-            return View(); 
         }
 
     }

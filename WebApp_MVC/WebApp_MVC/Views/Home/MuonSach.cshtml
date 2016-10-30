@@ -1,72 +1,113 @@
-﻿
+﻿@model Model4.DauSach
 @{
     ViewBag.Title = "MuonSach";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var docgia = ViewData["dausach"] as List<Model4.DauSach>;
+
 }
-<link href="~/Content/CSS/muonsach.css" rel="stylesheet" />
 <script>
+    angular.module('postApp', [])
+     .controller('postController', ['$scope', '$http', '$filter', function ($scope, $http, $filter) {
+         //load danh sách đọc giả
+         $scope.list_docgia = [];
+         $http.get('/Home/thongtindocgia').then(function (response) {
+             $scope.list_docgia = response.data;
+         }, function (response) {
+             //Showing errors
+         });
+         // load danh sách thông tin sách
+         $scope.list_sach = [];
+         $http.get('/Home/thongtinsach').then(function (response) {
+             $scope.list_sach = response.data;
+         }, function (response) {
+             //Showing errors
+         });
+         // tìm kiếm thông tin đọc giả
+         //array did filter
+         $scope.docgia = [];
+         $scope.timkiemdocgia = function (value) {
+             $scope.docgia = $filter('filter')($scope.list_docgia, value);
+         };
+         // Tìm kiếm thông tin sách
+         $scope.sach = [];
+         $scope.sach2 = [];
+         $scope.num_str = 0;
+         $scope.themsach = function (value) {
+             $scope.sach2 = $filter('filter')($scope.list_sach, value);
+             console.log($scope.sach2);
+             $scope.sach.push($scope.sach2);
+             $scope.num_str = $scope.num_str + parseInt(1);
+             console.log($scope.num_str);
+         };
 
+     }]);
 </script>
-<div id="tieude">
-    <h1> Mượn sách</h1>
-</div><hr />
-<div id="huongdansudung">
-    <h3>Hướng dẫn sử dụng</h3>
-    <h4>
-        B1: Thủ thư sẽ kiểm tra thông tin đọc giả bằng cách gõ tên hoặc mã đọc giả vào ô tìm kiếm
-        <br />
-        B2: Nếu thông tin đọc giả hợp lệ và có thể cho mượn, thủ thư sẽ nhập mã cuốn sách
-        vào ô cho phép nhập. Lúc này thủ thư sẽ bấm thêm và cuốn sách sẽđược thêm vào phiếu mượn.<br />
-        B3: Thủ thư bấm xuất phiếu mượn để hoàn tất việc mượn sách.
+<link href="~/Content/CSS/muonsach.css" rel="stylesheet" />
+<section ng-app="postApp" ng-controller="postController">
+    <div id="tieude">
+        <h1> Mượn sách</h1>
+    </div><hr />
+    <div id="huongdansudung">
+        <h3>Hướng dẫn sử dụng</h3>
+        <h4>
+            B1: Thủ thư sẽ kiểm tra thông tin đọc giả bằng cách gõ tên hoặc mã đọc giả vào ô tìm kiếm
+            <br />
+            B2: Nếu thông tin đọc giả hợp lệ và có thể cho mượn, thủ thư sẽ nhập mã cuốn sách
+            vào ô cho phép nhập. Lúc này thủ thư sẽ bấm thêm và cuốn sách sẽđược thêm vào phiếu mượn.<br />
+            B3: Thủ thư bấm xuất phiếu mượn để hoàn tất việc mượn sách.
 
-    </h4>
-</div>
-<form class="form-inline">
-    <div id="thongtindocgia" class="col-lg-3">
-        <h3>Tìm kiếm đọc giả</h3>
-        <div class="form-group">
-            <label>
-                <input type="text" ng-model="timkiem" class="form-control" placeholder="Nhập mã hoặc tên" /><br />
-                <br />
-                <button class="btn btn-default" ng-click="timkiemdocgia(timkiem)">Tìm kiếm</button>
-            </label>
-        </div>
-        <h3>Thông tin đọc giả</h3>
-        <p>Tên đọc giả</p>
-        <p>Ngày hết hạn</p>
-        <p>Số lượng sách còn nợ</p>
+        </h4>
     </div>
-    <div id="timkiemsach" class="col-lg-9">
-        <h3>Nhập thông tin sách</h3>
+    <form class="form-inline">
+        <div id="thongtindocgia" class="col-lg-3">
+            <h3>Tìm kiếm đọc giả</h3>
+            <div class="form-group">
+                <label>
+                    <input type="text" ng-model="timkiem" class="form-control" placeholder="Nhập mã độc giả" /><br />
+                    <br />
+                    <button class="btn btn-default" ng-click="timkiemdocgia(timkiem)">Tìm kiếm</button>
+                </label>
+            </div>
+            <div class="model-body" ng-repeat="item in docgia">
+                <h3>Thông tin đọc giả</h3>
+                <p>Tên đọc giả:{{item.HoTen}}</p>
+                <input type="hidden" value="{{item.ID}}" />
+                <p>Ngày hết hạn:{{item.NgayHetHan}}</p>
+                <!--<p>Số lượng sách còn nợ:</p>-->
+            </div>
+        </div>
+        <div id="timkiemsach" class="col-lg-9">
+            <h3>Nhập thông tin sách</h3>
             <div class="form-group">
                 <label class="sr-only" for="exampleInputEmail3">Mã sách</label>
                 <input type="text" class="form-control" id="masach" ng-model="masach" placeholder="Mã sách">
             </div>
             <button type="button" class="btn btn-default" ng-click="themsach(masach)">Thêm</button>
-        <br />
-        <h3>Thông tin phiếu mượn</h3>
+            <br />
+            <h3>Thông tin phiếu mượn</h3>
 
-        <table class="table table-hover" id="thongtinphieumuon" width="400">
-            <tr>
-                <th>Điều khiển</th>
-                <th>Tên sách</th>
-                <th>Ngày mượn</th>
-                <th>Ngày phải trả</th>
+            <table class="table table-hover" id="thongtinphieumuon" width="400">
+                <tr>
+                    <th>Điều khiển</th>
+                    <th>Tên sách</th>
+                    <th>Ngày mượn</th>
+                    <th>Ngày phải trả</th>
 
-            </tr>
-            <tr ng-repeat="sach in itemsach">
-                <td><a class="btn btn-danger" title="Xóa" placement="right"><span class="fa fa-remove">Xóa</span></a></td>
-                <td>{{sach.Ten}}<input type="hidden" id="ten" value="{{sach.Ten}}" /></td>
-                <td>{{sach.NgayMuon}}<input type="hidden" value="{{sach.NgayMuon}}" /></td>
-                <td>{{sach.NgayPhaiTra}}<input type="hidden"  value="{{sach.NgayPhaiTra}}"/></td>
-            </tr>
-        </table>
-        <label>
-            Tổng số lượng sách:
-            <input type="text" class="form-control" disabled />
-        </label>
-        <label>
-            <button class="btn btn-default" type="submit">Xuất phiếu mượn</button>
-        </label>
-    </div>
-</form>
+                </tr>
+                <tr ng-repeat="sachs in sach">
+                    <td><a class="btn btn-danger" title="Xóa" placement="right"><span class="fa fa-remove">Xóa</span></a></td>
+                    <td>{{sachs.Ten}}<input type="hidden" id="ten" value="{{sachs.Ten}}" /></td>
+                    <td>{{sachs.NgayMuon}}<input type="hidden" value="{{sachs.NgayMuon}}" /></td>
+                    <td>{{sachs.NgayPhaiTra}}<input type="hidden" value="{{sachs.NgayPhaiTra}}" /></td>
+                </tr>
+            </table>
+                <label>
+                    Tổng số lượng sách:
+                    <input type="text" class="form-control" value="{{num_str}}" disabled />
+                </label>
+            <label>
+                <button class="btn btn-default" type="submit">Xuất phiếu mượn</button>
+            </label>
+        </div>
+    </form>
+</section>

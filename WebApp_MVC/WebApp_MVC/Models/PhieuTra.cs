@@ -7,30 +7,25 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Model
+namespace WebApp_MVC.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class QuanTri
+    public partial class PhieuTra
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public QuanTri()
+        public PhieuTra()
         {
-            this.PhieuMuons = new HashSet<PhieuMuon>();
-            this.PhieuTras = new HashSet<PhieuTra>();
+            this.ChiTietPhieuTras = new HashSet<ChiTietPhieuTra>();
         }
     
-        public string ID { get; set; }
-        public string HoTen { get; set; }
-        public string TenNguoiDung { get; set; }
-        public string MatKhau { get; set; }
-        public string SDT { get; set; }
-        public string DiaChi { get; set; }
+        public long ID { get; set; }
+        public string ID_DocGia { get; set; }
+        public Nullable<System.DateTime> NgayTra { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhieuMuon> PhieuMuons { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhieuTra> PhieuTras { get; set; }
+        public virtual ICollection<ChiTietPhieuTra> ChiTietPhieuTras { get; set; }
+        public virtual DocGia DocGia { get; set; }
     }
 }
