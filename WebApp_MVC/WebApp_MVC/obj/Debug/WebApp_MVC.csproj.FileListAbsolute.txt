@@ -96,9 +96,8 @@ C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\WebApp_MVC\bin\
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\WebApp_MVC\bin\WebApp_MVC.dll.config
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\WebApp_MVC\bin\WebApp_MVC.dll
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\WebApp_MVC\bin\WebApp_MVC.pdb
+C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\WebApp_MVC\bin\Model4.dll
+C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\WebApp_MVC\bin\Model4.pdb
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\WebApp_MVC\obj\Debug\WebApp_MVC.csprojResolveAssemblyReference.cache
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\WebApp_MVC\obj\Debug\WebApp_MVC.dll
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\WebApp_MVC\obj\Debug\WebApp_MVC.pdb
-C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\WebApp_MVC\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\WebApp_MVC\bin\Model4.dll
-C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\WebApp_MVC\bin\Model4.pdb

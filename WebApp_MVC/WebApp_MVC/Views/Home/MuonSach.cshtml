@@ -1,9 +1,7 @@
-﻿@model Model4.DauSach
+﻿
 @{
     ViewBag.Title = "MuonSach";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var docgia = ViewData["dausach"] as List<Model4.DauSach>;
-
 }
 <script>
     angular.module('postApp', [])
@@ -15,35 +13,45 @@
          }, function (response) {
              //Showing errors
          });
-         // load danh sách thông tin sách
-         $scope.list_sach = [];
-         $http.get('/Home/thongtinsach').then(function (response) {
-             $scope.list_sach = response.data;
-         }, function (response) {
-             //Showing errors
-         });
+        
          // tìm kiếm thông tin đọc giả
          //array did filter
          $scope.docgia = [];
          $scope.timkiemdocgia = function (value) {
              $scope.docgia = $filter('filter')($scope.list_docgia, value);
          };
-         // Tìm kiếm thông tin sách
-         $scope.sach = [];
-         $scope.sach2 = [];
-         $scope.num_str = 0;
-         $scope.themsach = function (value) {
-             $scope.sach2 = $filter('filter')($scope.list_sach, value);
-             console.log($scope.sach2);
-             $scope.sach.push($scope.sach2);
-             $scope.num_str = $scope.num_str + parseInt(1);
-             console.log($scope.num_str);
-         };
+        
+
 
      }]);
 </script>
+<script>
+    function themsach() {
+        var id = document.getElementById("masach").value;
+        var thongtinsach = document.getElementById("thongtinsach");
+        for (var i = 0; i < thongtinsach.length; i++) {
+            var lc = thongtinsach.options[i].text.split(";");
+            if (lc[0] == id) {
+                alert(lc[1]);
+                // table thông tin sách mượn
+                var rows = "";
+                rows += "<td>"
+                + Xoa + "</td><td>"
+                + lc[1] + "</td><td>"
+                + ngaymuon + "</td><td>"
+                + ngaytra + "</td>";
+                var tbody = document.querySelector("#thongtinphieumuon tbody");
+                var tr = document.createElement("tr");
+                tr.innerHTML = rows;
+                tbody.appendChild(tr);
+            }
+        }
+    }
+</script>
+<!--<script src="~/Scripts/DocGia/muonsach.js"></script>-->
 <link href="~/Content/CSS/muonsach.css" rel="stylesheet" />
 <section ng-app="postApp" ng-controller="postController">
+   
     <div id="tieude">
         <h1> Mượn sách</h1>
     </div><hr />
@@ -57,7 +65,7 @@
             B3: Thủ thư bấm xuất phiếu mượn để hoàn tất việc mượn sách.
 
         </h4>
-    </div>
+    </div> 
     <form class="form-inline">
         <div id="thongtindocgia" class="col-lg-3">
             <h3>Tìm kiếm đọc giả</h3>
@@ -73,16 +81,23 @@
                 <p>Tên đọc giả:{{item.HoTen}}</p>
                 <input type="hidden" value="{{item.ID}}" />
                 <p>Ngày hết hạn:{{item.NgayHetHan}}</p>
-                <!--<p>Số lượng sách còn nợ:</p>-->
             </div>
         </div>
         <div id="timkiemsach" class="col-lg-9">
             <h3>Nhập thông tin sách</h3>
             <div class="form-group">
                 <label class="sr-only" for="exampleInputEmail3">Mã sách</label>
-                <input type="text" class="form-control" id="masach" ng-model="masach" placeholder="Mã sách">
+                <input type="text" class="form-control" id="masach" placeholder="Mã sách">
+                <select id="thongtinsach" style="display:none">
+                    @foreach( var item in Model)
+                    {
+                        <option value="@item.id">
+                            @item.id;@item.ten
+                        </option>
+                    }
+                </select>
             </div>
-            <button type="button" class="btn btn-default" ng-click="themsach(masach)">Thêm</button>
+            <button type="button" class="btn btn-default" onclick="themsach()">Thêm</button>
             <br />
             <h3>Thông tin phiếu mượn</h3>
 
@@ -92,13 +107,6 @@
                     <th>Tên sách</th>
                     <th>Ngày mượn</th>
                     <th>Ngày phải trả</th>
-
-                </tr>
-                <tr ng-repeat="sachs in sach">
-                    <td><a class="btn btn-danger" title="Xóa" placement="right"><span class="fa fa-remove">Xóa</span></a></td>
-                    <td>{{sachs.Ten}}<input type="hidden" id="ten" value="{{sachs.Ten}}" /></td>
-                    <td>{{sachs.NgayMuon}}<input type="hidden" value="{{sachs.NgayMuon}}" /></td>
-                    <td>{{sachs.NgayPhaiTra}}<input type="hidden" value="{{sachs.NgayPhaiTra}}" /></td>
                 </tr>
             </table>
                 <label>

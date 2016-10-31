@@ -398,7 +398,7 @@ go
 	@ngayketthuc nvarchar(50)
 	as
 	begin
-		select sum(SoLuong) as SoLuong,PhieuMuon.ID_DocGia
+		select sum(SoLuong) as SoLuong,  PhieuMuon.ID_DocGia
 		from ChiTietPhieuMuon,PhieuMuon
 		where ChiTietPhieuMuon.ID_PhieuMuon=PhieuMuon.ID
 		 and NgayMuon between @ngaybatdau and @ngayketthuc
@@ -407,6 +407,7 @@ go
 	go
 	exec sp_SoLuongSachMuon '3/7/2016', '5/14/2016'
 	go
+	
 	-- Pro mượn sách
 		-- Nhập phiếu mượn
 		create proc NhapPhieuMuon
@@ -464,7 +465,8 @@ go
 		create proc sp_thongtindocgia
 		as
 		begin
-		select * from DocGia
+		select *
+		 from DocGia 
 		end
 		go
 

@@ -14,20 +14,21 @@ namespace WebApp_MVC.Controllers
         {
             return View();
         }
-        public JsonResult thongtinsach()
-        {
-           var list1 = db.sp_thongtinsach().ToList();
-            return new JsonResult { Data = list1, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        }
         public JsonResult thongtindocgia()
         {
            var list2 = db.sp_thongtindocgia().ToList();
-            return new JsonResult { Data = list2, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+           return new JsonResult { Data = list2, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-
         public ActionResult MuonSach()
         {
-            return View();
+            var model = (from d in db.DauSaches
+                              join s in db.Saches on d.ID equals s.ID_DauSach
+                              where d.ID == s.ID_DauSach
+                              select new Sachinfo
+                              {
+                                  ten=d.Ten,
+                                  id=s.ID }).ToList();
+            return View( model);
         }
         public ActionResult TraSach()
         {
