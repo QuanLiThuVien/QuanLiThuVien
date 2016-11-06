@@ -101,3 +101,8 @@ C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\WebApp_MVC\bin\
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\WebApp_MVC\obj\Debug\WebApp_MVC.csprojResolveAssemblyReference.cache
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\WebApp_MVC\obj\Debug\WebApp_MVC.dll
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\WebApp_MVC\obj\Debug\WebApp_MVC.pdb
+C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\WebApp_MVC\bin\PagedList.dll
+C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\WebApp_MVC\bin\PagedList.Mvc.dll
+C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\WebApp_MVC\bin\PagedList.xml
+C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\WebApp_MVC\bin\PagedList.Mvc.xml
+C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\WebApp_MVC\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml

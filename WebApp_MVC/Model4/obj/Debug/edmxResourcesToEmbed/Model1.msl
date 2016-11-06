@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="QuanLiThuVienModelStoreContainer" CdmEntityContainer="QuanLiThuVienEntities">
+  <EntityContainerMapping StorageEntityContainer="QuanLiThuVienModelStoreContainer" CdmEntityContainer="QuanLiThuVienEntities1">
     <EntitySetMapping Name="ChiTietPhieuMuons">
       <EntityTypeMapping TypeName="QuanLiThuVienModel.ChiTietPhieuMuon">
         <MappingFragment StoreEntitySet="ChiTietPhieuMuon">
@@ -107,15 +107,10 @@
       <ResultMapping>
         <ComplexTypeMapping TypeName="QuanLiThuVienModel.sp_DanhSachSachMuon_Result">
           <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="ID_PhieuMuon" ColumnName="ID_PhieuMuon" />
-          <ScalarProperty Name="ID_DauSach" ColumnName="ID_DauSach" />
-          <ScalarProperty Name="ID_Sach" ColumnName="ID_Sach" />
-          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
-          <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
-          <ScalarProperty Name="ID1" ColumnName="ID1" />
-          <ScalarProperty Name="ID_DocGia" ColumnName="ID_DocGia" />
+          <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+          <ScalarProperty Name="Ten" ColumnName="Ten" />
           <ScalarProperty Name="NgayMuon" ColumnName="NgayMuon" />
-          <ScalarProperty Name="NgayGHTra" ColumnName="NgayGHTra" />
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -144,6 +139,7 @@
         <ComplexTypeMapping TypeName="QuanLiThuVienModel.sp_SoLuongSachMuon_Result">
           <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
           <ScalarProperty Name="ID_DocGia" ColumnName="ID_DocGia" />
+          <ScalarProperty Name="HoTen" ColumnName="HoTen" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

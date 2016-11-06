@@ -259,30 +259,30 @@ insert into PhieuMuon values
 ('DG001','4/15/2016','5/5/2016')
 -- Nhập dữ liệu cho bảng chi tiết phiếu mượn
 insert into ChiTietPhieuMuon (ID_PhieuMuon,ID_DauSach,ID_Sach, SoLuong, TinhTrang) values
-('25','1','1','1',N'Đã Trả'),
-('26','1','2','1',N'Đã Trả'),
-('27','1','3','1',N'Đã Trả'),
-('28','1','4','1',N'Đã Trả'),
-('29','1','5','1',N'Đã Trả'),
-('30','1','6','1',N'Đã Trả'),
-('31','1','7','1',N'Đã Trả'),
-('32','1','8','1',N'Đã Trả'),
-('33','1','9','1',N'Đã Trả'),
-('34','1','10','1',N'Đã Trả'),
-('35','2','11','1',N'Đã Trả'),
-('36','2','12','1',N'Đã Trả'),
-('37','2','13','1',N'Đã Trả'),
-('38','2','14','1',N'Đã Trả'),
-('39','2','15','1',N'Đã Trả'),
-('40','2','16','1',N'Đã Trả'),
-('41','2','17','1',N'Đã Trả'),
-('42','2','18','1',N'Đã Trả'),
-('43','2','19','1',N'Đã Trả'),
-('44','2','20','1',N'Đã Trả'),
-('45','3','21','1',N'Đã Trả'),
-('46','3','22','1',N'Đã Trả'),
-('47','3','23','1',N'Đã Trả'),
-('48','3','24','1',N'Đã Trả')
+('1','1','1','1',N'Đã Trả'),
+('2','1','2','1',N'Đã Trả'),
+('3','1','3','1',N'Đã Trả'),
+('4','1','4','1',N'Đã Trả'),
+('5','1','5','1',N'Đã Trả'),
+('6','1','6','1',N'Đã Trả'),
+('7','1','7','1',N'Đã Trả'),
+('8','1','8','1',N'Đã Trả'),
+('9','1','9','1',N'Đã Trả'),
+('10','1','10','1',N'Đã Trả'),
+('11','2','11','1',N'Đã Trả'),
+('12','2','12','1',N'Đã Trả'),
+('13','2','13','1',N'Đã Trả'),
+('14','2','14','1',N'Đã Trả'),
+('15','2','15','1',N'Đã Trả'),
+('16','2','16','1',N'Đã Trả'),
+('17','2','17','1',N'Đã Trả'),
+('18','2','18','1',N'Đã Trả'),
+('19','2','19','1',N'Đã Trả'),
+('20','2','20','1',N'Đã Trả'),
+('21','3','21','1',N'Đã Trả'),
+('22','3','22','1',N'Đã Trả'),
+('23','3','23','1',N'Đã Trả'),
+('24','3','24','1',N'Đã Trả')
 go
 -- Nhập dữ liệu cho bảng phiếu trả
 insert into PhieuTra (ID_DocGia,NgayTra) values 
@@ -313,31 +313,31 @@ insert into PhieuTra (ID_DocGia,NgayTra) values
 ('DG001','5/2/2016')
 -- Nhập dữ liệu cho bảng chi tiết phiếu trả.
 insert into ChiTietPhieuTra (ID_PhieuTra,ID_DauSach,ID_Sach,SoLuong) values
-('26','1','1','1'),
-('27','1','2','1'),
-('28','1','3','1'),
-('29','1','4','1'),
-('30','1','5','1'),
-('31','1','6','1'),
-('32','1','7','1'),
-('33','1','8','1'),
-('34','1','9','1'),
-('35','1','10','1'),
-('36','2','11','1'),
-('37','2','12','1'),
-('38','2','13','1'),
-('39','2','14','1'),
-('40','2','15','1'),
-('41','2','16','1'),
-('42','2','17','1'),
-('43','2','18','1'),
-('44','2','19','1'),
-('45','2','20','1'),
-('46','3','21','1'),
-('47','3','22','1'),
-('48','3','23','1'),
-('49','3','24','1'),
-('50','3','25','1')
+('1','1','1','1'),
+('2','1','2','1'),
+('3','1','3','1'),
+('4','1','4','1'),
+('5','1','5','1'),
+('6','1','6','1'),
+('7','1','7','1'),
+('8','1','8','1'),
+('9','1','9','1'),
+('10','1','10','1'),
+('11','2','11','1'),
+('12','2','12','1'),
+('13','2','13','1'),
+('14','2','14','1'),
+('15','2','15','1'),
+('16','2','16','1'),
+('17','2','17','1'),
+('18','2','18','1'),
+('19','2','19','1'),
+('20','2','20','1'),
+('21','3','21','1'),
+('22','3','22','1'),
+('23','3','23','1'),
+('24','3','24','1'),
+('25','3','25','1')
 go
 --Thực thi câu truy vấn cho yêu cầu đồ án.
 
@@ -384,25 +384,27 @@ go
 		@ngayketthuc nvarchar(50)
 		as
 		begin
-			select *
-			 from ChiTietPhieuMuon, PhieuMuon 
-			 where ChiTietPhieuMuon.ID_PhieuMuon=PhieuMuon.ID 
+			select DocGia.ID,DocGia.HoTen,DauSach.Ten,PhieuMuon.NgayMuon,ChiTietPhieuMuon.SoLuong
+			 from ChiTietPhieuMuon, PhieuMuon, DocGia,DauSach
+			 where ChiTietPhieuMuon.ID_PhieuMuon=PhieuMuon.ID and DocGia.ID=PhieuMuon.ID_DocGia
+			  and ChiTietPhieuMuon.ID_DauSach=DauSach.ID
 			 and NgayMuon between @ngaybatdau and @ngayketthuc
 		end
 		go
 		exec sp_DanhSachSachMuon '3/7/2016', '5/14/2016'
 		go
-	-- Số lượng sách mượn trong một khoảng thời gian
+	-- Số lượng sách mượn trong một khodảng thời gian
+	go
 	create proc sp_SoLuongSachMuon
 	@ngaybatdau nvarchar(50),
 	@ngayketthuc nvarchar(50)
 	as
 	begin
-		select sum(SoLuong) as SoLuong,  PhieuMuon.ID_DocGia
-		from ChiTietPhieuMuon,PhieuMuon
+		select sum(SoLuong) as SoLuong, PhieuMuon.ID_DocGia,DocGia.HoTen
+		from ChiTietPhieuMuon,PhieuMuon,DocGia
 		where ChiTietPhieuMuon.ID_PhieuMuon=PhieuMuon.ID
 		 and NgayMuon between @ngaybatdau and @ngayketthuc
-		 group by ChiTietPhieuMuon.ID_PhieuMuon,PhieuMuon.ID_DocGia
+		 group by ChiTietPhieuMuon.ID_PhieuMuon,PhieuMuon.ID_DocGia,DocGia.HoTen
 	end
 	go
 	exec sp_SoLuongSachMuon '3/7/2016', '5/14/2016'

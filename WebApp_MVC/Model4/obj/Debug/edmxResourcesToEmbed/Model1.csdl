@@ -243,7 +243,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="QuanLiThuVienEntities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="QuanLiThuVienEntities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="ChiTietPhieuMuons" EntityType="Self.ChiTietPhieuMuon" />
     <EntitySet Name="ChiTietPhieuTras" EntityType="Self.ChiTietPhieuTra" />
     <EntitySet Name="DauSaches" EntityType="Self.DauSach" />
@@ -337,16 +337,11 @@
     <FunctionImport Name="sp_thongtinsach" ReturnType="Collection(QuanLiThuVienModel.sp_thongtinsach_Result)" />
   </EntityContainer>
   <ComplexType Name="sp_DanhSachSachMuon_Result">
-    <Property Type="Int64" Name="ID" Nullable="false" />
-    <Property Type="Int64" Name="ID_PhieuMuon" Nullable="true" />
-    <Property Type="Int64" Name="ID_DauSach" Nullable="true" />
-    <Property Type="Int64" Name="ID_Sach" Nullable="true" />
-    <Property Type="Double" Name="SoLuong" Nullable="true" />
-    <Property Type="String" Name="TinhTrang" Nullable="true" MaxLength="250" />
-    <Property Type="Int64" Name="ID1" Nullable="false" />
-    <Property Type="String" Name="ID_DocGia" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="ID" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="HoTen" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Ten" Nullable="true" />
     <Property Type="DateTime" Name="NgayMuon" Nullable="true" Precision="23" />
-    <Property Type="DateTime" Name="NgayGHTra" Nullable="true" Precision="23" />
+    <Property Type="Double" Name="SoLuong" Nullable="true" />
   </ComplexType>
   <ComplexType Name="sp_SoLuongDauSach_Result">
     <Property Type="String" Name="Ten" Nullable="true" />
@@ -363,6 +358,7 @@
   <ComplexType Name="sp_SoLuongSachMuon_Result">
     <Property Type="Double" Name="SoLuong" Nullable="true" />
     <Property Type="String" Name="ID_DocGia" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="HoTen" Nullable="true" MaxLength="100" />
   </ComplexType>
   <ComplexType Name="sp_SoLuongTra_Result">
     <Property Type="Double" Name="SoLuong" Nullable="true" />

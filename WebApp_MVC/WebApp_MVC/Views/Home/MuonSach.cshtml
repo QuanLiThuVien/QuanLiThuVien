@@ -28,30 +28,88 @@
 <script>
     function themsach() {
         var id = document.getElementById("masach").value;
+        var soluong = Number(document.getElementById("soluong").value);
+        soluong = soluong + 1;
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+        var ngaymuon = "";
+        var ngaymuon2 = "";
+        var ngaytra = "";
+        var ngaytra2 = "";
+        var ngaygioihan = document.getElementById("ngaygioihan").value;
+        ngaymuon = dd + '/' + mm + '/' + yyyy;
+        ngaymuon2 = mm + '/' + dd + '/' + yyyy;
+        var ngay = parseInt(dd) + 20;
+        var thang = parseInt(mm);
+        var nam = parseInt(yyyy);
+        if (ngay > 30) 
+        {
+            ngay = ngay - 30;
+            thang = parseInt(mm) + 1;
+
+        }
+        if (thang > 12)
+        {
+            thang = thang - 12;
+            nam = parseInt(yyyy) + 1;
+        }
+        ngaytra = ngay + '/' + thang + '/' + nam;
+        ngaytra2 = thang + '/' + ngay + '/' + nam;
         var thongtinsach = document.getElementById("thongtinsach");
         for (var i = 0; i < thongtinsach.length; i++) {
             var lc = thongtinsach.options[i].text.split(";");
             if (lc[0] == id) {
-                alert(lc[1]);
                 // table thông tin sách mượn
                 var rows = "";
                 rows += "<td>"
-                + Xoa + "</td><td>"
-                + lc[1] + "</td><td>"
-                + ngaymuon + "</td><td>"
-                + ngaytra + "</td>";
+                + "<input type='button' onclick='xoadong(this)' value='Xóa'>" + "<input type='hidden' name='iddausach' value='"+lc[2]+"'>" + "</td><td>"
+                + +lc[0] + "<input type='hidden' name='ma' value='" + lc[0] + "'>" + "</td><td>"
+                + lc[1]+"<input type='hidden' name='ten' value='" + lc[1] + "'>"  + "</td><td>"
+                + ngaymuon + "<input type='hidden' name='ngaymuon' value='" + ngaymuon2 + "'>" + "</td><td>"
+                + ngaytra + "<input type='hidden' name='ngaytra' value='" + ngaytra2 + "'>" + "</td>";
                 var tbody = document.querySelector("#thongtinphieumuon tbody");
                 var tr = document.createElement("tr");
                 tr.innerHTML = rows;
                 tbody.appendChild(tr);
+                oFormObject = document.forms['sach'];
+                oFormObject.elements["soluong"].value = soluong.toString();
             }
         }
     }
+    function xoadong(r) {
+        var hoi = confirm("Bạn có chắn chắn muốn xóa");
+        if (hoi == true) {
+            var i = r.parentNode.parentNode.rowIndex;
+            //alert(tongtien1);
+            var soluong = Number(document.getElementById("soluong").value);
+            soluong = soluong - 1;
+            oFormObject = document.forms['sach'];
+            oFormObject.elements["soluong"].value = soluong.toString();
+
+            document.getElementById("thongtinphieumuon").deleteRow(i);
+            for (var j = i; j < table.rows.length; j++) {
+                table.rows[j].cells[0].firstChild.innerHTML = j - 1;
+            }
+
+
+            //document.getElementById("tongtien").innerHTML = tongtien1;  
+            // oFormObject = document.forms['congviec'];
+            //oFormObject.elements["txttongcong"].value = tongtien1.toString();       
+        }
+    }
 </script>
-<!--<script src="~/Scripts/DocGia/muonsach.js"></script>-->
 <link href="~/Content/CSS/muonsach.css" rel="stylesheet" />
 <section ng-app="postApp" ng-controller="postController">
-   
     <div id="tieude">
         <h1> Mượn sách</h1>
     </div><hr />
@@ -66,33 +124,33 @@
 
         </h4>
     </div> 
-    <form class="form-inline">
+    <form class="form-inline" id="sach" method="post" action="/Home/NhapPhieuMuon">
         <div id="thongtindocgia" class="col-lg-3">
             <h3>Tìm kiếm đọc giả</h3>
             <div class="form-group">
                 <label>
-                    <input type="text" ng-model="timkiem" class="form-control" placeholder="Nhập mã độc giả" /><br />
+                    <input type="text" ng-model="timkiem" name="madocgia" class="form-control" placeholder="Nhập mã độc giả" /><br />
                     <br />
-                    <button class="btn btn-default" ng-click="timkiemdocgia(timkiem)">Tìm kiếm</button>
+                    <button type="button" class="btn btn-default" ng-click="timkiemdocgia(timkiem)">Tìm kiếm</button>
                 </label>
             </div>
             <div class="model-body" ng-repeat="item in docgia">
                 <h3>Thông tin đọc giả</h3>
                 <p>Tên đọc giả:{{item.HoTen}}</p>
-                <input type="hidden" value="{{item.ID}}" />
                 <p>Ngày hết hạn:{{item.NgayHetHan}}</p>
+                <p>Ngày giới hạn:{{item.NgayGioiHan}}<input type="hidden" id="ngaygioihan" value="{{item.NgayGioiHan}}" /></p>
             </div>
         </div>
         <div id="timkiemsach" class="col-lg-9">
             <h3>Nhập thông tin sách</h3>
             <div class="form-group">
                 <label class="sr-only" for="exampleInputEmail3">Mã sách</label>
-                <input type="text" class="form-control" id="masach" placeholder="Mã sách">
+                <input type="text" class="form-control" id="masach" name="masach" placeholder="Mã sách">
                 <select id="thongtinsach" style="display:none">
-                    @foreach( var item in Model)
+                    @foreach (var item in Model)
                     {
                         <option value="@item.id">
-                            @item.id;@item.ten
+                            @item.id;@item.ten;@item.Id_dausach
                         </option>
                     }
                 </select>
@@ -102,19 +160,23 @@
             <h3>Thông tin phiếu mượn</h3>
 
             <table class="table table-hover" id="thongtinphieumuon" width="400">
-                <tr>
-                    <th>Điều khiển</th>
-                    <th>Tên sách</th>
-                    <th>Ngày mượn</th>
-                    <th>Ngày phải trả</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Điều khiển</th>
+                        <th>Mã sách</th>
+                        <th>Tên sách</th>
+                        <th>Ngày mượn</th>
+                        <th>Ngày phải trả</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
             </table>
-                <label>
-                    Tổng số lượng sách:
-                    <input type="text" class="form-control" value="{{num_str}}" disabled />
-                </label>
             <label>
-                <button class="btn btn-default" type="submit">Xuất phiếu mượn</button>
+                Tổng số lượng sách:
+                <input type="text" class="form-control" id="soluong" name="soluong" disabled />
+            </label>
+            <label>
+                <button class="btn btn-default" id="luuphieumuon" type="submit">Lưu phiếu mượn</button>
             </label>
         </div>
     </form>

@@ -10,18 +10,15 @@
 namespace Model4
 {
     using System;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class sp_DanhSachSachMuon_Result
     {
-        public long ID { get; set; }
-        public Nullable<long> ID_PhieuMuon { get; set; }
-        public Nullable<long> ID_DauSach { get; set; }
-        public Nullable<long> ID_Sach { get; set; }
-        public Nullable<double> SoLuong { get; set; }
-        public string TinhTrang { get; set; }
-        public long ID1 { get; set; }
-        public string ID_DocGia { get; set; }
+        public string ID { get; set; }
+        public string HoTen { get; set; }
+        public string Ten { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         public Nullable<System.DateTime> NgayMuon { get; set; }
-        public Nullable<System.DateTime> NgayGHTra { get; set; }
+        public Nullable<double> SoLuong { get; set; }
     }
 }
