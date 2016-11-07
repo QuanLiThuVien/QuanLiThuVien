@@ -21,6 +21,16 @@ namespace Model4
             this.ChiTietPhieuTras = new HashSet<ChiTietPhieuTra>();
             this.Saches = new HashSet<Sach>();
         }
+        public DauSach(DauSach ds)
+        {
+            this.ID = ds.ID;
+            this.Ten = ds.Ten;
+            this.TrangThai = ds.TrangThai;
+            this.ID_TacGia = ds.ID_TacGia;
+            this.MieuTa = ds.MieuTa;
+            this.Loai = ds.Loai;
+            this.Soluong = ds.Soluong;
+        }
     
         public long ID { get; set; }
         public string Ten { get; set; }

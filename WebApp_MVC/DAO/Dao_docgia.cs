@@ -7,14 +7,14 @@ using Model4;
 
 namespace DAO
 {
-     public class Dao_docgia
+     public static class Dao_docgia
     {
-        QuanLiThuVienEntities1 db = new QuanLiThuVienEntities1();
+         static QuanLiThuVienEntities1 db = new QuanLiThuVienEntities1();
         // load ds độc giả
-        public List<DocGia> dsdocgia()
+        public static List<DocGiainfo> dsdocgia()
         {
             var list = (from n in db.DocGias
-                        select new DocGia
+                        select new DocGiainfo
                         {
                             ID=n.ID,
                             HoTen=n.HoTen,
@@ -26,11 +26,11 @@ namespace DAO
                         }).ToList();
             return list;
         }
-        public List<DocGia> timkiemdocgia(string tendocgia)
+        public static List<DocGiainfo> timkiemdocgia(string tendocgia)
         {
             var listtimkiem = (from n in db.DocGias
                                where n.HoTen.Contains(tendocgia)
-                               select new DocGia
+                               select new DocGiainfo
                                {
                                    ID = n.ID,
                                    HoTen = n.HoTen,
@@ -42,9 +42,31 @@ namespace DAO
                                }).ToList();
             return listtimkiem;
         }
-        public bool them(DocGia dg)
+        public static bool them(DocGia dg)
         {
-           
+           try
+            {
+                db.DocGias.Add(dg);
+                db.SaveChanges();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+        }
+        public static bool Sua(DocGia dg)
+        {
+            try
+            {
+                db.Entry(dg).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
         }
 
     }

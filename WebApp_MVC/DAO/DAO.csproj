@@ -54,6 +54,9 @@
     <Compile Include="Dao_sach.cs" />
     <Compile Include="Dao_tacgia.cs" />
     <Compile Include="Dao_theloai.cs" />
+    <Compile Include="DauSachInfo.cs" />
+    <Compile Include="DocGiainfo.cs" />
+    <Compile Include="loaisachinfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

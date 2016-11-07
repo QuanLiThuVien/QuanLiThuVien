@@ -4,22 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Model4;
+using DAO;
 
-namespace DAO
+namespace BUS
 {
-     public static class Dao_tacgia
+    public static class Bus_tacgia
     {
          static QuanLiThuVienEntities1 db = new QuanLiThuVienEntities1();
         public static List<TacGia> dstacgia()
         {
-            var list = db.TacGias.ToList();
-            return list;
+            return Dao_tacgia.dstacgia();
         }
-
         public static long idtacgia(string ten)
         {
-            long id = db.TacGias.Where(n => n.HoTen.Equals(ten)).Select(i => i.ID).FirstOrDefault();
-            return id;
+            return Dao_tacgia.idtacgia(ten);
         }
     }
 }
