@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DAO;
 using Model4;
+using DAO;
 
 namespace BUS
 {
-     public class Bus_thongke
+     public static class Bus_thongke
     {
-        QuanLiThuVienEntities1 db = new QuanLiThuVienEntities1();
+        static QuanLiThuVienEntities1 db = new QuanLiThuVienEntities1();
         public static List<sp_SoLuongDauSach_Result> sldausach()
         {
             return Dao_thongke.sldausach();
         }
-        public static List<sp_SoLuongMuon_Result> slmuon(string ngay)
+        public static List<sp_SoLuongMuon_Result> slsmuon(string ngay)
         {
             return Dao_thongke.slsmuon(ngay);
         }

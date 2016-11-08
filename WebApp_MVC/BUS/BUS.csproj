@@ -49,10 +49,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bus_docgia.cs" />
+    <Compile Include="Bus_sach.cs" />
+    <Compile Include="Bus_tacgia.cs" />
+    <Compile Include="Bus_theloai.cs" />
+    <Compile Include="Bus_thongke.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

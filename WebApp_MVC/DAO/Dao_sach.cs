@@ -81,13 +81,12 @@ namespace DAO
         }
         public static bool themmoi(DauSach ds)
         {
-            //try
-            //{
+            try
+            {
             long maxdong = db.DauSaches.OrderByDescending(n => n.ID).Select(i => i.ID).FirstOrDefault();
-            maxdong = maxdong + 1;
-             db.DauSaches.Add(ds);
-            db.SaveChanges();
-                for (var i = 0; i<ds.Soluong;i++)
+            db.DauSaches.Add(ds);
+            db.SaveChanges();   
+           for (var i = 0; i<ds.Soluong;i++)
                 {
                     string trangthai = "Khả dụng";
                     Sach s = new Sach();
@@ -95,18 +94,19 @@ namespace DAO
                     s.TinhTrang = trangthai;
                     db.Saches.Add(s);
                     db.SaveChanges();
-                }
+            }
+           
                 return true;
-            //}
-            //catch(Exception)
-            //{
-               // return false;
-            //}
+            }
+            catch(Exception)
+            {
+               return false;
+            }
         }
         public static bool bosung(DauSach ds)
         {
-            try
-            {
+           // try
+            //{
                 var dausach = db.DauSaches.Where(n => n.ID.Equals(ds.ID)).Select(n => new DauSach(n)).FirstOrDefault();
                 dausach.Soluong = dausach.Soluong + ds.Soluong;
                 db.Entry(dausach).State = System.Data.Entity.EntityState.Modified;
@@ -122,11 +122,11 @@ namespace DAO
                     db.SaveChanges();
                 }
                 return true;
-            }
-            catch(Exception)
-            {
-                return false;
-            }
+            //}
+            //catch(Exception)
+            //{
+               // return false;
+           // }
         }
         public static List<DauSach> timkiemsach1(string ten)
         {
