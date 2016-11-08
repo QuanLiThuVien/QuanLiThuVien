@@ -83,15 +83,15 @@ namespace DAO
         {
             //try
             //{
-                long iddausach1 = laydong();
-                iddausach1 = iddausach1 + 1;
-                db.DauSaches.Add(ds);
-                db.SaveChanges();
+            long maxdong = db.DauSaches.OrderByDescending(n => n.ID).Select(i => i.ID).FirstOrDefault();
+            maxdong = maxdong + 1;
+             db.DauSaches.Add(ds);
+            db.SaveChanges();
                 for (var i = 0; i<ds.Soluong;i++)
                 {
                     string trangthai = "Khả dụng";
                     Sach s = new Sach();
-                    s.ID_DauSach = iddausach1;
+                    s.ID_DauSach = maxdong;
                     s.TinhTrang = trangthai;
                     db.Saches.Add(s);
                     db.SaveChanges();
