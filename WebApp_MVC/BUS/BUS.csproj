@@ -50,10 +50,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bus_docgia.cs" />
-    <Compile Include="Bus_sach.cs" />
-    <Compile Include="Bus_tacgia.cs" />
-    <Compile Include="Bus_theloai.cs" />
+    <Compile Include="Bus_quanly.cs" />
+    <Compile Include="Bus_suasach.cs" />
+    <Compile Include="Bus_themsach.cs" />
     <Compile Include="Bus_thongke.cs" />
+    <Compile Include="Bus_xoasach.cs" />
+    <Compile Include="DTO\DauSachInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

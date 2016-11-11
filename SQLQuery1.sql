@@ -343,10 +343,12 @@ go
 
 	-- thống kê số lượng tồn của đầu sách tại một thời điểm
 		-- lấy dữ liệu từ bảng đầu sách
+		drop proc sp_SoLuongDauSach
+		go
  create proc sp_SoLuongDauSach
 as
 begin
-	select Ten, Loai, TrangThai, MieuTa, Soluong,ID
+	select *
 	from DauSach
 end
 go
