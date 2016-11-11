@@ -22,11 +22,53 @@ namespace BUS
         }
         public static bool them(DocGia dg)
         {
-            return Dao_docgia.them(dg);
+			try
+            {
+                long maxdong = db.DocGia.OrderByDescending(n => n.ID).Select(i => i.ID).FirstOrDefault();
+                db.DocGia.Add(dg);
+                db.SaveChanges();
+                for (var i = 0; i < ds.Soluong; i++)
+                {
+                    string trangthai = "Khả dụng";
+                    DocGia dg = new Sach();
+                    dg.ID_DocGia = maxdong;
+                    dg.TinhTrang = trangthai;
+                    db.Saches.Add(dg);
+                    db.SaveChanges();
+                }
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
         public static bool Sua(DocGia dg)
         {
-            return Dao_docgia.Sua(dg);
+			long myId = dg.ID;
+            var query = from b in db.DocGia
+                        where b.ID == myId
+                        select b;
+            DocGia a = query.FirstOrDefault<DauSach>();
+          
+            a.HoTen = dg.HoTen;
+            a.DiaChi = dg.DiaChi;
+            a.SDT = dg.SDT;
+            a.NgayCapThe = dg.NgayCapThe;
+            a.NgayHetHan = dg.NgayHetHan;
+			a.NamTotNghiep = dg.NamTotNghiep;
+			a.Email = dg.Email;
+			a.SLuongGioiHan = dg.SLuongGioiHan;
+			a.NagyGioiHan = dg.NagyGioiHan;
+            db.SaveChanges();
+
+            return true;
+            //}
+            //catch (Exception)
+            //{
+              //  return false;
+           // }
         }
     }
 }
