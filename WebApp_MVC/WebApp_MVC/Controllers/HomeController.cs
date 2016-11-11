@@ -26,7 +26,7 @@ namespace WebApp_MVC.Controllers
         {
             var model = (from d in db.DauSaches
                               join s in db.Saches on d.ID equals s.ID_DauSach
-                              where d.ID == s.ID_DauSach
+                              where d.ID == s.ID_DauSach && s.TinhTrang=="Khả Dụng"
                               select new Sachinfo
                               {
                                   ten=d.Ten,
@@ -69,14 +69,24 @@ namespace WebApp_MVC.Controllers
                     db.ChiTietPhieuMuons.Add(chitietphieumuon);
                     db.SaveChanges();
                 }
-            
+                for(var i=0;i<aidsach.Length;i++)
+                {
+                    long myId = Convert.ToInt32(aidsach[i]);
+                    var query = from b in db.Saches
+                                where b.ID == myId
+                                select b;
+                    Sach a = query.FirstOrDefault();
+                    a.TinhTrang = "Đã Mượn";
+                    db.SaveChanges();
+            }
+            ViewBag.Thongbao = "Thêm phiếu mượn thành công";
             return RedirectToAction("MuonSach");
         }
         public ActionResult TraSach()
         {
             var model = (from d in db.DauSaches
                          join s in db.Saches on d.ID equals s.ID_DauSach
-                         where d.ID == s.ID_DauSach
+                         where d.ID == s.ID_DauSach && s.TinhTrang=="Đã Mượn"
                          select new Sachinfo
                          {
                              ten = d.Ten,
@@ -112,6 +122,26 @@ namespace WebApp_MVC.Controllers
                 chitietphieutra.ID_DauSach = Convert.ToInt64(aiddausach[i]);
                 chitietphieutra.SoLuong = 1;
                 db.ChiTietPhieuTras.Add(chitietphieutra);
+                db.SaveChanges();
+            }
+            for (var i = 0; i < aidsach.Length; i++)
+            {
+                long myId = Convert.ToInt32(aidsach[i]);
+                var query = from b in db.Saches
+                            where b.ID == myId
+                            select b;
+                Sach a = query.FirstOrDefault();
+                a.TinhTrang = "Khả Dụng";
+                db.SaveChanges();
+            }
+            for (var i = 0; i < aidsach.Length; i++)
+            {
+                long myId = Convert.ToInt32(aidsach[i]);
+                var query = from b in db.ChiTietPhieuMuons
+                            where b.ID_Sach == myId
+                            select b;
+                ChiTietPhieuMuon a = query.FirstOrDefault();
+                a.TinhTrang = "Đã Trả";
                 db.SaveChanges();
             }
             return RedirectToAction("TraSach");

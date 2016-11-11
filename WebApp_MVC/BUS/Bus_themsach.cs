@@ -15,6 +15,7 @@ namespace BUS
             try
             {
                 long maxdong = db.DauSaches.OrderByDescending(n => n.ID).Select(i => i.ID).FirstOrDefault();
+                maxdong = maxdong + 1;
                 db.DauSaches.Add(ds);
                 db.SaveChanges();
                 for (var i = 0; i < ds.Soluong; i++)

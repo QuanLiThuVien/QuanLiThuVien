@@ -14,16 +14,32 @@ namespace BUS
         {
             return db.DocGias.ToList();
         }
-       public List<DauSach> dsdausach()
+       public List<sachinfo> dssach()
         {
-            return db.DauSaches.ToList();
+
+            var listsach = (from n in db.Saches
+                            select new sachinfo
+                            {
+                                Id = n.ID,
+                                Ten = n.DauSach.Ten,
+                                TrangThai = n.TinhTrang,
+                                GhiChu = n.GhiChu
+                            }).ToList();
+            return listsach;
         }
-       public List<DauSach> timkiemdausach(string ten)
+       public List<sachinfo> timkiemdausach(string ten)
         {
-            var query = from b in db.DauSaches
-                        where b.Ten.Contains(ten)
-                        select b;
-            return query.ToList();
+            var listsachtimkiem = (from n in db.Saches
+                                   where n.DauSach.Ten.Contains(ten)
+                                   select new sachinfo
+                                   {
+                                       Id=n.ID,
+                                       Ten=n.DauSach.Ten,
+                                       TrangThai=n.TinhTrang,
+                                       GhiChu=n.GhiChu
+
+                                   }).ToList();
+            return listsachtimkiem;
         }
        public List<DocGia> timkiemdocgia(string ten)
         {

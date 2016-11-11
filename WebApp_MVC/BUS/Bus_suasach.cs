@@ -10,45 +10,41 @@ namespace BUS
      public class Bus_suasach
     {
         QuanLiThuVienEntities2 db = new QuanLiThuVienEntities2();
-       public DauSach timkiem(long id)
+       public sachinfo timkiem(long id)
         {
-            var query = from b in db.DauSaches
+            var query = from b in db.Saches
                         where b.ID == id
-                        select b;
+                        select new sachinfo
+                        {
+                            Id=b.ID,
+                            Ten=b.DauSach.Ten,
+                            TrangThai=b.TinhTrang,
+                            GhiChu=b.GhiChu
+                        };
             return query.FirstOrDefault();
 
         }
-
-        public List<TacGia> dsTacGia()
+        public bool suasach(Sach ds)
         {
-            return db.TacGias.ToList();
-        }
+            try
+            {
 
-        public List<LoaiSach> dsLoaiSach()
-        {
-            return db.LoaiSaches.ToList();
-        }
-        public bool suasach(DauSach ds)
-        {
-            long myId = ds.ID;
-            var query = from b in db.DauSaches
-                        where b.ID == myId
-                        select b;
-            DauSach a = query.FirstOrDefault<DauSach>();
-          
-            a.MieuTa = ds.MieuTa;
-            a.Ten = ds.Ten;
-            a.TrangThai = ds.TrangThai;
-            a.Loai = ds.Loai;
-            a.ID_TacGia = ds.ID_TacGia;
-            db.SaveChanges();
+                long myId = ds.ID;
+                var query = from b in db.Saches
+                            where b.ID == myId
+                            select b;
+                Sach a = query.FirstOrDefault<Sach>();
+                a.TinhTrang = ds.TinhTrang;
+                a.GhiChu = ds.GhiChu;
+                db.SaveChanges();
 
-            return true;
-            //}
-            //catch (Exception)
-            //{
-              //  return false;
-           // }
+                return true;
+            }
+            
+            catch (Exception)
+            {
+                return false;
+           }
         }
 
         

@@ -15,7 +15,6 @@
          }, function (response) {
              //Showing errors
          });
-
          // tìm kiếm thông tin đọc giả
          //array did filter
          $scope.docgia = [];
@@ -43,19 +42,16 @@
         }
         var ngaytra = "";
         ngaytra = dd + '/' + mm + '/' + yyyy;
-        var id = document.getElementById("masach").value;
         var soluong = Number(document.getElementById("soluong").value);
         soluong = soluong + 1;
-        var thongtinsach = document.getElementById("thongtinsach");
-        for (var i = 0; i < thongtinsach.length; i++) {
-            var lc = thongtinsach.options[i].text.split(";");
-            if (lc[0] == id) {
+        var thongtinsach = document.getElementById("thongtinsach1").value;
+        var arr = thongtinsach.split(";");
                 // table thông tin sách mượn
                 var rows = "";
                 rows += "<td>"
-                + "<input type='button' onclick='xoadong(this)' value='Xóa'>" + "<input type='hidden' name='iddausach' value='" + lc[2] + "'>" + "</td><td>"
-                + lc[0] + "<input type='hidden' name='ma' value='" + lc[0] + "'>" + "</td><td>"
-                + lc[1] + "<input type='hidden' name='ten' value='" + lc[1] + "'>" + "</td><td>"
+                + "<input type='button' onclick='xoadong(this)' value='Xóa'>" + "<input type='hidden' name='iddausach' value='" + arr[2] + "'>" + "</td><td>"
+                + arr[0] + "<input type='hidden' name='ma' value='" + arr[0] + "'>" + "</td><td>"
+                + arr[1] + "<input type='hidden' name='ten' value='" + arr[1] + "'>" + "</td><td>"
                 + ngaytra + "<input type='hidden' name='ngaytra' value='" + ngaytra + "'>" + "</td><td>"
 
                 var tbody = document.querySelector("#thongtinphieutra tbody");
@@ -64,8 +60,8 @@
                 tbody.appendChild(tr);
                 oFormObject = document.forms['sach'];
                 oFormObject.elements["soluong"].value = soluong.toString();
-            }
-        }
+            
+        
     }
     function xoadong(r) {
         var hoi = confirm("Bạn có chắn chắn muốn xóa");
@@ -82,7 +78,30 @@
                 table.rows[j].cells[0].firstChild.innerHTML = j - 1;
             }
         }
+    }
+    function timkiemsach() {
+        var select1 = document.getElementById("thongtinsach");
+        var select2 = document.getElementById("thongtinsach1");
+        var txt = document.getElementById("txttimkiemsach").value.toLowerCase();
+
+        for (var option in select2) {
+            select2.remove(option);
         }
+
+        if (txt.length == 0) {
+            return;
+        }
+
+        for (var i = 0; i < select1.length; i++) {
+            var row = select1.options[i].text.toLowerCase();
+            var row2 = select1.options[i].text;
+            if (row.search(txt) != -1) {
+                var opt = document.createElement('option');
+                opt.text = row;
+                select2.add(opt);
+            }
+        }
+    }
 </script>
 <div id="tieude">
     <h1>Trả sách</h1>
@@ -97,7 +116,7 @@
     </h4>
 </div>
 <section ng-app="postApp" ng-controller="postController">
-    <form class="form-inline" id="sach" method="post" action="/Home/NhapPhieuTra">
+    <form class="form" id="sach" method="post" action="/Home/NhapPhieuTra">
         <div id="thongtindocgia" class="col-lg-3">
             <h3>Tìm kiếm đọc giả</h3>
             <div class="form-group">
@@ -116,9 +135,9 @@
         <div id="timkiemsach" class="col-lg-9">
             <h3>Nhập thông tin sách</h3>
             <div class="form-group">
-                <label class="sr-only" for="exampleInputEmail3">Mã sách</label>
-                <input type="text" class="form-control" id="masach" name="masach" placeholder="Mã sách">
-
+                <label class="sr-only" for="exampleInputEmail3">Tên sách</label>
+                <input type="text" id="txttimkiemsach" onkeyup="timkiemsach()" class="form-control" placeholder="Tên sách">
+                <select size="5" id="thongtinsach1" class="form-control" style="width: 400px"> </select>
                 <select id="thongtinsach" style="display:none">
                     @foreach (var item in Model)
                     {
