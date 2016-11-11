@@ -20,20 +20,6 @@ namespace Model4
             this.PhieuMuons = new HashSet<PhieuMuon>();
             this.PhieuTras = new HashSet<PhieuTra>();
         }
-        public DocGia(DocGia dg)
-        {
-            this.ID = dg.ID;
-            this.Email = dg.Email;
-            this.HoTen = dg.HoTen;
-            this.DiaChi = dg.DiaChi;
-            this.NamTotNghiep = dg.NamTotNghiep;
-            this.NgayGioiHan = dg.NgayGioiHan;
-            this.NgayCapThe = dg.NgayCapThe;
-            this.SLuongGioiHan = dg.SLuongGioiHan;
-            this.SDT = dg.SDT;
-            this.NgayHetHan = dg.NgayHetHan;
-
-        }
     
         public string ID { get; set; }
         public string HoTen { get; set; }

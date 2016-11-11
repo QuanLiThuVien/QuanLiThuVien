@@ -243,7 +243,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="QuanLiThuVienEntities1" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="QuanLiThuVienEntities2" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="ChiTietPhieuMuons" EntityType="Self.ChiTietPhieuMuon" />
     <EntitySet Name="ChiTietPhieuTras" EntityType="Self.ChiTietPhieuTra" />
     <EntitySet Name="DauSaches" EntityType="Self.DauSach" />
@@ -344,12 +344,13 @@
     <Property Type="Double" Name="SoLuong" Nullable="true" />
   </ComplexType>
   <ComplexType Name="sp_SoLuongDauSach_Result">
+    <Property Type="Int64" Name="ID" Nullable="false" />
     <Property Type="String" Name="Ten" Nullable="true" />
+    <Property Type="Int64" Name="ID_TacGia" Nullable="true" />
     <Property Type="Int64" Name="Loai" Nullable="true" />
     <Property Type="String" Name="TrangThai" Nullable="true" MaxLength="250" />
     <Property Type="String" Name="MieuTa" Nullable="true" />
     <Property Type="Double" Name="Soluong" Nullable="true" />
-    <Property Type="Int64" Name="ID" Nullable="false" />
   </ComplexType>
   <ComplexType Name="sp_SoLuongMuon_Result">
     <Property Type="Double" Name="SoLuong" Nullable="true" />

@@ -92,7 +92,7 @@
     <h4>
         B1: Thủ thư nhập thông tin phiếu trả như yêu cầu.<br /><br />
         B2: Thủ thư bấm thêm để thêm thông tin sách cần trả. <br /><br />
-        B3: Thủ thư bấm xuất phiếu trả để hoàn tất việc trả sách.
+        B3: Thủ thư bấm lưu phiếu trả để hoàn tất việc trả sách.
 
     </h4>
 </div>
@@ -118,6 +118,7 @@
             <div class="form-group">
                 <label class="sr-only" for="exampleInputEmail3">Mã sách</label>
                 <input type="text" class="form-control" id="masach" name="masach" placeholder="Mã sách">
+
                 <select id="thongtinsach" style="display:none">
                     @foreach (var item in Model)
                     {

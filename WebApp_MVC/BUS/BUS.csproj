@@ -49,11 +49,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bus_docgia.cs" />
     <Compile Include="Bus_quanly.cs" />
     <Compile Include="Bus_suasach.cs" />
     <Compile Include="Bus_themsach.cs" />
-    <Compile Include="Bus_thongke.cs" />
     <Compile Include="Bus_xoasach.cs" />
     <Compile Include="DTO\DauSachInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -65,10 +63,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DAO\DAO.csproj">
-      <Project>{0001e250-3d57-4816-8074-5defac1f1684}</Project>
-      <Name>DAO</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Model4\Model4.csproj">
       <Project>{6093ebc7-3fbb-4618-9e78-8ad81241c7d4}</Project>
       <Name>Model4</Name>

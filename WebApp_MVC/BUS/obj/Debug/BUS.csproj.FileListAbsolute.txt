@@ -1,11 +1,9 @@
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\BUS\bin\Debug\BUS.dll.config
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\BUS\bin\Debug\BUS.dll
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\BUS\bin\Debug\BUS.pdb
-C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\BUS\bin\Debug\DAO.dll
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\BUS\bin\Debug\EntityFramework.dll
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\BUS\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\BUS\bin\Debug\Model4.dll
-C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\BUS\bin\Debug\DAO.pdb
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\BUS\bin\Debug\Model4.pdb
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\BUS\bin\Debug\EntityFramework.xml
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\BUS\bin\Debug\EntityFramework.SqlServer.xml

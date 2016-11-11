@@ -9,7 +9,7 @@ namespace BUS
 {
      public class Bus_xoasach
     {
-        QuanLiThuVienEntities1 db = new QuanLiThuVienEntities1();
+        QuanLiThuVienEntities2 db = new QuanLiThuVienEntities2();
         public bool xoasach(long id)
         {
             try

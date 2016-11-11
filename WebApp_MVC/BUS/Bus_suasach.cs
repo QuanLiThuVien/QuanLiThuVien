@@ -9,7 +9,7 @@ namespace BUS
 {
      public class Bus_suasach
     {
-        QuanLiThuVienEntities1 db = new QuanLiThuVienEntities1();
+        QuanLiThuVienEntities2 db = new QuanLiThuVienEntities2();
        public DauSach timkiem(long id)
         {
             var query = from b in db.DauSaches

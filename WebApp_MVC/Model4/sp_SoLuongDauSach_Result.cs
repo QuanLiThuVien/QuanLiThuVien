@@ -13,11 +13,12 @@ namespace Model4
     
     public partial class sp_SoLuongDauSach_Result
     {
+        public long ID { get; set; }
         public string Ten { get; set; }
+        public Nullable<long> ID_TacGia { get; set; }
         public Nullable<long> Loai { get; set; }
         public string TrangThai { get; set; }
         public string MieuTa { get; set; }
         public Nullable<double> Soluong { get; set; }
-        public long ID { get; set; }
     }
 }

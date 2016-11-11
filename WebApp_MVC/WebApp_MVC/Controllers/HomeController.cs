@@ -12,7 +12,7 @@ namespace WebApp_MVC.Controllers
 {
     public class HomeController : Controller
     {
-        QuanLiThuVienEntities1 db = new QuanLiThuVienEntities1();
+        QuanLiThuVienEntities2 db = new QuanLiThuVienEntities2();
         public ActionResult Index()
         {
             return View();

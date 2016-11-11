@@ -15,10 +15,10 @@ namespace Model4
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class QuanLiThuVienEntities1 : DbContext
+    public partial class QuanLiThuVienEntities2 : DbContext
     {
-        public QuanLiThuVienEntities1()
-            : base("name=QuanLiThuVienEntities1")
+        public QuanLiThuVienEntities2()
+            : base("name=QuanLiThuVienEntities2")
         {
         }
     
