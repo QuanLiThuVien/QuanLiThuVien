@@ -39,8 +39,22 @@ namespace BUS
         {
             try
             {
-                var dausach = db.DauSaches.Find(ds.ID);
+                var dausach = (from n in db.DauSaches
+                               where n.Ten.Equals(ds.Ten)
+                               select new DauSach
+                               {
+                                   Soluong=n.Soluong,
+                                   ID_TacGia=n.ID_TacGia,
+                                   Loai=n.Loai,
+                                   TrangThai=n.TrangThai,
+                                   MieuTa=n.MieuTa,     
+                               }).FirstOrDefault();
+
                 dausach.Soluong = dausach.Soluong + ds.Soluong;
+                dausach.ID_TacGia = ds.ID_TacGia;
+                dausach.Loai = ds.Loai;
+                dausach.TrangThai = ds.TrangThai;
+                dausach.MieuTa = ds.MieuTa;
                 db.Entry(dausach).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 for (var i = 0; i < ds.Soluong; i++)
@@ -70,10 +84,5 @@ namespace BUS
             var list = db.TacGias.ToList();
             return list;
         }
-        public long iddausach(string ten)
-        {
-            return db.DauSaches.Where(n => n.Ten.Equals(ten)).Select(i => i.ID).FirstOrDefault();
-        }
-       
     }
 }
