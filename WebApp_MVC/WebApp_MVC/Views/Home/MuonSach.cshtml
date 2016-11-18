@@ -20,9 +20,6 @@
          $scope.timkiemdocgia = function (value) {
              $scope.docgia = $filter('filter')($scope.list_docgia, value);
          };
-        
-
-
      }]);
 </script>
 <script>
@@ -147,7 +144,7 @@
 
         </h4>
     </div> 
-    <form class="form" id="sach" method="post" action="/Home/NhapPhieuMuon">
+    <form class="form" id="sach" method="post" action="/Home/MuonSach">
      <div id="thongtindocgia" class="col-lg-3">
             <h3>Tìm kiếm đọc giả</h3>
             <div class="form-group">
@@ -162,7 +159,8 @@
                 <p>Tên đọc giả:{{item.HoTen}}</p>
                 <p>Ngày hết hạn:{{item.NgayHetHan}}</p>
                 <p>Ngày giới hạn:{{item.NgayGioiHan}}<input type="hidden" id="ngaygioihan" value="{{item.NgayGioiHan}}" /></p>
-            </div>
+           
+             </div>
         </div>
      <div id="timkiemsach" class="col-lg-9">
             <h3>Nhập thông tin sách</h3>
@@ -181,6 +179,7 @@
             </div>
             <button type="button" class="btn btn-default" onclick="themsach()">Thêm</button>
             <br />
+         @Html.ValidationSummary()
             <h3>Thông tin phiếu mượn</h3>
 
             <table class="table table-hover" id="thongtinphieumuon" width="400">

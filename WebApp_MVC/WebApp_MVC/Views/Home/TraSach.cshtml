@@ -41,7 +41,7 @@
             mm = '0' + mm
         }
         var ngaytra = "";
-        ngaytra = dd + '/' + mm + '/' + yyyy;
+        ngaytra = mm + '/' + dd + '/' + yyyy;
         var soluong = Number(document.getElementById("soluong").value);
         soluong = soluong + 1;
         var thongtinsach = document.getElementById("thongtinsach1").value;
@@ -116,7 +116,7 @@
     </h4>
 </div>
 <section ng-app="postApp" ng-controller="postController">
-    <form class="form" id="sach" method="post" action="/Home/NhapPhieuTra">
+    <form class="form" id="sach" method="post" action="/Home/TraSach">
         <div id="thongtindocgia" class="col-lg-3">
             <h3>Tìm kiếm đọc giả</h3>
             <div class="form-group">
@@ -150,6 +150,7 @@
             <button type="button" class="btn btn-default" onclick="themsach()">Thêm</button>
             <br />
             <h3>Thông tin phiếu trả</h3>
+            @Html.ValidationSummary()
             <table class="table table-hover" id="thongtinphieutra" width="400">
                 <thead>
                     <tr>

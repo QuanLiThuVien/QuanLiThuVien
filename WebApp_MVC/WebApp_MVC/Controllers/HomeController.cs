@@ -35,9 +35,12 @@ namespace WebApp_MVC.Controllers
             return View( model);
         }
         [HttpPost]
-        public ActionResult NhapPhieuMuon(FormCollection form)
+        public ActionResult MuonSach(FormCollection form)
         {
-            
+            try
+            {
+
+
                 var idphieumuon = db.PhieuMuons.OrderByDescending(i => i.ID).Select(i => i.ID).FirstOrDefault();
                 idphieumuon = idphieumuon + 1;
                 // nhận dữ liệu từ form
@@ -69,7 +72,7 @@ namespace WebApp_MVC.Controllers
                     db.ChiTietPhieuMuons.Add(chitietphieumuon);
                     db.SaveChanges();
                 }
-                for(var i=0;i<aidsach.Length;i++)
+                for (var i = 0; i < aidsach.Length; i++)
                 {
                     long myId = Convert.ToInt32(aidsach[i]);
                     var query = from b in db.Saches
@@ -78,9 +81,16 @@ namespace WebApp_MVC.Controllers
                     Sach a = query.FirstOrDefault();
                     a.TinhTrang = "Đã Mượn";
                     db.SaveChanges();
+                }
+                ModelState.AddModelError("", "Thêm thành công");
+                return RedirectToAction("MuonSach");
+
             }
-            ViewBag.Thongbao = "Thêm phiếu mượn thành công";
-            return RedirectToAction("MuonSach");
+            catch(Exception)
+            {
+                ModelState.AddModelError("", "Thao tác thất bại");
+                return RedirectToAction("MuonSach");
+            }
         }
         public ActionResult TraSach()
         {
@@ -96,56 +106,69 @@ namespace WebApp_MVC.Controllers
             return View(model);
         }
         [HttpPost]
-        public ActionResult NhapPhieuTra()
+        public ActionResult TraSach(FormCollection form)
         {
-            var idphieutra = db.PhieuTras.OrderByDescending(i => i.ID).Select(i => i.ID).FirstOrDefault();
-            idphieutra = idphieutra + 1;
-            // nhận dữ liệu từ form
-            var iddocgia = Request.Form["madocgia"];
-            var idsach = Request.Form["ma"];
-            string[] aidsach = idsach.Split(new Char[] { ',' });
-            var iddausach = Request.Form["iddausach"];
-            string[] aiddausach = iddausach.Split(new Char[] { ',' });
-            var tensach = Request.Form["ten"];
-            var ngaytra = Request.Form["ngaytra"];
-            string[] angaytra = ngaytra.Split(new Char[] { ',' });
-            // tạo đối tượng insert vào database
-            // tạo đối tượng phiếu trả và insert vào database
-            db.NhapPhieuTra(iddocgia,angaytra[0]);
-            db.SaveChanges();
-            // tạo đối tượng chi tiết phiếu mượn và insert vào database
-            for (var i = 0; i < aiddausach.Length; i++)
+            try
             {
-                var chitietphieutra = new ChiTietPhieuTra();
-                chitietphieutra.ID_PhieuTra = idphieutra;
-                chitietphieutra.ID_Sach = Convert.ToInt64(aidsach[i]);
-                chitietphieutra.ID_DauSach = Convert.ToInt64(aiddausach[i]);
-                chitietphieutra.SoLuong = 1;
-                db.ChiTietPhieuTras.Add(chitietphieutra);
+                var idphieutra = db.PhieuTras.OrderByDescending(i => i.ID).Select(i => i.ID).FirstOrDefault();
+                //idphieutra = idphieutra + 1;
+                // nhận dữ liệu từ form
+                var iddocgia = Request.Form["madocgia"];
+                var idsach = Request.Form["ma"];
+                string[] aidsach = idsach.Split(new Char[] { ',' });
+                var iddausach = Request.Form["iddausach"];
+                string[] aiddausach = iddausach.Split(new Char[] { ',' });
+                var tensach = Request.Form["ten"];
+                var ngaytra = Request.Form["ngaytra"];
+                string[] angaytra = ngaytra.Split(new Char[] { ',' });
+                // tạo đối tượng insert vào database
+                // tạo đối tượng phiếu trả và insert vào database
+                db.NhapPhieuTra(iddocgia, angaytra[0]);
                 db.SaveChanges();
+                // tạo đối tượng chi tiết phiếu mượn và insert vào database
+                for (var i = 0; i < aiddausach.Length; i++)
+                {
+                    var chitietphieutra = new ChiTietPhieuTra();
+                    chitietphieutra.ID_PhieuTra = idphieutra;
+                    chitietphieutra.ID_Sach = Convert.ToInt64(aidsach[i]);
+                    chitietphieutra.ID_DauSach = Convert.ToInt64(aiddausach[i]);
+                    chitietphieutra.SoLuong = 1;
+                    db.ChiTietPhieuTras.Add(chitietphieutra);
+                    db.SaveChanges();
+                }
+                for (var i = 0; i < aidsach.Length; i++)
+                {
+                    long myId = Convert.ToInt32(aidsach[i]);
+                    var query = from b in db.Saches
+                                where b.ID == myId
+                                select b;
+                    Sach a = query.FirstOrDefault();
+                    a.TinhTrang = "Khả Dụng";
+                    db.SaveChanges();
+                }
+                for (var i = 0; i < aidsach.Length; i++)
+                {
+                    long myId = Convert.ToInt32(aidsach[i]);
+                    var query = from b in db.ChiTietPhieuMuons
+                                where b.ID_Sach == myId
+                                select b;
+                    ChiTietPhieuMuon a = query.FirstOrDefault();
+                    a.TinhTrang = "Đã Trả";
+                    db.SaveChanges();
+                }
+                ModelState.AddModelError("","Thêm thành công");
+                return RedirectToAction("TraSach");
+              
             }
-            for (var i = 0; i < aidsach.Length; i++)
+            catch (Exception)
             {
-                long myId = Convert.ToInt32(aidsach[i]);
-                var query = from b in db.Saches
-                            where b.ID == myId
-                            select b;
-                Sach a = query.FirstOrDefault();
-                a.TinhTrang = "Khả Dụng";
-                db.SaveChanges();
+                ModelState.AddModelError("", "Thao tác thất bại");
+                return RedirectToAction("Trasach");
+
+
             }
-            for (var i = 0; i < aidsach.Length; i++)
-            {
-                long myId = Convert.ToInt32(aidsach[i]);
-                var query = from b in db.ChiTietPhieuMuons
-                            where b.ID_Sach == myId
-                            select b;
-                ChiTietPhieuMuon a = query.FirstOrDefault();
-                a.TinhTrang = "Đã Trả";
-                db.SaveChanges();
-            }
-            return RedirectToAction("TraSach");
         }
+        
         public ActionResult ThongKe()
         {
             return View();
@@ -161,7 +184,9 @@ namespace WebApp_MVC.Controllers
             string ngaykethuc= angaykethuc[1] + "/" +angaykethuc[2] + "/" + angaykethuc[0];
             string ngaybatdau2 = angaybatdau[2] + "/" + angaybatdau[1] + "/" + angaybatdau[0];
             string ngaykethuc2  = angaykethuc[2] + "/" + angaykethuc[1] + "/" + angaykethuc[0];
-            var ketqua = db.sp_DanhSachSachMuon(ngaybatdau, ngaykethuc);
+            var ketqua = (from n in db.sp_DanhSachSachMuon(ngaybatdau1, ngaykethuc1)
+                          .OrderBy(n => n.ID)
+                          select n).ToList();
             ViewBag.NgayBatDau = ngaybatdau2;
             ViewBag.NgayKetThuc = ngaykethuc2;
             return View("ThongKe",ketqua);
