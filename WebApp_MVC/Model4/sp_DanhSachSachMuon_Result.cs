@@ -18,5 +18,6 @@ namespace Model4
         public string Ten { get; set; }
         public Nullable<System.DateTime> NgayMuon { get; set; }
         public Nullable<double> SoLuong { get; set; }
+        public string TinhTrang { get; set; }
     }
 }

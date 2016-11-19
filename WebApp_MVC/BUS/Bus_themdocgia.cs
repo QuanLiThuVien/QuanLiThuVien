@@ -9,19 +9,19 @@ namespace BUS
 {
      public class Bus_themdocgia
     {
-        QuanLiThuVienEntities1 db = new QuanLiThuVienEntities1();
+        QuanLiThuVienEntities db = new QuanLiThuVienEntities();
         public bool themdocgia(DocGia dg)
         {
-           try
-            {
+           //try
+            //{
                 db.DocGias.Add(dg);
                 db.SaveChanges();
                 return true;
-            }
-            catch(Exception)
-            {
-                return false;
-            }
+            //}
+            //catch(Exception)
+            //{
+                //return false;
+           // }
 
 
 

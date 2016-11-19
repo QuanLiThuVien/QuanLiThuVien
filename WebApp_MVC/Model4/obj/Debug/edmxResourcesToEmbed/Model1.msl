@@ -111,6 +111,7 @@
           <ScalarProperty Name="Ten" ColumnName="Ten" />
           <ScalarProperty Name="NgayMuon" ColumnName="NgayMuon" />
           <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+          <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -160,6 +161,10 @@
           <ScalarProperty Name="ID_DauSach" ColumnName="ID_DauSach" />
           <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
           <ScalarProperty Name="Ten" ColumnName="Ten" />
+          <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+          <ScalarProperty Name="NgayGioiHan" ColumnName="NgayGioiHan" />
+          <ScalarProperty Name="NgayHetHan" ColumnName="NgayHetHan" />
+          <ScalarProperty Name="SLuongGioiHan" ColumnName="SLuongGioiHan" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

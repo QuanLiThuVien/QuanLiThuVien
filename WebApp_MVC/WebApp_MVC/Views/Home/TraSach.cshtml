@@ -9,20 +9,30 @@
     angular.module('postApp', [])
      .controller('postController', ['$scope', '$http', '$filter', function ($scope, $http, $filter) {
          //load danh sách đọc giả
-         $scope.list_docgia = [];
+
+         $scope.list_docgia1 = [];
          $http.get('/Home/thongtindocgia').then(function (response) {
+             $scope.list_docgia1 = response.data;
+         }, function (response) {
+             //Showing errors
+         });
+
+         $scope.list_docgia = [];
+         $http.get('/Home/thongtindocgia1').then(function (response) {
              $scope.list_docgia = response.data;
          }, function (response) {
              //Showing errors
          });
+
          // tìm kiếm thông tin đọc giả
          //array did filter
          $scope.docgia = [];
+         $scope.docgia = [];
          $scope.timkiemdocgia = function (value) {
              $scope.docgia = $filter('filter')($scope.list_docgia, value);
+             $scope.docgia1 = $filter('filter')($scope.list_docgia1, value);
+
          };
-
-
 
      }]);
 </script>
@@ -106,31 +116,41 @@
 <div id="tieude">
     <h1>Trả sách</h1>
 </div><hr />
-<div id="huongdansudung">
-    <h3>Hướng dẫn sử dụng</h3>
-    <h4>
-        B1: Thủ thư nhập thông tin phiếu trả như yêu cầu.<br /><br />
-        B2: Thủ thư bấm thêm để thêm thông tin sách cần trả. <br /><br />
-        B3: Thủ thư bấm lưu phiếu trả để hoàn tất việc trả sách.
 
-    </h4>
-</div>
 <section ng-app="postApp" ng-controller="postController">
     <form class="form" id="sach" method="post" action="/Home/TraSach">
         <div id="thongtindocgia" class="col-lg-3">
             <h3>Tìm kiếm đọc giả</h3>
             <div class="form-group">
                 <label>
-                    <input type="text" ng-model="timkiem" name="madocgia" class="form-control" placeholder="Nhập mã độc giả" /><br />
+                    <input type="text" ng-model="timkiem" name="madocgia" id="madocgia" class="form-control" placeholder="Nhập mã độc giả" /><br />
                     <br />
-                    <button class="btn btn-default" type="button" ng-click="timkiemdocgia(timkiem)">Tìm kiếm</button>
+                    <button type="button" class="btn btn-default" ng-click="timkiemdocgia(timkiem)">Tìm kiếm</button>
                 </label>
             </div>
-            <div class="model-body" ng-repeat="item in docgia">
+
+            <div class="model-body" ng-repeat="item1 in docgia1">
                 <h3>Thông tin đọc giả</h3>
-                <p>Tên đọc giả:{{item.HoTen}}</p>
-                <p>Ngày hết hạn:{{item.NgayHetHan}}</p>
+                <p>Tên đọc giả:{{item1.Hoten}}</p>
+                <p>Ngày hết hạn:{{item1.ngayhethan}}</p>
+                <p>
+                    Ngày giới hạn:{{item1.ngaygioihan}}
+                    <input type="hidden" id="ngaygioihan" value="{{item1.ngaygioihan}}" />
+                </p>
+                <p>Số lượng giới hạn:{{item1.slgioihan}}</p>
+                <p>Danh sách sách còn nợ</p>
+                <table class="table table-hover">
+                    <tr>
+                        <th>Tên sách</th>
+                        <th>Tình trạng</th>
+                    </tr>
+                    <tr ng-repeat="item in docgia">
+                        <td>{{item.Ten}}</td>
+                        <td>{{item.TinhTrang}}</td>
+                    </tr>
+                </table>
             </div>
+
         </div>
         <div id="timkiemsach" class="col-lg-9">
             <h3>Nhập thông tin sách</h3>

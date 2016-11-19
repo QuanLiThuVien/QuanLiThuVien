@@ -12,16 +12,7 @@ function xuatexcel(ketqua){
 </script>
 <div id="tieude">
     <h1>Thống kê số lượng sách mượn đọc giả</h1>
-</div>
-<div id="huongdansudung">
-    <h3>Hướng dẫn sử dụng</h3>
-    <h4>
-        B1: Thủ thư sẽ nhập ngày bắt đầu và ngày kết thúc cần thống kê.
-        <br />
-        B2:Thủ thư bấm thống kê để tiến hành thống kê.<br />
-        B3: Thủ thư bấm xuất file excel để xuất kết quả thống kê ra file excel.
-    </h4>
-</div>
+</div><hr />
 <div id="nhapthongtin" class="col-lg-4">
         <h1>Nhập thông tin</h1>
         <form method="post" action="/Home/NhapThongKe">
@@ -47,6 +38,7 @@ function xuatexcel(ketqua){
                 <th>Tên sách</th>
                 <th>Ngày mượn</th>
                 <th>Số lượng</th>
+                <th>Tình Trạng</th>
             </tr>
                 @if (Model != null)
                 {
@@ -58,6 +50,7 @@ function xuatexcel(ketqua){
                     <td>@item.Ten</td>
                     <td>@Html.FormatValue(item.NgayMuon,"{0:dd/MM/yyyy}")</td>
                     <td>@item.SoLuong</td>
+                    <td>@item.TinhTrang</td>
                 </tr>
                     }             
                 }

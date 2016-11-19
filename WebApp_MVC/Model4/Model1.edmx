@@ -569,7 +569,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="QuanLiThuVienEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="QuanLiThuVienEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ChiTietPhieuMuons" EntityType="Self.ChiTietPhieuMuon" />
           <EntitySet Name="ChiTietPhieuTras" EntityType="Self.ChiTietPhieuTra" />
           <EntitySet Name="DauSaches" EntityType="Self.DauSach" />
@@ -670,6 +670,7 @@
           <Property Type="String" Name="Ten" Nullable="true" />
           <Property Type="DateTime" Name="NgayMuon" Nullable="true" Precision="23" />
           <Property Type="Double" Name="SoLuong" Nullable="true" />
+          <Property Type="String" Name="TinhTrang" Nullable="true" MaxLength="250" />
         </ComplexType>
         <ComplexType Name="sp_SoLuongDauSach_Result">
           <Property Type="Int64" Name="ID" Nullable="false" />
@@ -722,7 +723,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="QuanLiThuVienModelStoreContainer" CdmEntityContainer="QuanLiThuVienEntities1">
+        <EntityContainerMapping StorageEntityContainer="QuanLiThuVienModelStoreContainer" CdmEntityContainer="QuanLiThuVienEntities">
           <EntitySetMapping Name="ChiTietPhieuMuons">
             <EntityTypeMapping TypeName="QuanLiThuVienModel.ChiTietPhieuMuon">
               <MappingFragment StoreEntitySet="ChiTietPhieuMuon">
@@ -833,6 +834,7 @@
                 <ScalarProperty Name="Ten" ColumnName="Ten" />
                 <ScalarProperty Name="NgayMuon" ColumnName="NgayMuon" />
                 <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

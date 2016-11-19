@@ -10,7 +10,7 @@ namespace BUS
 {
      public class Bus_suadocgia
     {
-        QuanLiThuVienEntities1 db = new QuanLiThuVienEntities1();
+        QuanLiThuVienEntities db = new QuanLiThuVienEntities();
         public DocGia timkiemdocgia(string id)
         {
             return db.DocGias.Find(id);

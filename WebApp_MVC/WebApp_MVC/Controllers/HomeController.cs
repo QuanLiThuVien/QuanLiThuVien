@@ -12,10 +12,24 @@ namespace WebApp_MVC.Controllers
 {
     public class HomeController : Controller
     {
-        QuanLiThuVienEntities1 db = new QuanLiThuVienEntities1();
+        QuanLiThuVienEntities db = new QuanLiThuVienEntities();
         public ActionResult Index()
         {
             return View();
+        }
+        public JsonResult thongtindocgia()
+        {
+            var list2 = (from n in db.DocGias
+                         select new docgiainfo
+                         {
+                             ID = n.ID,
+                             Hoten = n.HoTen,
+                             ngayhethan = n.NgayHetHan,
+                             slgioihan = n.SLuongGioiHan,
+                             ngaygioihan=n.NgayGioiHan
+
+                         }).ToList();
+            return new JsonResult { Data = list2, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
         public JsonResult thongtindocgia1()
         {
@@ -23,7 +37,7 @@ namespace WebApp_MVC.Controllers
             var thang = DateTime.Now.Month;
             var nam = DateTime.Now.Year;
             var ngaythang = thang + "/" + ngay + "/" + nam;
-            var list2 = db.sp_thongtindocgia(ngaythang).ToList();
+            var list2 = db.sp_thongtindocgia(ngaythang).Where(n => n.TinhTrang == "Chưa trả").ToList();
             return new JsonResult { Data = list2, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }
@@ -44,8 +58,6 @@ namespace WebApp_MVC.Controllers
         {
             try
             {
-
-
                 var idphieumuon = db.PhieuMuons.OrderByDescending(i => i.ID).Select(i => i.ID).FirstOrDefault();
                 idphieumuon = idphieumuon + 1;
                 // nhận dữ liệu từ form

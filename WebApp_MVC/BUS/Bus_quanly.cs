@@ -9,7 +9,7 @@ namespace BUS
 {
      public class Bus_quanly
     {
-        QuanLiThuVienEntities1 db = new QuanLiThuVienEntities1();
+        QuanLiThuVienEntities db = new QuanLiThuVienEntities();
         public List<DocGia> dsdocgia()
         {
             return db.DocGias.ToList();
@@ -96,6 +96,14 @@ namespace BUS
                     slds[i].Soluong = slds[i].Soluong + sltra1.ElementAt(i).SoLuong;
                 }
             }
+            for (var i = 0; i < slds.Count; i++)
+            {
+                if (slds[i].Soluong<0)
+                {
+                    slds[i].Soluong = 0;
+                }
+            }
+
             return slds;
         }
     }

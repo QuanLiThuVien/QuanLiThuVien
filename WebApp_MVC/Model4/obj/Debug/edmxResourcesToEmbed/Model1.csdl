@@ -344,6 +344,7 @@
     <Property Type="String" Name="Ten" Nullable="true" />
     <Property Type="DateTime" Name="NgayMuon" Nullable="true" Precision="23" />
     <Property Type="Double" Name="SoLuong" Nullable="true" />
+    <Property Type="String" Name="TinhTrang" Nullable="true" MaxLength="250" />
   </ComplexType>
   <ComplexType Name="sp_SoLuongDauSach_Result">
     <Property Type="Int64" Name="ID" Nullable="false" />
@@ -373,6 +374,10 @@
     <Property Type="Int64" Name="ID_DauSach" Nullable="true" />
     <Property Type="String" Name="TinhTrang" Nullable="true" MaxLength="250" />
     <Property Type="String" Name="Ten" Nullable="true" />
+    <Property Type="String" Name="HoTen" Nullable="true" MaxLength="100" />
+    <Property Type="Double" Name="NgayGioiHan" Nullable="true" />
+    <Property Type="String" Name="NgayHetHan" Nullable="true" MaxLength="50" />
+    <Property Type="Double" Name="SLuongGioiHan" Nullable="true" />
   </ComplexType>
   <ComplexType Name="sp_thongtinsach_Result">
     <Property Type="Int64" Name="ID" Nullable="false" />
