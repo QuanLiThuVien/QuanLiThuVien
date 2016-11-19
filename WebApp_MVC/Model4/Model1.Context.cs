@@ -15,10 +15,10 @@ namespace Model4
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class QuanLiThuVienEntities2 : DbContext
+    public partial class QuanLiThuVienEntities1 : DbContext
     {
-        public QuanLiThuVienEntities2()
-            : base("name=QuanLiThuVienEntities2")
+        public QuanLiThuVienEntities1()
+            : base("name=QuanLiThuVienEntities1")
         {
         }
     
@@ -158,9 +158,13 @@ namespace Model4
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_SoLuongTra_Result>("sp_SoLuongTra", ngayParameter);
         }
     
-        public virtual ObjectResult<sp_thongtindocgia_Result> sp_thongtindocgia()
+        public virtual ObjectResult<sp_thongtindocgia_Result> sp_thongtindocgia(string ngaymuon)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_thongtindocgia_Result>("sp_thongtindocgia");
+            var ngaymuonParameter = ngaymuon != null ?
+                new ObjectParameter("ngaymuon", ngaymuon) :
+                new ObjectParameter("ngaymuon", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_thongtindocgia_Result>("sp_thongtindocgia", ngaymuonParameter);
         }
     
         public virtual ObjectResult<sp_thongtinsach_Result> sp_thongtinsach()

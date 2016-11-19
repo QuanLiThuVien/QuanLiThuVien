@@ -10,16 +10,47 @@
          $scope.list_docgia = [];
          $http.get('/Home/thongtindocgia').then(function (response) {
              $scope.list_docgia = response.data;
+             console.log($scope.list_docgia);
          }, function (response) {
              //Showing errors
          });
+
         
          // tìm kiếm thông tin đọc giả
          //array did filter
          $scope.docgia = [];
          $scope.timkiemdocgia = function (value) {
              $scope.docgia = $filter('filter')($scope.list_docgia, value);
+             
          };
+         //$scope.submitForm = function () {
+         //    //if ($scope.thongtinphieumuon.$valid) {
+         //    //    var mact = document.getElementById("mact").value;
+         //    //    var 
+
+         //    //    console.log(mact);
+         //    //    var postdata = {
+         //    //        MaCT: mact
+         //    //    };
+         //    //    $http({
+         //    //        method: 'POST',
+         //    //        url: '/Home/MuonSach',
+         //    //        data: JSON.stringify(postdata),
+         //    //        headers: { 'Content-Type': 'application/json' }
+         //    //    })
+         //    //        .success(function (result) {
+         //    //            if (result == "ok") {
+         //    //                alert("Xóa thành công");
+         //    //                window.location.href = "/CongTrinh/Index";
+         //    //            }
+         //    //            else {
+         //    //                alert("Xảy ra lỗi");
+         //    //                return;
+
+         //    //            }
+         //    //        });
+         //    //}
+         //};
      }]);
 </script>
 <script>
@@ -159,8 +190,15 @@
                 <p>Tên đọc giả:{{item.HoTen}}</p>
                 <p>Ngày hết hạn:{{item.NgayHetHan}}</p>
                 <p>Ngày giới hạn:{{item.NgayGioiHan}}<input type="hidden" id="ngaygioihan" value="{{item.NgayGioiHan}}" /></p>
-           
-             </div>
+                <p>Danh sách sách còn nợ</p>
+                <table class="table table-hover">
+                    <tr>
+                        <th>Tên sách</th>
+                        <th>Tình trạng</th>
+                    </tr>
+                </table>
+            </div>
+         
         </div>
      <div id="timkiemsach" class="col-lg-9">
             <h3>Nhập thông tin sách</h3>

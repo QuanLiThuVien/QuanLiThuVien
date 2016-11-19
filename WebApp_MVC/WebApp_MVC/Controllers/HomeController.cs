@@ -12,15 +12,20 @@ namespace WebApp_MVC.Controllers
 {
     public class HomeController : Controller
     {
-        QuanLiThuVienEntities2 db = new QuanLiThuVienEntities2();
+        QuanLiThuVienEntities1 db = new QuanLiThuVienEntities1();
         public ActionResult Index()
         {
             return View();
         }
-        public JsonResult thongtindocgia()
+        public JsonResult thongtindocgia1()
         {
-           var list2 = db.sp_thongtindocgia().ToList();
-           return new JsonResult { Data = list2, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            var ngay = DateTime.Now.Day;
+            var thang = DateTime.Now.Month;
+            var nam = DateTime.Now.Year;
+            var ngaythang = thang + "/" + ngay + "/" + nam;
+            var list2 = db.sp_thongtindocgia(ngaythang).ToList();
+            return new JsonResult { Data = list2, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
         }
         public ActionResult MuonSach()
         {

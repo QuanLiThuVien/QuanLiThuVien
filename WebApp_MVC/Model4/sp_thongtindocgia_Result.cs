@@ -13,15 +13,13 @@ namespace Model4
     
     public partial class sp_thongtindocgia_Result
     {
-        public string ID { get; set; }
+        public string ID_DocGia { get; set; }
+        public Nullable<long> ID_DauSach { get; set; }
+        public string TinhTrang { get; set; }
+        public string Ten { get; set; }
         public string HoTen { get; set; }
-        public string DiaChi { get; set; }
-        public string SDT { get; set; }
-        public string NgayCapThe { get; set; }
-        public string NgayHetHan { get; set; }
-        public string NamTotNghiep { get; set; }
-        public string Email { get; set; }
-        public Nullable<double> SLuongGioiHan { get; set; }
         public Nullable<double> NgayGioiHan { get; set; }
+        public string NgayHetHan { get; set; }
+        public Nullable<double> SLuongGioiHan { get; set; }
     }
 }

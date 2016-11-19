@@ -262,7 +262,9 @@
         <Function Name="sp_SoLuongTra" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ngay" Type="nvarchar" Mode="In" />
         </Function>
-        <Function Name="sp_thongtindocgia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_thongtindocgia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ngaymuon" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="sp_thongtinsach" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="QuanLiThuVienModelStoreContainer">
           <EntitySet Name="ChiTietPhieuMuon" EntityType="Self.ChiTietPhieuMuon" Schema="dbo" store:Type="Tables" />
@@ -567,7 +569,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="QuanLiThuVienEntities2" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="QuanLiThuVienEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ChiTietPhieuMuons" EntityType="Self.ChiTietPhieuMuon" />
           <EntitySet Name="ChiTietPhieuTras" EntityType="Self.ChiTietPhieuTra" />
           <EntitySet Name="DauSaches" EntityType="Self.DauSach" />
@@ -657,7 +659,9 @@
           <FunctionImport Name="sp_SoLuongTra" ReturnType="Collection(QuanLiThuVienModel.sp_SoLuongTra_Result)">
             <Parameter Name="ngay" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="sp_thongtindocgia" ReturnType="Collection(QuanLiThuVienModel.sp_thongtindocgia_Result)" />
+          <FunctionImport Name="sp_thongtindocgia" ReturnType="Collection(QuanLiThuVienModel.sp_thongtindocgia_Result)">
+            <Parameter Name="ngaymuon" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="sp_thongtinsach" ReturnType="Collection(QuanLiThuVienModel.sp_thongtinsach_Result)" />
         </EntityContainer>
         <ComplexType Name="sp_DanhSachSachMuon_Result">
@@ -684,22 +688,21 @@
           <Property Type="Double" Name="SoLuong" Nullable="true" />
           <Property Type="String" Name="ID_DocGia" Nullable="true" MaxLength="20" />
           <Property Type="String" Name="HoTen" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="TinhTrang" Nullable="true" MaxLength="250" />
         </ComplexType>
         <ComplexType Name="sp_SoLuongTra_Result">
           <Property Type="Double" Name="SoLuong" Nullable="true" />
           <Property Type="Int64" Name="ID_DauSach" Nullable="true" />
         </ComplexType>
         <ComplexType Name="sp_thongtindocgia_Result">
-          <Property Type="String" Name="ID" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="ID_DocGia" Nullable="true" MaxLength="20" />
+          <Property Type="Int64" Name="ID_DauSach" Nullable="true" />
+          <Property Type="String" Name="TinhTrang" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Ten" Nullable="true" />
           <Property Type="String" Name="HoTen" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="DiaChi" Nullable="true" MaxLength="250" />
-          <Property Type="String" Name="SDT" Nullable="true" MaxLength="11" />
-          <Property Type="String" Name="NgayCapThe" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="NgayHetHan" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="NamTotNghiep" Nullable="true" MaxLength="4" />
-          <Property Type="String" Name="Email" Nullable="true" MaxLength="30" />
-          <Property Type="Double" Name="SLuongGioiHan" Nullable="true" />
           <Property Type="Double" Name="NgayGioiHan" Nullable="true" />
+          <Property Type="String" Name="NgayHetHan" Nullable="true" MaxLength="50" />
+          <Property Type="Double" Name="SLuongGioiHan" Nullable="true" />
         </ComplexType>
         <ComplexType Name="sp_thongtinsach_Result">
           <Property Type="Int64" Name="ID" Nullable="false" />
@@ -719,7 +722,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="QuanLiThuVienModelStoreContainer" CdmEntityContainer="QuanLiThuVienEntities2">
+        <EntityContainerMapping StorageEntityContainer="QuanLiThuVienModelStoreContainer" CdmEntityContainer="QuanLiThuVienEntities1">
           <EntitySetMapping Name="ChiTietPhieuMuons">
             <EntityTypeMapping TypeName="QuanLiThuVienModel.ChiTietPhieuMuon">
               <MappingFragment StoreEntitySet="ChiTietPhieuMuon">
@@ -860,6 +863,7 @@
                 <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
                 <ScalarProperty Name="ID_DocGia" ColumnName="ID_DocGia" />
                 <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -874,16 +878,14 @@
           <FunctionImportMapping FunctionImportName="sp_thongtindocgia" FunctionName="QuanLiThuVienModel.Store.sp_thongtindocgia">
             <ResultMapping>
               <ComplexTypeMapping TypeName="QuanLiThuVienModel.sp_thongtindocgia_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_DocGia" ColumnName="ID_DocGia" />
+                <ScalarProperty Name="ID_DauSach" ColumnName="ID_DauSach" />
+                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+                <ScalarProperty Name="Ten" ColumnName="Ten" />
                 <ScalarProperty Name="HoTen" ColumnName="HoTen" />
-                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
-                <ScalarProperty Name="SDT" ColumnName="SDT" />
-                <ScalarProperty Name="NgayCapThe" ColumnName="NgayCapThe" />
-                <ScalarProperty Name="NgayHetHan" ColumnName="NgayHetHan" />
-                <ScalarProperty Name="NamTotNghiep" ColumnName="NamTotNghiep" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="SLuongGioiHan" ColumnName="SLuongGioiHan" />
                 <ScalarProperty Name="NgayGioiHan" ColumnName="NgayGioiHan" />
+                <ScalarProperty Name="NgayHetHan" ColumnName="NgayHetHan" />
+                <ScalarProperty Name="SLuongGioiHan" ColumnName="SLuongGioiHan" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

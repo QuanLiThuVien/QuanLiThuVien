@@ -9,7 +9,7 @@ namespace BUS
 {
      public class Bus_themdocgia
     {
-        QuanLiThuVienEntities2 db = new QuanLiThuVienEntities2();
+        QuanLiThuVienEntities1 db = new QuanLiThuVienEntities1();
         public bool themdocgia(DocGia dg)
         {
            try

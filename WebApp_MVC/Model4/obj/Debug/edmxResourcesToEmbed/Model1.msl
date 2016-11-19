@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="QuanLiThuVienModelStoreContainer" CdmEntityContainer="QuanLiThuVienEntities2">
+  <EntityContainerMapping StorageEntityContainer="QuanLiThuVienModelStoreContainer" CdmEntityContainer="QuanLiThuVienEntities">
     <EntitySetMapping Name="ChiTietPhieuMuons">
       <EntityTypeMapping TypeName="QuanLiThuVienModel.ChiTietPhieuMuon">
         <MappingFragment StoreEntitySet="ChiTietPhieuMuon">
@@ -141,6 +141,7 @@
           <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
           <ScalarProperty Name="ID_DocGia" ColumnName="ID_DocGia" />
           <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+          <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -155,16 +156,10 @@
     <FunctionImportMapping FunctionImportName="sp_thongtindocgia" FunctionName="QuanLiThuVienModel.Store.sp_thongtindocgia">
       <ResultMapping>
         <ComplexTypeMapping TypeName="QuanLiThuVienModel.sp_thongtindocgia_Result">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="HoTen" ColumnName="HoTen" />
-          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
-          <ScalarProperty Name="SDT" ColumnName="SDT" />
-          <ScalarProperty Name="NgayCapThe" ColumnName="NgayCapThe" />
-          <ScalarProperty Name="NgayHetHan" ColumnName="NgayHetHan" />
-          <ScalarProperty Name="NamTotNghiep" ColumnName="NamTotNghiep" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="SLuongGioiHan" ColumnName="SLuongGioiHan" />
-          <ScalarProperty Name="NgayGioiHan" ColumnName="NgayGioiHan" />
+          <ScalarProperty Name="ID_DocGia" ColumnName="ID_DocGia" />
+          <ScalarProperty Name="ID_DauSach" ColumnName="ID_DauSach" />
+          <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+          <ScalarProperty Name="Ten" ColumnName="Ten" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
