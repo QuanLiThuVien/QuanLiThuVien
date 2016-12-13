@@ -12,19 +12,19 @@ namespace WebApp_MVC.Controllers
 {
     public class HomeController : Controller
     {
-        QuanLiThuVienEntities db = new QuanLiThuVienEntities();
+        QuanLiThuVienEntities1 db1 = new QuanLiThuVienEntities1();
         public ActionResult Index()
         {
             return View();
         }
         public JsonResult thongtindocgia()
         {
-            var list2 = (from n in db.DocGias
+            var list2 = (from n in db1.DocGias
                          select new docgiainfo
                          {
                              ID = n.ID,
                              Hoten = n.HoTen,
-                             ngayhethan = n.NgayHetHan,
+                             ngayhethan = (n.NgayHetHan).ToString(),
                              slgioihan = n.SLuongGioiHan,
                              ngaygioihan=n.NgayGioiHan
 
@@ -33,18 +33,14 @@ namespace WebApp_MVC.Controllers
         }
         public JsonResult thongtindocgia1()
         {
-            var ngay = DateTime.Now.Day;
-            var thang = DateTime.Now.Month;
-            var nam = DateTime.Now.Year;
-            var ngaythang = thang + "/" + ngay + "/" + nam;
-            var list2 = db.sp_thongtindocgia(ngaythang).Where(n => n.TinhTrang == "Chưa trả").ToList();
+            var list2 = db1.sp_thongtindocgia().Where(n=>n.TinhTrang.Contains("Chưa trả")).ToList();
             return new JsonResult { Data = list2, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }
         public ActionResult MuonSach()
         {
-            var model = (from d in db.DauSaches
-                              join s in db.Saches on d.ID equals s.ID_DauSach
+            var model = (from d in db1.DauSaches
+                              join s in db1.Saches on d.ID equals s.ID_DauSach
                               where d.ID == s.ID_DauSach && s.TinhTrang=="Khả Dụng"
                               select new Sachinfo
                               {
@@ -58,7 +54,7 @@ namespace WebApp_MVC.Controllers
         {
             try
             {
-                var idphieumuon = db.PhieuMuons.OrderByDescending(i => i.ID).Select(i => i.ID).FirstOrDefault();
+                var idphieumuon = db1.PhieuMuons.OrderByDescending(i => i.ID).Select(i => i.ID).FirstOrDefault();
                 idphieumuon = idphieumuon + 1;
                 // nhận dữ liệu từ form
                 var iddocgia = Request.Form["madocgia"];
@@ -75,8 +71,8 @@ namespace WebApp_MVC.Controllers
                 string[] angaytra = ngaytra.Split(new Char[] { ',' });
                 // tạo đối tượng insert vào database
                 // tạo đối tượng phiếu mượn và insert vào database
-                db.NhapPhieuMuon(iddocgia, angaymuon[0], angaytra[0]);
-                db.SaveChanges();
+                db1.NhapPhieuMuon(iddocgia, angaymuon[0], angaytra[0]);
+                db1.SaveChanges();
                 // tạo đối tượng chi tiết phiếu mượn và insert vào database
                 for (var i = 0; i < aiddausach.Length; i++)
                 {
@@ -86,33 +82,53 @@ namespace WebApp_MVC.Controllers
                     chitietphieumuon.ID_Sach = Convert.ToInt64(aidsach[i]);
                     chitietphieumuon.SoLuong = soluong;
                     chitietphieumuon.TinhTrang = tinhtrang;
-                    db.ChiTietPhieuMuons.Add(chitietphieumuon);
-                    db.SaveChanges();
+                    db1.ChiTietPhieuMuons.Add(chitietphieumuon);
+                    db1.SaveChanges();
                 }
                 for (var i = 0; i < aidsach.Length; i++)
                 {
                     long myId = Convert.ToInt32(aidsach[i]);
-                    var query = from b in db.Saches
+                    var query = from b in db1.Saches
                                 where b.ID == myId
                                 select b;
                     Sach a = query.FirstOrDefault();
                     a.TinhTrang = "Đã Mượn";
-                    db.SaveChanges();
+                    db1.SaveChanges();
                 }
-                ModelState.AddModelError("", "Thêm thành công");
-                return RedirectToAction("MuonSach");
+                var model = (from d in db1.DauSaches
+                             join s in db1.Saches on d.ID equals s.ID_DauSach
+                             where d.ID == s.ID_DauSach && s.TinhTrang == "Khả Dụng"
+                             select new Sachinfo
+                             {
+                                 ten = d.Ten,
+                                 id = s.ID,
+                                 Id_dausach = d.ID
+                             }).ToList();
+                ModelState.AddModelError("", "Mượn sách thành công");
+                return View("MuonSach", model);
+               
+               // return RedirectToAction("MuonSach");
 
             }
             catch(Exception)
             {
-                ModelState.AddModelError("", "Thao tác thất bại");
-                return RedirectToAction("MuonSach");
+                var model = (from d in db1.DauSaches
+                             join s in db1.Saches on d.ID equals s.ID_DauSach
+                             where d.ID == s.ID_DauSach && s.TinhTrang == "Khả Dụng"
+                             select new Sachinfo
+                             {
+                                 ten = d.Ten,
+                                 id = s.ID,
+                                 Id_dausach = d.ID
+                             }).ToList();
+                ModelState.AddModelError("", "Lỗi");
+                return View("MuonSach", model);
             }
         }
         public ActionResult TraSach()
         {
-            var model = (from d in db.DauSaches
-                         join s in db.Saches on d.ID equals s.ID_DauSach
+            var model = (from d in db1.DauSaches
+                         join s in db1.Saches on d.ID equals s.ID_DauSach
                          where d.ID == s.ID_DauSach && s.TinhTrang=="Đã Mượn"
                          select new Sachinfo
                          {
@@ -127,7 +143,7 @@ namespace WebApp_MVC.Controllers
         {
             try
             {
-                var idphieutra = db.PhieuTras.OrderByDescending(i => i.ID).Select(i => i.ID).FirstOrDefault();
+                var idphieutra = db1.PhieuTras.OrderByDescending(i => i.ID).Select(i => i.ID).FirstOrDefault();
                 //idphieutra = idphieutra + 1;
                 // nhận dữ liệu từ form
                 var iddocgia = Request.Form["madocgia"];
@@ -140,8 +156,8 @@ namespace WebApp_MVC.Controllers
                 string[] angaytra = ngaytra.Split(new Char[] { ',' });
                 // tạo đối tượng insert vào database
                 // tạo đối tượng phiếu trả và insert vào database
-                db.NhapPhieuTra(iddocgia, angaytra[0]);
-                db.SaveChanges();
+                db1.NhapPhieuTra(iddocgia, angaytra[0]);
+                db1.SaveChanges();
                 // tạo đối tượng chi tiết phiếu mượn và insert vào database
                 for (var i = 0; i < aiddausach.Length; i++)
                 {
@@ -150,37 +166,56 @@ namespace WebApp_MVC.Controllers
                     chitietphieutra.ID_Sach = Convert.ToInt64(aidsach[i]);
                     chitietphieutra.ID_DauSach = Convert.ToInt64(aiddausach[i]);
                     chitietphieutra.SoLuong = 1;
-                    db.ChiTietPhieuTras.Add(chitietphieutra);
-                    db.SaveChanges();
+                    db1.ChiTietPhieuTras.Add(chitietphieutra);
+                    db1.SaveChanges();
                 }
                 for (var i = 0; i < aidsach.Length; i++)
                 {
                     long myId = Convert.ToInt32(aidsach[i]);
-                    var query = from b in db.Saches
+                    var query = from b in db1.Saches
                                 where b.ID == myId
                                 select b;
                     Sach a = query.FirstOrDefault();
                     a.TinhTrang = "Khả Dụng";
-                    db.SaveChanges();
+                    db1.SaveChanges();
                 }
                 for (var i = 0; i < aidsach.Length; i++)
                 {
                     long myId = Convert.ToInt32(aidsach[i]);
-                    var query = from b in db.ChiTietPhieuMuons
+                    var query = from b in db1.ChiTietPhieuMuons
                                 where b.ID_Sach == myId
                                 select b;
                     ChiTietPhieuMuon a = query.FirstOrDefault();
                     a.TinhTrang = "Đã Trả";
-                    db.SaveChanges();
+                    db1.SaveChanges();
                 }
-                ModelState.AddModelError("","Thêm thành công");
-                return RedirectToAction("TraSach");
-              
+
+                var model = (from d in db1.DauSaches
+                             join s in db1.Saches on d.ID equals s.ID_DauSach
+                             where d.ID == s.ID_DauSach && s.TinhTrang == "Đã Mượn"
+                             select new Sachinfo
+                             {
+                                 ten = d.Ten,
+                                 id = s.ID,
+                                 Id_dausach = d.ID
+                             }).ToList();
+                ModelState.AddModelError("", "Trả sách thành công");
+                return View("TraSach", model);
+
             }
             catch (Exception)
             {
-                ModelState.AddModelError("", "Thao tác thất bại");
-                return RedirectToAction("Trasach");
+                var model = (from d in db1.DauSaches
+                             join s in db1.Saches on d.ID equals s.ID_DauSach
+                             where d.ID == s.ID_DauSach && s.TinhTrang == "Đã Mượn"
+                             select new Sachinfo
+                             {
+                                 ten = d.Ten,
+                                 id = s.ID,
+                                 Id_dausach = d.ID
+                             }).ToList();
+                ModelState.AddModelError("", "Xảy ra lỗi");
+                return View("TraSach",model);
 
 
             }
@@ -201,7 +236,7 @@ namespace WebApp_MVC.Controllers
             string ngaykethuc= angaykethuc[1] + "/" +angaykethuc[2] + "/" + angaykethuc[0];
             string ngaybatdau2 = angaybatdau[2] + "/" + angaybatdau[1] + "/" + angaybatdau[0];
             string ngaykethuc2  = angaykethuc[2] + "/" + angaykethuc[1] + "/" + angaykethuc[0];
-            var ketqua = (from n in db.sp_DanhSachSachMuon(ngaybatdau1, ngaykethuc1)
+            var ketqua = (from n in db1.sp_DanhSachSachMuon(ngaybatdau1, ngaykethuc1)
                           .OrderBy(n => n.ID)
                           select n).ToList();
             ViewBag.NgayBatDau = ngaybatdau2;

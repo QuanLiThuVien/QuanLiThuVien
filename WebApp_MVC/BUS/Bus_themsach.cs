@@ -9,7 +9,7 @@ namespace BUS
 {
      public class Bus_themsach
     {
-        QuanLiThuVienEntities db = new QuanLiThuVienEntities();
+        QuanLiThuVienEntities1 db = new QuanLiThuVienEntities1();
         public bool themmoi(DauSach ds)
         {
             try

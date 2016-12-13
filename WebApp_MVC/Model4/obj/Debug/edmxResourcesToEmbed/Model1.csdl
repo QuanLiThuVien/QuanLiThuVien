@@ -5,10 +5,10 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ID_PhieuMuon" Type="Int64" />
-    <Property Name="ID_DauSach" Type="Int64" />
-    <Property Name="ID_Sach" Type="Int64" />
-    <Property Name="SoLuong" Type="Double" />
+    <Property Name="ID_PhieuMuon" Type="Int64" Nullable="false" />
+    <Property Name="ID_DauSach" Type="Int64" Nullable="false" />
+    <Property Name="ID_Sach" Type="Int64" Nullable="false" />
+    <Property Name="SoLuong" Type="Double" Nullable="false" />
     <Property Name="TinhTrang" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="DauSach" Relationship="Self.FK__ChiTietPh__ID_Da__20C1E124" FromRole="ChiTietPhieuMuon" ToRole="DauSach" />
     <NavigationProperty Name="PhieuMuon" Relationship="Self.FK__ChiTietPh__ID_Ph__1FCDBCEB" FromRole="ChiTietPhieuMuon" ToRole="PhieuMuon" />
@@ -19,10 +19,10 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ID_PhieuTra" Type="Int64" />
-    <Property Name="ID_DauSach" Type="Int64" />
+    <Property Name="ID_PhieuTra" Type="Int64" Nullable="false" />
+    <Property Name="ID_DauSach" Type="Int64" Nullable="false" />
     <Property Name="SoLuong" Type="Double" />
-    <Property Name="ID_Sach" Type="Int64" />
+    <Property Name="ID_Sach" Type="Int64" Nullable="false" />
     <NavigationProperty Name="DauSach" Relationship="Self.FK__ChiTietPh__ID_Da__286302EC" FromRole="ChiTietPhieuTra" ToRole="DauSach" />
     <NavigationProperty Name="PhieuTra" Relationship="Self.FK__ChiTietPh__ID_Ph__276EDEB3" FromRole="ChiTietPhieuTra" ToRole="PhieuTra" />
     <NavigationProperty Name="Sach" Relationship="Self.FK__ChiTietPh__ID_Sa__29572725" FromRole="ChiTietPhieuTra" ToRole="Sach" />
@@ -32,12 +32,13 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Ten" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="ID_TacGia" Type="Int64" />
-    <Property Name="Loai" Type="Int64" />
-    <Property Name="TrangThai" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Ten" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ID_TacGia" Type="Int64" Nullable="false" />
+    <Property Name="Loai" Type="Int64" Nullable="false" />
+    <Property Name="TrangThai" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="MieuTa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Soluong" Type="Double" />
+    <Property Name="NgayNhap" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Soluong" Type="Double" Nullable="false" />
     <NavigationProperty Name="ChiTietPhieuMuons" Relationship="Self.FK__ChiTietPh__ID_Da__20C1E124" FromRole="DauSach" ToRole="ChiTietPhieuMuon" />
     <NavigationProperty Name="ChiTietPhieuTras" Relationship="Self.FK__ChiTietPh__ID_Da__286302EC" FromRole="DauSach" ToRole="ChiTietPhieuTra" />
     <NavigationProperty Name="TacGia" Relationship="Self.FK__DauSach__ID_TacG__145C0A3F" FromRole="DauSach" ToRole="TacGia" />
@@ -49,15 +50,15 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="HoTen" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="DiaChi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="SDT" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
-    <Property Name="NgayCapThe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="NgayHetHan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="NamTotNghiep" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
-    <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-    <Property Name="SLuongGioiHan" Type="Double" />
-    <Property Name="NgayGioiHan" Type="Double" />
+    <Property Name="HoTen" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DiaChi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SDT" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NgayCapThe" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="NgayHetHan" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="NamTotNghiep" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SLuongGioiHan" Type="Double" Nullable="false" />
+    <Property Name="NgayGioiHan" Type="Double" Nullable="false" />
     <NavigationProperty Name="PhieuMuons" Relationship="Self.FK__PhieuMuon__ID_Do__1CF15040" FromRole="DocGia" ToRole="PhieuMuon" />
     <NavigationProperty Name="PhieuTras" Relationship="Self.FK__PhieuTra__ID_Doc__24927208" FromRole="DocGia" ToRole="PhieuTra" />
   </EntityType>
@@ -66,7 +67,7 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Ten" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Ten" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="DauSaches" Relationship="Self.FK__DauSach__Loai__15502E78" FromRole="LoaiSach" ToRole="DauSach" />
   </EntityType>
   <EntityType Name="PhieuMuon">
@@ -74,9 +75,9 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ID_DocGia" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="NgayMuon" Type="DateTime" Precision="3" />
-    <Property Name="NgayGHTra" Type="DateTime" Precision="3" />
+    <Property Name="ID_DocGia" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NgayMuon" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="NgayGHTra" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="ChiTietPhieuMuons" Relationship="Self.FK__ChiTietPh__ID_Ph__1FCDBCEB" FromRole="PhieuMuon" ToRole="ChiTietPhieuMuon" />
     <NavigationProperty Name="DocGia" Relationship="Self.FK__PhieuMuon__ID_Do__1CF15040" FromRole="PhieuMuon" ToRole="DocGia" />
   </EntityType>
@@ -85,8 +86,8 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ID_DocGia" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="NgayTra" Type="DateTime" Precision="3" />
+    <Property Name="ID_DocGia" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NgayTra" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="ChiTietPhieuTras" Relationship="Self.FK__ChiTietPh__ID_Ph__276EDEB3" FromRole="PhieuTra" ToRole="ChiTietPhieuTra" />
     <NavigationProperty Name="DocGia" Relationship="Self.FK__PhieuTra__ID_Doc__24927208" FromRole="PhieuTra" ToRole="DocGia" />
   </EntityType>
@@ -95,7 +96,7 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ID_DauSach" Type="Int64" />
+    <Property Name="ID_DauSach" Type="Int64" Nullable="false" />
     <Property Name="TinhTrang" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="GhiChu" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="ChiTietPhieuMuons" Relationship="Self.FK__ChiTietPh__ID_Sa__21B6055D" FromRole="Sach" ToRole="ChiTietPhieuMuon" />
@@ -107,12 +108,12 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="HoTen" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="HoTen" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="NoiCongTac" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="DauSaches" Relationship="Self.FK__DauSach__ID_TacG__145C0A3F" FromRole="TacGia" ToRole="DauSach" />
   </EntityType>
   <Association Name="FK__ChiTietPh__ID_Da__20C1E124">
-    <End Role="DauSach" Type="Self.DauSach" Multiplicity="0..1" />
+    <End Role="DauSach" Type="Self.DauSach" Multiplicity="1" />
     <End Role="ChiTietPhieuMuon" Type="Self.ChiTietPhieuMuon" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="DauSach">
@@ -124,7 +125,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__ChiTietPh__ID_Ph__1FCDBCEB">
-    <End Role="PhieuMuon" Type="Self.PhieuMuon" Multiplicity="0..1" />
+    <End Role="PhieuMuon" Type="Self.PhieuMuon" Multiplicity="1" />
     <End Role="ChiTietPhieuMuon" Type="Self.ChiTietPhieuMuon" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="PhieuMuon">
@@ -136,7 +137,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__ChiTietPh__ID_Sa__21B6055D">
-    <End Role="Sach" Type="Self.Sach" Multiplicity="0..1" />
+    <End Role="Sach" Type="Self.Sach" Multiplicity="1" />
     <End Role="ChiTietPhieuMuon" Type="Self.ChiTietPhieuMuon" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Sach">
@@ -148,7 +149,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__ChiTietPh__ID_Da__286302EC">
-    <End Role="DauSach" Type="Self.DauSach" Multiplicity="0..1" />
+    <End Role="DauSach" Type="Self.DauSach" Multiplicity="1" />
     <End Role="ChiTietPhieuTra" Type="Self.ChiTietPhieuTra" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="DauSach">
@@ -160,7 +161,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__ChiTietPh__ID_Ph__276EDEB3">
-    <End Role="PhieuTra" Type="Self.PhieuTra" Multiplicity="0..1" />
+    <End Role="PhieuTra" Type="Self.PhieuTra" Multiplicity="1" />
     <End Role="ChiTietPhieuTra" Type="Self.ChiTietPhieuTra" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="PhieuTra">
@@ -172,7 +173,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__ChiTietPh__ID_Sa__29572725">
-    <End Role="Sach" Type="Self.Sach" Multiplicity="0..1" />
+    <End Role="Sach" Type="Self.Sach" Multiplicity="1" />
     <End Role="ChiTietPhieuTra" Type="Self.ChiTietPhieuTra" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Sach">
@@ -184,7 +185,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__DauSach__ID_TacG__145C0A3F">
-    <End Role="TacGia" Type="Self.TacGia" Multiplicity="0..1" />
+    <End Role="TacGia" Type="Self.TacGia" Multiplicity="1" />
     <End Role="DauSach" Type="Self.DauSach" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="TacGia">
@@ -196,7 +197,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__DauSach__Loai__15502E78">
-    <End Role="LoaiSach" Type="Self.LoaiSach" Multiplicity="0..1" />
+    <End Role="LoaiSach" Type="Self.LoaiSach" Multiplicity="1" />
     <End Role="DauSach" Type="Self.DauSach" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="LoaiSach">
@@ -208,7 +209,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Sach__ID_DauSach__182C9B23">
-    <End Role="DauSach" Type="Self.DauSach" Multiplicity="0..1" />
+    <End Role="DauSach" Type="Self.DauSach" Multiplicity="1" />
     <End Role="Sach" Type="Self.Sach" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="DauSach">
@@ -220,7 +221,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__PhieuMuon__ID_Do__1CF15040">
-    <End Role="DocGia" Type="Self.DocGia" Multiplicity="0..1" />
+    <End Role="DocGia" Type="Self.DocGia" Multiplicity="1" />
     <End Role="PhieuMuon" Type="Self.PhieuMuon" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="DocGia">
@@ -232,7 +233,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__PhieuTra__ID_Doc__24927208">
-    <End Role="DocGia" Type="Self.DocGia" Multiplicity="0..1" />
+    <End Role="DocGia" Type="Self.DocGia" Multiplicity="1" />
     <End Role="PhieuTra" Type="Self.PhieuTra" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="DocGia">
@@ -243,7 +244,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="QuanLiThuVienEntities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="QuanLiThuVienEntities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="ChiTietPhieuMuons" EntityType="Self.ChiTietPhieuMuon" />
     <EntitySet Name="ChiTietPhieuTras" EntityType="Self.ChiTietPhieuTra" />
     <EntitySet Name="DauSaches" EntityType="Self.DauSach" />
@@ -297,18 +298,6 @@
       <End Role="DocGia" EntitySet="DocGias" />
       <End Role="PhieuTra" EntitySet="PhieuTras" />
     </AssociationSet>
-    <FunctionImport Name="NhapChiTietPhieuMuon">
-      <Parameter Name="ID_PhieuMuon" Mode="In" Type="Int64" />
-      <Parameter Name="ID_DauSach" Mode="In" Type="Int64" />
-      <Parameter Name="ID_Sach" Mode="In" Type="Int64" />
-      <Parameter Name="Soluong" Mode="In" Type="Double" />
-    </FunctionImport>
-    <FunctionImport Name="NhapChiTietPhieuTra">
-      <Parameter Name="ID_PhieuTra" Mode="In" Type="Int64" />
-      <Parameter Name="ID_DauSach" Mode="In" Type="Int64" />
-      <Parameter Name="Soluong" Mode="In" Type="Double" />
-      <Parameter Name="ID_Sach" Mode="In" Type="Int64" />
-    </FunctionImport>
     <FunctionImport Name="NhapPhieuMuon">
       <Parameter Name="ID_DocGia" Mode="In" Type="String" />
       <Parameter Name="NgayMuon" Mode="In" Type="String" />
@@ -322,7 +311,6 @@
       <Parameter Name="ngaybatdau" Mode="In" Type="String" />
       <Parameter Name="ngayketthuc" Mode="In" Type="String" />
     </FunctionImport>
-    <FunctionImport Name="sp_SoLuongDauSach" ReturnType="Collection(QuanLiThuVienModel.sp_SoLuongDauSach_Result)" />
     <FunctionImport Name="sp_SoLuongMuon" ReturnType="Collection(QuanLiThuVienModel.sp_SoLuongMuon_Result)">
       <Parameter Name="ngay" Mode="In" Type="String" />
     </FunctionImport>
@@ -333,63 +321,32 @@
     <FunctionImport Name="sp_SoLuongTra" ReturnType="Collection(QuanLiThuVienModel.sp_SoLuongTra_Result)">
       <Parameter Name="ngay" Mode="In" Type="String" />
     </FunctionImport>
-    <FunctionImport Name="sp_thongtindocgia" ReturnType="Collection(QuanLiThuVienModel.sp_thongtindocgia_Result)">
-      <Parameter Name="ngaymuon" Mode="In" Type="String" />
-    </FunctionImport>
-    <FunctionImport Name="sp_thongtinsach" ReturnType="Collection(QuanLiThuVienModel.sp_thongtinsach_Result)" />
+    <FunctionImport Name="sp_thongtindocgia" ReturnType="Collection(QuanLiThuVienModel.sp_thongtindocgia_Result)" />
   </EntityContainer>
   <ComplexType Name="sp_DanhSachSachMuon_Result">
     <Property Type="String" Name="ID" Nullable="false" MaxLength="20" />
-    <Property Type="String" Name="HoTen" Nullable="true" MaxLength="100" />
-    <Property Type="String" Name="Ten" Nullable="true" />
-    <Property Type="DateTime" Name="NgayMuon" Nullable="true" Precision="23" />
-    <Property Type="Double" Name="SoLuong" Nullable="true" />
-    <Property Type="String" Name="TinhTrang" Nullable="true" MaxLength="250" />
-  </ComplexType>
-  <ComplexType Name="sp_SoLuongDauSach_Result">
-    <Property Type="Int64" Name="ID" Nullable="false" />
-    <Property Type="String" Name="Ten" Nullable="true" />
-    <Property Type="Int64" Name="ID_TacGia" Nullable="true" />
-    <Property Type="Int64" Name="Loai" Nullable="true" />
-    <Property Type="String" Name="TrangThai" Nullable="true" MaxLength="250" />
-    <Property Type="String" Name="MieuTa" Nullable="true" />
-    <Property Type="Double" Name="Soluong" Nullable="true" />
+    <Property Type="String" Name="HoTen" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="Ten" Nullable="false" />
+    <Property Type="DateTime" Name="NgayMuon" Nullable="false" Precision="23" />
+    <Property Type="Double" Name="SoLuong" Nullable="false" />
   </ComplexType>
   <ComplexType Name="sp_SoLuongMuon_Result">
     <Property Type="Double" Name="SoLuong" Nullable="true" />
-    <Property Type="Int64" Name="ID_DauSach" Nullable="true" />
+    <Property Type="Int64" Name="ID_DauSach" Nullable="false" />
   </ComplexType>
   <ComplexType Name="sp_SoLuongSachMuon_Result">
     <Property Type="Double" Name="SoLuong" Nullable="true" />
-    <Property Type="String" Name="ID_DocGia" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="HoTen" Nullable="true" MaxLength="100" />
-    <Property Type="String" Name="TinhTrang" Nullable="true" MaxLength="250" />
+    <Property Type="String" Name="ID_DocGia" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="HoTen" Nullable="false" MaxLength="100" />
   </ComplexType>
   <ComplexType Name="sp_SoLuongTra_Result">
     <Property Type="Double" Name="SoLuong" Nullable="true" />
-    <Property Type="Int64" Name="ID_DauSach" Nullable="true" />
+    <Property Type="Int64" Name="ID_DauSach" Nullable="false" />
   </ComplexType>
   <ComplexType Name="sp_thongtindocgia_Result">
-    <Property Type="String" Name="ID_DocGia" Nullable="true" MaxLength="20" />
-    <Property Type="Int64" Name="ID_DauSach" Nullable="true" />
+    <Property Type="String" Name="IDDocGia" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="TenSach" Nullable="false" />
     <Property Type="String" Name="TinhTrang" Nullable="true" MaxLength="250" />
-    <Property Type="String" Name="Ten" Nullable="true" />
-    <Property Type="String" Name="HoTen" Nullable="true" MaxLength="100" />
-    <Property Type="Double" Name="NgayGioiHan" Nullable="true" />
-    <Property Type="String" Name="NgayHetHan" Nullable="true" MaxLength="50" />
-    <Property Type="Double" Name="SLuongGioiHan" Nullable="true" />
-  </ComplexType>
-  <ComplexType Name="sp_thongtinsach_Result">
-    <Property Type="Int64" Name="ID" Nullable="false" />
-    <Property Type="String" Name="Ten" Nullable="true" />
-    <Property Type="Int64" Name="ID_TacGia" Nullable="true" />
-    <Property Type="Int64" Name="Loai" Nullable="true" />
-    <Property Type="String" Name="TrangThai" Nullable="true" MaxLength="250" />
-    <Property Type="String" Name="MieuTa" Nullable="true" />
-    <Property Type="Double" Name="Soluong" Nullable="true" />
-    <Property Type="Int64" Name="ID1" Nullable="false" />
-    <Property Type="Int64" Name="ID_DauSach" Nullable="true" />
-    <Property Type="String" Name="TinhTrang" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="GhiChu" Nullable="true" MaxLength="250" />
+    <Property Type="DateTime" Name="NgayMuon" Nullable="false" Precision="23" />
   </ComplexType>
 </Schema>

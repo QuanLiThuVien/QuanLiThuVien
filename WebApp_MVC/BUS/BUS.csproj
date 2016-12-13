@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bus_quanly.cs" />
+    <Compile Include="Bus_suadausach.cs" />
     <Compile Include="Bus_suadocgia.cs" />
     <Compile Include="Bus_suasach.cs" />
     <Compile Include="Bus_themdocgia.cs" />

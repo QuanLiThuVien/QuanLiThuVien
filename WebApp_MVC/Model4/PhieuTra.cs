@@ -22,7 +22,7 @@ namespace Model4
     
         public long ID { get; set; }
         public string ID_DocGia { get; set; }
-        public Nullable<System.DateTime> NgayTra { get; set; }
+        public System.DateTime NgayTra { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietPhieuTra> ChiTietPhieuTras { get; set; }

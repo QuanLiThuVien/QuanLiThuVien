@@ -24,11 +24,12 @@ namespace Model4
     
         public long ID { get; set; }
         public string Ten { get; set; }
-        public Nullable<long> ID_TacGia { get; set; }
-        public Nullable<long> Loai { get; set; }
+        public long ID_TacGia { get; set; }
+        public long Loai { get; set; }
         public string TrangThai { get; set; }
         public string MieuTa { get; set; }
-        public Nullable<double> Soluong { get; set; }
+        public System.DateTime NgayNhap { get; set; }
+        public double Soluong { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietPhieuMuon> ChiTietPhieuMuons { get; set; }

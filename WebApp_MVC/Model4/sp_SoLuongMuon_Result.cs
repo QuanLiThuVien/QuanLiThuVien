@@ -13,7 +13,7 @@ namespace Model4
     
     public partial class sp_SoLuongMuon_Result
     {
-        public Nullable<double> SoLuong { get; set; }
-        public Nullable<long> ID_DauSach { get; set; }
+        public double SoLuong { get; set; }
+        public long ID_DauSach { get; set; }
     }
 }

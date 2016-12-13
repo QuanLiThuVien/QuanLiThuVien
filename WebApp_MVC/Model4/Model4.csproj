@@ -57,7 +57,6 @@
     <Compile Include="ChiTietPhieuTra.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Class1.cs" />
     <Compile Include="DauSach.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -95,9 +94,6 @@
     <Compile Include="sp_DanhSachSachMuon_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="sp_SoLuongDauSach_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="sp_SoLuongMuon_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -108,9 +104,6 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_thongtindocgia_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_thongtinsach_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="TacGia.cs">

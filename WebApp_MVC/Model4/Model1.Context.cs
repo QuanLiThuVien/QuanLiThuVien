@@ -15,10 +15,10 @@ namespace Model4
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class QuanLiThuVienEntities : DbContext
+    public partial class QuanLiThuVienEntities1 : DbContext
     {
-        public QuanLiThuVienEntities()
-            : base("name=QuanLiThuVienEntities")
+        public QuanLiThuVienEntities1()
+            : base("name=QuanLiThuVienEntities1")
         {
         }
     
@@ -36,48 +36,6 @@ namespace Model4
         public virtual DbSet<PhieuTra> PhieuTras { get; set; }
         public virtual DbSet<Sach> Saches { get; set; }
         public virtual DbSet<TacGia> TacGias { get; set; }
-    
-        public virtual int NhapChiTietPhieuMuon(Nullable<long> iD_PhieuMuon, Nullable<long> iD_DauSach, Nullable<long> iD_Sach, Nullable<double> soluong)
-        {
-            var iD_PhieuMuonParameter = iD_PhieuMuon.HasValue ?
-                new ObjectParameter("ID_PhieuMuon", iD_PhieuMuon) :
-                new ObjectParameter("ID_PhieuMuon", typeof(long));
-    
-            var iD_DauSachParameter = iD_DauSach.HasValue ?
-                new ObjectParameter("ID_DauSach", iD_DauSach) :
-                new ObjectParameter("ID_DauSach", typeof(long));
-    
-            var iD_SachParameter = iD_Sach.HasValue ?
-                new ObjectParameter("ID_Sach", iD_Sach) :
-                new ObjectParameter("ID_Sach", typeof(long));
-    
-            var soluongParameter = soluong.HasValue ?
-                new ObjectParameter("Soluong", soluong) :
-                new ObjectParameter("Soluong", typeof(double));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("NhapChiTietPhieuMuon", iD_PhieuMuonParameter, iD_DauSachParameter, iD_SachParameter, soluongParameter);
-        }
-    
-        public virtual int NhapChiTietPhieuTra(Nullable<long> iD_PhieuTra, Nullable<long> iD_DauSach, Nullable<double> soluong, Nullable<long> iD_Sach)
-        {
-            var iD_PhieuTraParameter = iD_PhieuTra.HasValue ?
-                new ObjectParameter("ID_PhieuTra", iD_PhieuTra) :
-                new ObjectParameter("ID_PhieuTra", typeof(long));
-    
-            var iD_DauSachParameter = iD_DauSach.HasValue ?
-                new ObjectParameter("ID_DauSach", iD_DauSach) :
-                new ObjectParameter("ID_DauSach", typeof(long));
-    
-            var soluongParameter = soluong.HasValue ?
-                new ObjectParameter("Soluong", soluong) :
-                new ObjectParameter("Soluong", typeof(double));
-    
-            var iD_SachParameter = iD_Sach.HasValue ?
-                new ObjectParameter("ID_Sach", iD_Sach) :
-                new ObjectParameter("ID_Sach", typeof(long));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("NhapChiTietPhieuTra", iD_PhieuTraParameter, iD_DauSachParameter, soluongParameter, iD_SachParameter);
-        }
     
         public virtual int NhapPhieuMuon(string iD_DocGia, string ngayMuon, string ngaygioihantra)
         {
@@ -122,11 +80,6 @@ namespace Model4
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_DanhSachSachMuon_Result>("sp_DanhSachSachMuon", ngaybatdauParameter, ngayketthucParameter);
         }
     
-        public virtual ObjectResult<sp_SoLuongDauSach_Result> sp_SoLuongDauSach()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_SoLuongDauSach_Result>("sp_SoLuongDauSach");
-        }
-    
         public virtual ObjectResult<sp_SoLuongMuon_Result> sp_SoLuongMuon(string ngay)
         {
             var ngayParameter = ngay != null ?
@@ -158,18 +111,9 @@ namespace Model4
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_SoLuongTra_Result>("sp_SoLuongTra", ngayParameter);
         }
     
-        public virtual ObjectResult<sp_thongtindocgia_Result> sp_thongtindocgia(string ngaymuon)
+        public virtual ObjectResult<sp_thongtindocgia_Result> sp_thongtindocgia()
         {
-            var ngaymuonParameter = ngaymuon != null ?
-                new ObjectParameter("ngaymuon", ngaymuon) :
-                new ObjectParameter("ngaymuon", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_thongtindocgia_Result>("sp_thongtindocgia", ngaymuonParameter);
-        }
-    
-        public virtual ObjectResult<sp_thongtinsach_Result> sp_thongtinsach()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_thongtinsach_Result>("sp_thongtinsach");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_thongtindocgia_Result>("sp_thongtindocgia");
         }
     }
 }

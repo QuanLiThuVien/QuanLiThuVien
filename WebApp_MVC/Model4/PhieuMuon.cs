@@ -22,8 +22,8 @@ namespace Model4
     
         public long ID { get; set; }
         public string ID_DocGia { get; set; }
-        public Nullable<System.DateTime> NgayMuon { get; set; }
-        public Nullable<System.DateTime> NgayGHTra { get; set; }
+        public System.DateTime NgayMuon { get; set; }
+        public System.DateTime NgayGHTra { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietPhieuMuon> ChiTietPhieuMuons { get; set; }

@@ -25,12 +25,12 @@ namespace Model4
         public string HoTen { get; set; }
         public string DiaChi { get; set; }
         public string SDT { get; set; }
-        public string NgayCapThe { get; set; }
-        public string NgayHetHan { get; set; }
+        public System.DateTime NgayCapThe { get; set; }
+        public System.DateTime NgayHetHan { get; set; }
         public string NamTotNghiep { get; set; }
         public string Email { get; set; }
-        public Nullable<double> SLuongGioiHan { get; set; }
-        public Nullable<double> NgayGioiHan { get; set; }
+        public double SLuongGioiHan { get; set; }
+        public double NgayGioiHan { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhieuMuon> PhieuMuons { get; set; }

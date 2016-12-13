@@ -13,13 +13,9 @@ namespace Model4
     
     public partial class sp_thongtindocgia_Result
     {
-        public string ID_DocGia { get; set; }
-        public Nullable<long> ID_DauSach { get; set; }
+        public string IDDocGia { get; set; }
+        public string TenSach { get; set; }
         public string TinhTrang { get; set; }
-        public string Ten { get; set; }
-        public string HoTen { get; set; }
-        public Nullable<double> NgayGioiHan { get; set; }
-        public string NgayHetHan { get; set; }
-        public Nullable<double> SLuongGioiHan { get; set; }
+        public System.DateTime NgayMuon { get; set; }
     }
 }

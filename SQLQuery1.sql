@@ -6,74 +6,75 @@ go
 create table LoaiSach
 (
 	ID bigint primary key identity not null,
-	Ten nvarchar(250)
+	Ten nvarchar(250) not null
 )
 create table TacGia
 (
 	ID bigint primary key identity not null,
-	HoTen nvarchar(250),
+	HoTen nvarchar(250) not null,
 	NoiCongTac nvarchar(250)
 )
 create table DauSach
 (
 	ID bigint primary key identity not null,
-	Ten nvarchar(max),
-	ID_TacGia bigint references TacGia(ID),
-	Loai bigint references LoaiSach(ID),
-	TrangThai nvarchar(250),
-	MieuTa nvarchar(max),
-	Soluong float
+	Ten nvarchar(max) not null,
+	ID_TacGia bigint references TacGia(ID) not null,
+	Loai bigint references LoaiSach(ID) not null,
+	TrangThai nvarchar(250) not null,
+	MieuTa nvarchar(max) ,
+	NgayNhap datetime not null,
+	Soluong float not null
 )
 create table Sach
 (
 	ID bigint primary key identity not null,
-	ID_DauSach bigint references DauSach(ID),
-	TinhTrang nvarchar(20),
-	GhiChu nvarchar(250)
+	ID_DauSach bigint references DauSach(ID) not null,
+	TinhTrang nvarchar(20)  null,
+	GhiChu nvarchar(250)  null
 )
 create table DocGia
 (
 	ID nvarchar(20) primary key not null,
-	HoTen nvarchar(100),
-	DiaChi nvarchar(250),
-	SDT nvarchar(11),
-	NgayCapThe nvarchar(50),
-	NgayHetHan nvarchar(50),
-	NamTotNghiep varchar(4),
-	Email nvarchar(30),
-	SLuongGioiHan float,
-	NgayGioiHan float
+	HoTen nvarchar(100) not null,
+	DiaChi nvarchar(250) not null,
+	SDT nvarchar(11) not null,
+	NgayCapThe datetime not null,
+	NgayHetHan datetime not null,
+	NamTotNghiep varchar(4) not null,
+	Email nvarchar(30) not null,
+	SLuongGioiHan float not null,
+	NgayGioiHan float not null
 )
 create table PhieuMuon
 (
 	ID bigint primary key identity not null,
-	ID_DocGia nvarchar(20) references DocGia(ID),
-	NgayMuon datetime,
-	NgayGHTra datetime,           
+	ID_DocGia nvarchar(20) references DocGia(ID) not null,
+	NgayMuon datetime not null,
+	NgayGHTra datetime not null,           
 )
 create table ChiTietPhieuMuon
 (
 	ID bigint primary key identity not null,
-	ID_PhieuMuon bigint references PhieuMuon(ID),
-	ID_DauSach bigint references DauSach(ID),
-	ID_Sach bigint references Sach(ID),
-	SoLuong float,
-	TinhTrang nvarchar(250)
+	ID_PhieuMuon bigint references PhieuMuon(ID) not null,
+	ID_DauSach bigint references DauSach(ID) not null,
+	ID_Sach bigint references Sach(ID) not null,
+	SoLuong float not null,
+	TinhTrang nvarchar(250) null
 )
 
 create table PhieuTra
 (
-	ID bigint primary key identity,
-	ID_DocGia nvarchar(20) references DocGia(ID),
-	NgayTra datetime
+	ID bigint primary key identity not null,
+	ID_DocGia nvarchar(20) references DocGia(ID) not null,
+	NgayTra datetime not null
 )
 create table ChiTietPhieuTra
 (
-	ID bigint primary key identity,
-	ID_PhieuTra bigint references PhieuTra(ID),
-	ID_DauSach bigint references DauSach(ID),
+	ID bigint primary key identity not null,
+	ID_PhieuTra bigint references PhieuTra(ID) not null,
+	ID_DauSach bigint references DauSach(ID) not null,
 	SoLuong float,
-	ID_Sach bigint references Sach(ID),
+	ID_Sach bigint references Sach(ID) not null,
 	
 )
 /*================= PHẦN NHẬP DỮ LIỆU =================*/
@@ -102,31 +103,21 @@ insert into TacGia(HoTen,NoiCongTac) values
 (N'Thích Nhất Hạnh',N''),
 (N'Trúc Khê',N'')
 -- Nhập dữ liệu cho bảng đầu sách
-insert into DauSach (MieuTa,Soluong,Ten,TrangThai) values
-(N'',10,N'Hà Nội Thanh Lịch',N''),
-(N'',10,N'Lam Vỹ',N''),
-(N'',10,N'Thiên Môn Chi Hùng',N''),
-(N'',10,N'Liêu Trai Chí Dị',N''),
-(N'',10,N'Mộng Xưa Thành Cũ',N''),
-(N'',10,N'Những Ngôi Sao Nhỏ',N''),
-(N'',10,N'Khéo Tay Hay Làm',N''),
-(N'',10,N'Khởi Đầu Đam Mê Cùng Photoshop CC 2015',N''),
-(N'',10,N'Tự Học Excel 2010',N''),
-(N'',10,N'Hương Vị Của Đất',N''),
-(N'',10,N'Giai Thoại Dan Gian Việt Nam',N''),
-(N'',10,N'Góc Nhin Sử Việt - Cao Bá Quát',N'')
+insert into DauSach (MieuTa,Soluong,Ten,TrangThai,NgayNhap,ID_TacGia,Loai) values
+(N'',10,N'Hà Nội Thanh Lịch',N'','3/5/2016',1,1),
+(N'',10,N'Lam Vỹ',N'','3/5/2016',2,2),
+(N'',10,N'Thiên Môn Chi Hùng',N'','3/5/2016',3,3),
+(N'',10,N'Liêu Trai Chí Dị',N'','3/5/2016',4,4),
+(N'',10,N'Mộng Xưa Thành Cũ',N'','3/5/2016',5,5),
+(N'',10,N'Những Ngôi Sao Nhỏ',N'','3/5/2016',6,6),
+(N'',10,N'Khéo Tay Hay Làm',N'','3/5/2016',7,7),
+(N'',10,N'Khởi Đầu Đam Mê Cùng Photoshop CC 2015',N'','3/5/2016',8,8),
+(N'',10,N'Tự Học Excel 2010',N'','3/5/2016',1,9),
+(N'',10,N'Hương Vị Của Đất',N'','3/5/2016',2,10),
+(N'',10,N'Giai Thoại Dan Gian Việt Nam',N'','3/5/2016',3,11),
+(N'',10,N'Góc Nhin Sử Việt - Cao Bá Quát',N'','3/5/2016',4,12)
 -- Nhập dữ liệu cho bảng sách.
 insert into Sach (ID_DauSach, TinhTrang, GhiChu) values
-('1',N'Khả Dụng',''),
-('1',N'Khả Dụng',''),
-('1',N'Khả Dụng',''),
-('1',N'Khả Dụng',''),
-('1',N'Khả Dụng',''),
-('1',N'Khả Dụng',''),
-('1',N'Khả Dụng',''),
-('1',N'Khả Dụng',''),
-('1',N'Khả Dụng',''),
-('1',N'Khả Dụng',''),
 ('2',N'Khả Dụng',''),
 ('2',N'Khả Dụng',''),
 ('2',N'Khả Dụng',''),
@@ -216,23 +207,33 @@ insert into Sach (ID_DauSach, TinhTrang, GhiChu) values
 ('10',N'Khả Dụng',''),
 ('10',N'Khả Dụng',''),
 ('10',N'Khả Dụng',''),
-('10',N'Khả Dụng','')
+('10',N'Khả Dụng',''),
+('11',N'Khả Dụng',''),
+('11',N'Khả Dụng',''),
+('11',N'Khả Dụng',''),
+('11',N'Khả Dụng',''),
+('11',N'Khả Dụng',''),
+('11',N'Khả Dụng',''),
+('11',N'Khả Dụng',''),
+('11',N'Khả Dụng',''),
+('11',N'Khả Dụng',''),
+('11',N'Khả Dụng','')
 go
 -- NhậNp dữ liệu cho bảng độc giả 
 insert into DocGia (ID,HoTen,DiaChi,SDT,NgayCapThe,NgayHetHan,NamTotNghiep,Email,SLuongGioiHan,NgayGioiHan) values
-('DG001',N'Thái Văn Thiên','82/10 Võ Thị Hồi, Hóc Môn, TP HCM','0907095201','14/10/2016','14/10/2017','2018','thaithienars@gmail.com',4,20),
-('DG002',N'Phạm Lê Duy Anh','12/26 Trần Bình Trọng, Quận 5, TP HCM','0903102845','17/9/2016','17/9/2017','2018','duyanhpham@gmail.com',4,20),
-('DG003',N'Thạch Thị Kiều Linh','30/23 D1, Bình Thanh, TP HCM','01223731932','23/3/2016','23/3/2017','2019','kieulinhpham@gmail.com',4,20),
-('DG005',N'Huỳnh Hữu Duy','102/14 Nguyễn Văn Linh, Quận 7, TP HCM','01217346472','9/9/2016','20/9/2017','2018','duyhuynh@gmail.com',4,20),
-('DG006',N'Nguyễn Thanh Thư','245/23 Quốc Lộ 22, Hóc Môn, TP HCM','01882748383','14/2/2014','14/2/2017','2018','thanhthunguyen@gmail.com',4,20),
-('DG007',N'Lý Chí Cường','37/17 Bà Hạt, Quận 10, TP HCM','0903136078','17/8/2015','17/8/2017','2018','lychicuong2246@gmail.com',4,20),
+('DG001',N'Thái Văn Thiên','82/10 Võ Thị Hồi, Hóc Môn, TP HCM','0907095201','10/14/2016','10/14/2017','2018','thaithienars@gmail.com',4,20),
+('DG002',N'Phạm Lê Duy Anh','12/26 Trần Bình Trọng, Quận 5, TP HCM','0903102845','9/17/2016','9/17/2017','2018','duyanhpham@gmail.com',4,20),
+('DG003',N'Thạch Thị Kiều Linh','30/23 D1, Bình Thanh, TP HCM','01223731932','3/23/2016','3/23/2017','2019','kieulinhpham@gmail.com',4,20),
+('DG005',N'Huỳnh Hữu Duy','102/14 Nguyễn Văn Linh, Quận 7, TP HCM','01217346472','9/9/2016','9/20/2017','2018','duyhuynh@gmail.com',4,20),
+('DG006',N'Nguyễn Thanh Thư','245/23 Quốc Lộ 22, Hóc Môn, TP HCM','01882748383','2/14/2014','2/14/2017','2018','thanhthunguyen@gmail.com',4,20),
+('DG007',N'Lý Chí Cường','37/17 Bà Hạt, Quận 10, TP HCM','0903136078','8/17/2015','8/17/2017','2018','lychicuong2246@gmail.com',4,20),
 ('DG008',N'Phùng Thái Thiên Trang','204 An Dương Vương, Quận 5, TP HCM','0903721837','1/1/2013','1/1/2019','','thientrangphung@gmail.com',5,30),
-('DG009',N'Phan Thị Kim Loan','26/4 QL 1A, Thủ Đức, TP HCM','0902748132','15/5/2015','15/5/2018','','kimloanpt@gmail.com',5,30),
-('DG010',N'Cao Thái Phương Thanh','26/3 An Dương Vương, Quận 5, TP HCM','0973274824','28/4/2015','28/4/2017','','caothaiphuongthai@gmail.com',5,30)
+('DG009',N'Phan Thị Kim Loan','26/4 QL 1A, Thủ Đức, TP HCM','0902748132','5/15/2015','5/15/2018','','kimloanpt@gmail.com',5,30),
+('DG010',N'Cao Thái Phương Thanh','26/3 An Dương Vương, Quận 5, TP HCM','0973274824','4/28/2015','4/28/2017','','caothaiphuongthai@gmail.com',5,30)
 go
 -- Nhập dữ liệu cho bảng phiếu mượn
 insert into PhieuMuon values
---('DG002','3/6/2016','3/26/2016'),
+('DG002','3/6/2016','3/26/2016'),
 ('DG002','3/7/2016','3/27/2016'),
 ('DG002','3/9/2016','3/29/2016'),
 ('DG005','3/9/2016','3/29/2016'),
@@ -259,30 +260,30 @@ insert into PhieuMuon values
 ('DG001','4/15/2016','5/5/2016')
 -- Nhập dữ liệu cho bảng chi tiết phiếu mượn
 insert into ChiTietPhieuMuon (ID_PhieuMuon,ID_DauSach,ID_Sach, SoLuong, TinhTrang) values
-('1','1','1','1',N'Đã Trả'),
-('2','1','2','1',N'Đã Trả'),
-('3','1','3','1',N'Đã Trả'),
-('4','1','4','1',N'Đã Trả'),
-('5','1','5','1',N'Đã Trả'),
-('6','1','6','1',N'Đã Trả'),
-('7','1','7','1',N'Đã Trả'),
-('8','1','8','1',N'Đã Trả'),
-('9','1','9','1',N'Đã Trả'),
-('10','1','10','1',N'Đã Trả'),
-('11','2','11','1',N'Đã Trả'),
-('12','2','12','1',N'Đã Trả'),
-('13','2','13','1',N'Đã Trả'),
-('14','2','14','1',N'Đã Trả'),
-('15','2','15','1',N'Đã Trả'),
-('16','2','16','1',N'Đã Trả'),
-('17','2','17','1',N'Đã Trả'),
-('18','2','18','1',N'Đã Trả'),
-('19','2','19','1',N'Đã Trả'),
-('20','2','20','1',N'Đã Trả'),
-('21','3','21','1',N'Đã Trả'),
-('22','3','22','1',N'Đã Trả'),
-('23','3','23','1',N'Đã Trả'),
-('24','3','24','1',N'Đã Trả')
+('1','2','2','1',N'Đã Trả'),
+('2','2','3','1',N'Đã Trả'),
+('3','2','4','1',N'Đã Trả'),
+('4','2','5','1',N'Đã Trả'),
+('5','2','6','1',N'Đã Trả'),
+('6','2','7','1',N'Đã Trả'),
+('7','2','8','1',N'Đã Trả'),
+('8','2','9','1',N'Đã Trả'),
+('9','2','10','1',N'Đã Trả'),
+('10','2','11','1',N'Đã Trả'),
+('11','3','12','1',N'Đã Trả'),
+('12','3','13','1',N'Đã Trả'),
+('13','3','14','1',N'Đã Trả'),
+('14','3','15','1',N'Đã Trả'),
+('15','3','16','1',N'Đã Trả'),
+('16','3','17','1',N'Đã Trả'),
+('17','3','18','1',N'Đã Trả'),
+('18','3','19','1',N'Đã Trả'),
+('19','3','20','1',N'Đã Trả'),
+('20','3','21','1',N'Đã Trả'),
+('21','4','22','1',N'Đã Trả'),
+('22','4','23','1',N'Đã Trả'),
+('23','4','24','1',N'Đã Trả'),
+('24','4','25','1',N'Đã Trả')
 go
 -- Nhập dữ liệu cho bảng phiếu trả
 insert into PhieuTra (ID_DocGia,NgayTra) values 
@@ -313,47 +314,35 @@ insert into PhieuTra (ID_DocGia,NgayTra) values
 ('DG001','5/2/2016')
 -- Nhập dữ liệu cho bảng chi tiết phiếu trả.
 insert into ChiTietPhieuTra (ID_PhieuTra,ID_DauSach,ID_Sach,SoLuong) values
-('1','1','1','1'),
-('2','1','2','1'),
-('3','1','3','1'),
-('4','1','4','1'),
-('5','1','5','1'),
-('6','1','6','1'),
-('7','1','7','1'),
-('8','1','8','1'),
-('9','1','9','1'),
-('10','1','10','1'),
-('11','2','11','1'),
-('12','2','12','1'),
-('13','2','13','1'),
-('14','2','14','1'),
-('15','2','15','1'),
-('16','2','16','1'),
-('17','2','17','1'),
-('18','2','18','1'),
-('19','2','19','1'),
-('20','2','20','1'),
-('21','3','21','1'),
-('22','3','22','1'),
-('23','3','23','1'),
-('24','3','24','1'),
-('25','3','25','1')
+('1','2','2','1'),
+('2','2','3','1'),
+('3','2','4','1'),
+('4','2','5','1'),
+('5','2','6','1'),
+('6','2','7','1'),
+('7','2','8','1'),
+('8','2','9','1'),
+('9','2','10','1'),
+('10','2','11','1'),
+('11','3','12','1'),
+('12','3','13','1'),
+('13','3','14','1'),
+('14','3','15','1'),
+('15','3','16','1'),
+('16','3','17','1'),
+('17','3','18','1'),
+('18','3','19','1'),
+('19','3','20','1'),
+('20','3','21','1'),
+('21','4','22','1'),
+('22','4','23','1'),
+('23','4','24','1'),
+('24','4','25','1'),
+('25','4','26','1')
 go
 --Thực thi câu truy vấn cho yêu cầu đồ án.
 
-	-- thống kê số lượng tồn của đầu sách tại một thời điểm
-		-- lấy dữ liệu từ bảng đầu sách
-		drop proc sp_SoLuongDauSach
-		go
- create proc sp_SoLuongDauSach
-as
-begin
-	select *
-	from DauSach
-end
-go
-exec sp_SoLuongDauSach
-go
+	
 				
 	-- lấy dữ liệu từ bảng chi tiết phiếu mượn
 	go
@@ -378,7 +367,6 @@ go
 				group by ChiTietPhieuTra.ID_DauSach
 			end
 			go
-			exec sp_SoLuongTra '5/14/2016'
 			go
 	-- Danh sách sách mượn sách mượn của độc giả trong một khoảng thời gian
 		create proc sp_DanhSachSachMuon
@@ -393,7 +381,6 @@ go
 			 and NgayMuon between @ngaybatdau and @ngayketthuc
 		end
 		go
-		exec sp_DanhSachSachMuon '3/7/2016', '5/14/2016'
 		go
 	-- Số lượng sách mượn trong một khodảng thời gian
 	go
@@ -409,9 +396,16 @@ go
 		 group by ChiTietPhieuMuon.ID_PhieuMuon,PhieuMuon.ID_DocGia,DocGia.HoTen
 	end
 	go
-	exec sp_SoLuongSachMuon '3/7/2016', '5/14/2016'
 	go
-	
+	-- Thông tin độc giả mượn sách
+	create proc sp_thongtindocgia
+	as
+	begin
+		select DocGia.ID as IDDocGia, DauSach.Ten as TenSach, ChiTietPhieuMuon.TinhTrang as TinhTrang,PhieuMuon.NgayMuon as NgayMuon
+		from ChiTietPhieuMuon, PhieuMuon,DocGia,DauSach
+		where ChiTietPhieuMuon.ID_PhieuMuon=PhieuMuon.ID and PhieuMuon.ID_DocGia=DocGia.ID and DauSach.ID=ChiTietPhieuMuon.ID_DauSach
+		end
+	go
 	-- Pro mượn sách
 		-- Nhập phiếu mượn
 		create proc NhapPhieuMuon
@@ -423,17 +417,7 @@ go
 			insert into PhieuMuon  values(@ID_DocGia,@NgayMuon,@ngaygioihantra)
 		end
 		go
-		-- Nhập chi tiết phiếu mượn
-		create proc NhapChiTietPhieuMuon
-		@ID_PhieuMuon bigint,
-		@ID_DauSach bigint,
-		@ID_Sach bigint,
-		@Soluong float
-		as 
-		begin
-			insert into ChiTietPhieuMuon(ID_PhieuMuon,ID_DauSach,ID_Sach,SoLuong) values(@ID_PhieuMuon, @ID_DauSach,@ID_Sach,@Soluong)
-		end
-		go
+	
 	-- Pro trả sách.
 		-- Nhập phiếu trả
 		create proc NhapPhieuTra
@@ -444,45 +428,5 @@ go
 			insert into PhieuTra(ID_DocGia,NgayTra) values(@ID_DocGia,@NgayTra)
 		end
 		go
-		-- Nhập chi tiết phiếu trả
-		create proc NhapChiTietPhieuTra
-		@ID_PhieuTra bigint,
-		@ID_DauSach bigint,
-		@Soluong float,
-		@ID_Sach bigint
-		as
-		begin
-			insert into ChiTietPhieuTra(ID_PhieuTra,ID_DauSach,SoLuong,ID_Sach) values(@ID_PhieuTra,@ID_DauSach,@Soluong,@ID_Sach)
-		end
-		go
-		-- proc hiển thị thông tin sách
-		create proc sp_thongtinsach
-		as
-		begin
-			select * from DauSach d join Sach s on d.ID=s.ID_DauSach
-			where TinhTrang=N'Khả Dụng'
-		end
-		go
-		exec sp_thongtinsach
-		go
-		-- proc hiển thị thông tin đọc giả
-		create proc sp_thongtindocgia
-		as
-		begin
-		select *
-		 from DocGia 
-		end
-		go
-
-
-
-
-
-
-			
-
-
-
-
-
-
+		
+	

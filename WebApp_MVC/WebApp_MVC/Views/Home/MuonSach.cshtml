@@ -37,19 +37,13 @@
 <script>
     function themsach() {
         var soluong = Number(document.getElementById("soluong").value);
+        var ngay = document.getElementById("ngaymuon").value;
+        var arr = new Array();
+        arr = ngay.split("-", 3);
         soluong = soluong + 1;
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth() + 1; //January is 0!
-        var yyyy = today.getFullYear();
-
-        if (dd < 10) {
-            dd = '0' + dd
-        }
-
-        if (mm < 10) {
-            mm = '0' + mm
-        }
+        var dd = arr[2];
+        var mm = arr[1]; //January is 0!
+        var yyyy = arr[0];
         var ngaymuon = "";
         var ngaymuon2 = "";
         var ngaytra = "";
@@ -136,12 +130,14 @@
             }
         }
     }
+   
 </script>
 <link href="~/Content/CSS/muonsach.css" rel="stylesheet" />
 <section ng-app="postApp" ng-controller="postController">
     <div id="tieude">
         <h1> Mượn sách</h1>
     </div><hr /> 
+    @Html.ValidationSummary()
     <form class="form" id="sach" method="post" action="/Home/MuonSach">
      <div id="thongtindocgia" class="col-lg-3">
             <h3>Tìm kiếm đọc giả</h3>
@@ -168,7 +164,7 @@
                         <th>Tình trạng</th>
                     </tr>
                     <tr ng-repeat="item in docgia">
-                        <td>{{item.Ten}}</td>
+                        <td>{{item.TenSach}}</td>
                         <td>{{item.TinhTrang}}</td>
                     </tr>
                 </table>
@@ -176,6 +172,8 @@
          
         </div>
      <div id="timkiemsach" class="col-lg-9">
+            <h3>Ngày mượn</h3>
+             <input type="date" name="ngaymuon" id="ngaymuon" />
             <h3>Nhập thông tin sách</h3>
             <div class="form-group">
                 <label class="sr-only" for="exampleInputEmail3">Mã sách</label>
@@ -192,7 +190,7 @@
             </div>
             <button type="button" class="btn btn-default" onclick="themsach()">Thêm</button>
             <br />
-         @Html.ValidationSummary()
+       
             <h3>Thông tin phiếu mượn</h3>
 
             <table class="table table-hover" id="thongtinphieumuon" width="400">

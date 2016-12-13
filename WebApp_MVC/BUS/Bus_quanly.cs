@@ -9,7 +9,7 @@ namespace BUS
 {
      public class Bus_quanly
     {
-        QuanLiThuVienEntities db = new QuanLiThuVienEntities();
+       QuanLiThuVienEntities1 db = new QuanLiThuVienEntities1();
         public List<DocGia> dsdocgia()
         {
             return db.DocGias.ToList();
@@ -48,19 +48,14 @@ namespace BUS
                         select b;
             return query.ToList();
         }
-        public List<sp_SoLuongDauSach_Result> sldausach()
+        public IEnumerable<DauSach> sldausach(string ngay)
         {
-            var list = (from n in db.sp_SoLuongDauSach()
-                        select new sp_SoLuongDauSach_Result
-                        {
-                            Ten = n.Ten,
-                            Loai = n.Loai,
-                            TrangThai = n.TrangThai,
-                            MieuTa = n.MieuTa,
-                            Soluong = n.Soluong,
-                            ID = n.ID
-                        }).ToList();
-            return list;
+            DateTime ngay1 = Convert.ToDateTime(ngay);
+
+            var list = (from n in db.DauSaches
+                        .Where(n => n.NgayNhap < ngay1)
+                        select n);
+            return list.ToList();
         }
         public List<sp_SoLuongMuon_Result> slsmuon(string ngay)
         {
@@ -74,37 +69,60 @@ namespace BUS
                          select n;
             return list1.ToList();
         }
-        public List<sp_SoLuongDauSach_Result> thongke(string ngay)
+        public IEnumerable<DauSach> thongke(string ngay)
         {
-            List<sp_SoLuongDauSach_Result> slds = new List<sp_SoLuongDauSach_Result>();
-            slds = sldausach();
+            IEnumerable<DauSach> slds = new List<DauSach>();
+            slds = sldausach(ngay);
             List<sp_SoLuongMuon_Result> slmuon1 = new List<sp_SoLuongMuon_Result>();
             slmuon1 = slsmuon(ngay);
             IEnumerable<sp_SoLuongTra_Result> sltra1 = new List<sp_SoLuongTra_Result>();
             sltra1 = sltra(ngay);
-            for (var i = 0; i < slmuon1.Count; i++)
+            if (slds.Count() != 0)
             {
-                if (slmuon1[i].ID_DauSach == slds[i].ID)
+                for (var i = 0; i < slmuon1.Count; i++)
                 {
-                    slds[i].Soluong = slds[i].Soluong - slmuon1[i].SoLuong;
+                    if (slmuon1[i].ID_DauSach == slds.ElementAt(i).ID)
+                    {
+                        slds.ElementAt(i).Soluong = slds.ElementAt(i).Soluong - slmuon1[i].SoLuong;
+                    }
                 }
-            }
-            for (var i = 0; i < sltra1.Count(); i++)
-            {
-                if (sltra1.ElementAt(i).ID_DauSach == slds[i].ID)
+                for (var i = 0; i < sltra1.Count(); i++)
                 {
-                    slds[i].Soluong = slds[i].Soluong + sltra1.ElementAt(i).SoLuong;
+                    if (sltra1.ElementAt(i).ID_DauSach == slds.ElementAt(i).ID)
+                    {
+                        slds.ElementAt(i).Soluong = slds.ElementAt(i).Soluong + sltra1.ElementAt(i).SoLuong;
+                    }
                 }
-            }
-            for (var i = 0; i < slds.Count; i++)
-            {
-                if (slds[i].Soluong<0)
+                for (var i = 0; i < slds.Count(); i++)
                 {
-                    slds[i].Soluong = 0;
+                    if (slds.ElementAt(i).Soluong < 0)
+                    {
+                        slds.ElementAt(i).Soluong = 0;
+                    }
                 }
             }
 
             return slds;
+        }
+        public List<DauSach> dsdausach()
+        {
+            var list = db.DauSaches.ToList();
+            return list;
+        }
+        public IEnumerable<DauSach> timkiemthongke(string ngay, string tendausach)
+        {
+            var list = (from n in thongke(ngay)
+                        where n.Ten.Contains(tendausach)
+                        select n
+                      ).ToList();
+            return list;
+        }
+        public List<DauSach> tkdausach(string tendausach)
+        {
+            var list = (from n in db.DauSaches
+                        where n.Ten.Contains(tendausach)
+                        select n).ToList();
+            return list;
         }
     }
 }

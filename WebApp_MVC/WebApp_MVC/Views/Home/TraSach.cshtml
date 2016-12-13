@@ -42,16 +42,15 @@
         var dd = today.getDate();
         var mm = today.getMonth() + 1; //January is 0!
         var yyyy = today.getFullYear();
-
-        if (dd < 10) {
-            dd = '0' + dd
-        }
-
-        if (mm < 10) {
-            mm = '0' + mm
-        }
+        var ngay = document.getElementById("ngaytra").value;
+        var arr = new Array();
+        arr = ngay.split("-", 3);
+        soluong = soluong + 1;
+        var dd = arr[2];
+        var mm = arr[1];
         var ngaytra = "";
         ngaytra = mm + '/' + dd + '/' + yyyy;
+        ngaytra1 = dd + '/' + mm + '/' + yyyy;
         var soluong = Number(document.getElementById("soluong").value);
         soluong = soluong + 1;
         var thongtinsach = document.getElementById("thongtinsach1").value;
@@ -62,7 +61,7 @@
                 + "<input type='button' onclick='xoadong(this)' value='Xóa'>" + "<input type='hidden' name='iddausach' value='" + arr[2] + "'>" + "</td><td>"
                 + arr[0] + "<input type='hidden' name='ma' value='" + arr[0] + "'>" + "</td><td>"
                 + arr[1] + "<input type='hidden' name='ten' value='" + arr[1] + "'>" + "</td><td>"
-                + ngaytra + "<input type='hidden' name='ngaytra' value='" + ngaytra + "'>" + "</td><td>"
+                + ngaytra1 + "<input type='hidden' name='ngaytra' value='" + ngaytra + "'>" + "</td><td>"
 
                 var tbody = document.querySelector("#thongtinphieutra tbody");
                 var tr = document.createElement("tr");
@@ -118,6 +117,7 @@
 </div><hr />
 
 <section ng-app="postApp" ng-controller="postController">
+    @Html.ValidationSummary()
     <form class="form" id="sach" method="post" action="/Home/TraSach">
         <div id="thongtindocgia" class="col-lg-3">
             <h3>Tìm kiếm đọc giả</h3>
@@ -145,7 +145,7 @@
                         <th>Tình trạng</th>
                     </tr>
                     <tr ng-repeat="item in docgia">
-                        <td>{{item.Ten}}</td>
+                        <td>{{item.TenSach}}</td>
                         <td>{{item.TinhTrang}}</td>
                     </tr>
                 </table>
@@ -153,6 +153,8 @@
 
         </div>
         <div id="timkiemsach" class="col-lg-9">
+            <h3>Ngày trả</h3>
+            <input type="date" name="ngaytra" id="ngaytra" />
             <h3>Nhập thông tin sách</h3>
             <div class="form-group">
                 <label class="sr-only" for="exampleInputEmail3">Tên sách</label>
@@ -170,7 +172,7 @@
             <button type="button" class="btn btn-default" onclick="themsach()">Thêm</button>
             <br />
             <h3>Thông tin phiếu trả</h3>
-            @Html.ValidationSummary()
+         
             <table class="table table-hover" id="thongtinphieutra" width="400">
                 <thead>
                     <tr>

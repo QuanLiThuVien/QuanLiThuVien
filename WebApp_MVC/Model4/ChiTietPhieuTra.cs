@@ -15,10 +15,10 @@ namespace Model4
     public partial class ChiTietPhieuTra
     {
         public long ID { get; set; }
-        public Nullable<long> ID_PhieuTra { get; set; }
-        public Nullable<long> ID_DauSach { get; set; }
+        public long ID_PhieuTra { get; set; }
+        public long ID_DauSach { get; set; }
         public Nullable<double> SoLuong { get; set; }
-        public Nullable<long> ID_Sach { get; set; }
+        public long ID_Sach { get; set; }
     
         public virtual DauSach DauSach { get; set; }
         public virtual PhieuTra PhieuTra { get; set; }

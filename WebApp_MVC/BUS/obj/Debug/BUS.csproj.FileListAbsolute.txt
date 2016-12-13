@@ -1,4 +1,3 @@
-C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\BUS\obj\Debug\BUS.csprojResolveAssemblyReference.cache
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\BUS\bin\Debug\BUS.dll.config
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\BUS\bin\Debug\BUS.dll
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\BUS\bin\Debug\BUS.pdb
@@ -8,5 +7,6 @@ C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\BUS\bin\Debug\M
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\BUS\bin\Debug\Model4.pdb
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\BUS\bin\Debug\EntityFramework.xml
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\BUS\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\BUS\obj\Debug\BUS.csprojResolveAssemblyReference.cache
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\BUS\obj\Debug\BUS.dll
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\BUS\obj\Debug\BUS.pdb

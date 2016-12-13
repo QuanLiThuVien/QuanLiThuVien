@@ -5,6 +5,5 @@ C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\Model4\bin\Debu
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\Model4\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\Model4\bin\Debug\EntityFramework.xml
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\Model4\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\Model4\obj\Debug\Model4.csprojResolveAssemblyReference.cache
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\Model4\obj\Debug\Model4.dll
 C:\Users\Administrator\Documents\GitHub\QuanLiThuVien\WebApp_MVC\Model4\obj\Debug\Model4.pdb

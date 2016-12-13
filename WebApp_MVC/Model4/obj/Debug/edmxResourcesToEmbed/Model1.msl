@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="QuanLiThuVienModelStoreContainer" CdmEntityContainer="QuanLiThuVienEntities">
+  <EntityContainerMapping StorageEntityContainer="QuanLiThuVienModelStoreContainer" CdmEntityContainer="QuanLiThuVienEntities1">
     <EntitySetMapping Name="ChiTietPhieuMuons">
       <EntityTypeMapping TypeName="QuanLiThuVienModel.ChiTietPhieuMuon">
         <MappingFragment StoreEntitySet="ChiTietPhieuMuon">
@@ -33,6 +33,7 @@
           <ScalarProperty Name="Loai" ColumnName="Loai" />
           <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
           <ScalarProperty Name="MieuTa" ColumnName="MieuTa" />
+          <ScalarProperty Name="NgayNhap" ColumnName="NgayNhap" />
           <ScalarProperty Name="Soluong" ColumnName="Soluong" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -99,8 +100,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="NhapChiTietPhieuMuon" FunctionName="QuanLiThuVienModel.Store.NhapChiTietPhieuMuon" />
-    <FunctionImportMapping FunctionImportName="NhapChiTietPhieuTra" FunctionName="QuanLiThuVienModel.Store.NhapChiTietPhieuTra" />
     <FunctionImportMapping FunctionImportName="NhapPhieuMuon" FunctionName="QuanLiThuVienModel.Store.NhapPhieuMuon" />
     <FunctionImportMapping FunctionImportName="NhapPhieuTra" FunctionName="QuanLiThuVienModel.Store.NhapPhieuTra" />
     <FunctionImportMapping FunctionImportName="sp_DanhSachSachMuon" FunctionName="QuanLiThuVienModel.Store.sp_DanhSachSachMuon">
@@ -111,20 +110,6 @@
           <ScalarProperty Name="Ten" ColumnName="Ten" />
           <ScalarProperty Name="NgayMuon" ColumnName="NgayMuon" />
           <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
-          <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="sp_SoLuongDauSach" FunctionName="QuanLiThuVienModel.Store.sp_SoLuongDauSach">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="QuanLiThuVienModel.sp_SoLuongDauSach_Result">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="Ten" ColumnName="Ten" />
-          <ScalarProperty Name="ID_TacGia" ColumnName="ID_TacGia" />
-          <ScalarProperty Name="Loai" ColumnName="Loai" />
-          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
-          <ScalarProperty Name="MieuTa" ColumnName="MieuTa" />
-          <ScalarProperty Name="Soluong" ColumnName="Soluong" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -142,7 +127,6 @@
           <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
           <ScalarProperty Name="ID_DocGia" ColumnName="ID_DocGia" />
           <ScalarProperty Name="HoTen" ColumnName="HoTen" />
-          <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -157,31 +141,10 @@
     <FunctionImportMapping FunctionImportName="sp_thongtindocgia" FunctionName="QuanLiThuVienModel.Store.sp_thongtindocgia">
       <ResultMapping>
         <ComplexTypeMapping TypeName="QuanLiThuVienModel.sp_thongtindocgia_Result">
-          <ScalarProperty Name="ID_DocGia" ColumnName="ID_DocGia" />
-          <ScalarProperty Name="ID_DauSach" ColumnName="ID_DauSach" />
+          <ScalarProperty Name="IDDocGia" ColumnName="IDDocGia" />
+          <ScalarProperty Name="TenSach" ColumnName="TenSach" />
           <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
-          <ScalarProperty Name="Ten" ColumnName="Ten" />
-          <ScalarProperty Name="HoTen" ColumnName="HoTen" />
-          <ScalarProperty Name="NgayGioiHan" ColumnName="NgayGioiHan" />
-          <ScalarProperty Name="NgayHetHan" ColumnName="NgayHetHan" />
-          <ScalarProperty Name="SLuongGioiHan" ColumnName="SLuongGioiHan" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="sp_thongtinsach" FunctionName="QuanLiThuVienModel.Store.sp_thongtinsach">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="QuanLiThuVienModel.sp_thongtinsach_Result">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="Ten" ColumnName="Ten" />
-          <ScalarProperty Name="ID_TacGia" ColumnName="ID_TacGia" />
-          <ScalarProperty Name="Loai" ColumnName="Loai" />
-          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
-          <ScalarProperty Name="MieuTa" ColumnName="MieuTa" />
-          <ScalarProperty Name="Soluong" ColumnName="Soluong" />
-          <ScalarProperty Name="ID1" ColumnName="ID1" />
-          <ScalarProperty Name="ID_DauSach" ColumnName="ID_DauSach" />
-          <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
-          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+          <ScalarProperty Name="NgayMuon" ColumnName="NgayMuon" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

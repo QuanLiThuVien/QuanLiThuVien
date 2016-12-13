@@ -22,7 +22,7 @@ namespace Model4
         }
     
         public long ID { get; set; }
-        public Nullable<long> ID_DauSach { get; set; }
+        public long ID_DauSach { get; set; }
         public string TinhTrang { get; set; }
         public string GhiChu { get; set; }
     
