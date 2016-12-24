@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Model4.ChiTietPhieuMuon>
+@{
+    ViewBag.Title = "chitietphieumuon";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Chi tiết phiếu mượn</h2>
+<table class="table table-responsive">
+    <tr>
+        <th>Mã phiếu mượn</th>
+        <th>Tên sách</th>
+        <th>Số lượng</th>
+        <th>Tình trạng</th>
+    </tr>
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>@item.ID_PhieuMuon</td>
+            <td>@item.DauSach.Ten</td>
+            <td>@item.SoLuong</td>
+            <td>@item.TinhTrang</td>
+        </tr>
+    }
+</table>
+

@@ -1,4 +1,4 @@
-﻿
+﻿@model Model4.PhieuMuon
 @{
     ViewBag.Title = "MuonSach";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -71,11 +71,11 @@
         var arr = thongtinsach.split(";");
         var rows = "";
         rows += "<td>"
-        + "<input type='button' onclick='xoadong(this)' value='Xóa'>" + "<input type='hidden' id='iddausach' ng-model='iddausach' name='iddausach' value='"+arr[2]+"'>" + "</td><td>"
-                + +arr[0] + "<input type='hidden' name='ma' id='ma' value='" + arr[0] + "'>" + "</td><td>"
-                + arr[1] + "<input type='hidden' name='ten' id='ten' value='" + arr[1] + "'>" + "</td><td>"
-                + ngaymuon + "<input type='hidden' name='ngaymuon' id='ngaymuon' value='" + ngaymuon2 + "'>" + "</td><td>"
-                + ngaytra + "<input type='hidden' name='ngaytra'  id='ngaytra' value='" + ngaytra2 + "'>" + "</td>";
+        + "<input type='button' onclick='xoadong(this)' value='Xóa'>" + "<input type='text' id='iddausach' ng-model='iddausach' name='iddausach' value='"+arr[2]+"'>" + "</td><td>"
+                + +arr[0] + "<input type='text' name='ma' id='ma' value='" + arr[0] + "'>" + "</td><td>"
+                + arr[1] + "<input type='text' name='ten' id='ten' value='" + arr[1] + "'>" 
+                + "<input type='hidden' name='ngaymuon' id='ngaymuon' value='" + ngaymuon2 + "'>"
+                + "<input type='hidden' name='ngaytra'  id='ngaytra' value='" + ngaytra2 + "'>" + "</td>";
                 var tbody = document.querySelector("#thongtinphieumuon tbody");
                 var tr = document.createElement("tr");
                 tr.innerHTML = rows;
@@ -135,83 +135,128 @@
 <link href="~/Content/CSS/muonsach.css" rel="stylesheet" />
 <section ng-app="postApp" ng-controller="postController">
     <div id="tieude">
-        <h1> Mượn sách</h1>
+        <h1>Quản lí mượn sách</h1>   
     </div><hr /> 
     @Html.ValidationSummary()
-    <form class="form" id="sach" method="post" action="/Home/MuonSach">
-     <div id="thongtindocgia" class="col-lg-3">
-            <h3>Tìm kiếm đọc giả</h3>
-            <div class="form-group">
-                <label>
-                    <input type="text" ng-model="timkiem" name="madocgia" id="madocgia" class="form-control" placeholder="Nhập mã độc giả" /><br />
-                    <br />
-                    <button type="button" class="btn btn-default" ng-click="timkiemdocgia(timkiem)">Tìm kiếm</button>
-                </label>
-            </div>
-    
-            <div class="model-body" ng-repeat="item1 in docgia1" >
-                <h3>Thông tin đọc giả</h3>
-                <p>Tên đọc giả:{{item1.Hoten}}</p>
-                <p>Ngày hết hạn:{{item1.ngayhethan}}</p>
-                <p>Ngày giới hạn:{{item1.ngaygioihan}}
-                <input type="hidden" id="ngaygioihan" value="{{item1.ngaygioihan}}" />
-                </p>
-                 <p>Số lượng giới hạn:{{item1.slgioihan}}</p>
-                 <p>Danh sách sách còn nợ</p>
-                <table class="table table-hover">
-                    <tr>
-                        <th>Tên sách</th>
-                        <th>Tình trạng</th>
-                    </tr>
-                    <tr ng-repeat="item in docgia">
-                        <td>{{item.TenSach}}</td>
-                        <td>{{item.TinhTrang}}</td>
-                    </tr>
-                </table>
-            </div>
-         
-        </div>
-     <div id="timkiemsach" class="col-lg-9">
-            <h3>Ngày mượn</h3>
-             <input type="date" name="ngaymuon" id="ngaymuon" />
-            <h3>Nhập thông tin sách</h3>
-            <div class="form-group">
-                <label class="sr-only" for="exampleInputEmail3">Mã sách</label>
-                <input type="text" id="txttimkiemsach" onkeyup="timkiemsach()" class="form-control" placeholder="Tên sách">
-                <select size="5"  id="thongtinsach1" class="form-control" style="width: 400px"> </select>    
-                 <select id="thongtinsach" style="display:none">
-                    @foreach (var item in Model)
-                    {
-                        <option value="@item.id">
-                            @item.id;@item.ten;@item.Id_dausach
-                        </option>
-                    }
-                </select>
-            </div>
-            <button type="button" class="btn btn-default" onclick="themsach()">Thêm</button>
-            <br />
-       
-            <h3>Thông tin phiếu mượn</h3>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        Cho mượn sách
+    </button>
+    <!-- Modal -->
+    <div class="modal fade col-lg-12" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document" style="width:1050px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Cho mượn sách</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form" id="sach" method="post" action="/Home/MuonSach">
+                        <div id="thongtindocgia" class="col-lg-3">
+                            <h3>Tìm kiếm đọc giả</h3>
+                            <div class="form-group">
+                                <label>
+                                    <input type="text" ng-model="timkiem" name="madocgia" id="madocgia" class="form-control" placeholder="Nhập mã độc giả" /><br />
+                                    <br />
+                                    <button type="button" class="btn btn-default" ng-click="timkiemdocgia(timkiem)">Tìm kiếm</button>
+                                </label>
+                            </div>
 
-            <table class="table table-hover" id="thongtinphieumuon" width="400">
-                <thead>
-                    <tr>
-                        <th>Điều khiển</th>
-                        <th>Mã sách</th>
-                        <th>Tên sách</th>
-                        <th>Ngày mượn</th>
-                        <th>Ngày phải trả</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-            <label>
-                Tổng số lượng sách:
-                <input type="text" class="form-control" id="soluong" name="soluong" disabled />
-            </label>
-            <label>
-                <button class="btn btn-default" id="luuphieumuon"  type="submit">Lưu phiếu mượn</button>
-            </label>
+                            <div class="model-body" ng-repeat="item1 in docgia1">
+                                <h3>Thông tin đọc giả</h3>
+                                <p>Tên đọc giả:{{item1.Hoten}}</p>
+                                <p>Ngày hết hạn:{{item1.ngayhethan}}</p>
+                                <p>
+                                    Ngày giới hạn:{{item1.ngaygioihan}}
+                                    <input type="hidden" id="ngaygioihan" value="{{item1.ngaygioihan}}" />
+                                </p>
+                                <p>Số lượng giới hạn:{{item1.slgioihan}}</p>
+                                <p>Danh sách sách còn nợ</p>
+                                <table class="table table-hover">
+                                    <tr>
+                                        <th>Tên sách</th>
+                                        <th>Tình trạng</th>
+                                    </tr>
+                                    <tr ng-repeat="item in docgia">
+                                        <td>{{item.TenSach}}</td>
+                                        <td>{{item.TinhTrang}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </div>
+                        <div id="timkiemsach" class="col-lg-9">
+                            <h3>Ngày mượn</h3>
+                            <input type="date" name="ngaymuon" id="ngaymuon" />
+                            <h3>Nhập thông tin sách</h3>
+                            <div class="form-group">
+                                <label class="sr-only" for="exampleInputEmail3">Mã sách</label>
+                                <input type="text" id="txttimkiemsach" onkeyup="timkiemsach()" class="form-control" placeholder="Tên sách">
+                                <select size="5" id="thongtinsach1" class="form-control" style="width: 400px"> </select>
+                                <select id="thongtinsach" style="display:none">
+                                    @foreach (WebApp_MVC.Controllers.Sachinfo item in ViewBag.thongtinsach)
+                                    {
+                                        <option value="@item.id">
+                                          @item.id;@item.ten;@item.Id_dausach
+                                        </option>
+                                    }
+                                </select>
+                            </div>
+                            <button type="button" class="btn btn-default" onclick="themsach()">Thêm</button>
+                            <br />
+
+                            <h3>Thông tin phiếu mượn</h3>
+
+                            <table class="table table-hover" id="thongtinphieumuon" width="400">
+                                <thead>
+                                    <tr>
+                                        <th>Điều khiển</th>
+                                        <th>Mã sách</th>
+                                        <th>Tên sách</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                            <label>
+                                Tổng số lượng sách:
+                                <input type="text" class="form-control" id="soluong" name="soluong" disabled />
+                            </label>
+                            <label>
+                                <button class="btn btn-default" id="luuphieumuon" type="submit">Lưu phiếu mượn</button>
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                    @*<button type="button" class="btn btn-primary">Save changes</button>*@
+                </div>
+            </div>
         </div>
-    </form>
+    </div>
+    <div id="lichsumuon">
+        <table class="table table-responsive">
+            <tr>
+                <th>Mã phiếu mượn</th>
+                <th>Ngày mượn</th>
+                <th> Ngày phải trả</th>
+                <th>Đọc giả</th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ID</td>
+                    <td>@Html.FormatValue(item.NgayMuon,"{0:dd/MM/yyyy}")</td>
+                    <td>@Html.FormatValue(item.NgayGHTra, "{0:dd/MM/yyyy}")</td>
+                    <td>@item.ID_DocGia</td>
+                    <td>
+                        <a href="/Home/chitietphieumuon?id=@item.ID">Chi tiết</a>
+                    </td>
+                </tr>
+            }
+
+
+        </table>
+    </div>
+   
 </section>

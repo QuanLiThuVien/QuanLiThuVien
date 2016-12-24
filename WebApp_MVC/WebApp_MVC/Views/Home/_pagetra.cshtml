@@ -1,0 +1,22 @@
+﻿
+<table class="table table-responsive">
+        <tr>
+            <th>Mã phiếu trả</th>
+            <th>Ngày trả</th>
+            <th>Đọc giả</th>
+            <th></th>
+        </tr>
+        @foreach (Model4.PhieuTra item in ViewBag.phieutra)
+        {
+            <tr>
+                <td>@item.ID</td>
+                <td>@Html.FormatValue(item.NgayTra, "{0:dd/MM/yyyy}")</td>
+                <td>@item.ID_DocGia</td>
+                <td>
+                    <a href="/Home/chitietphieutra?id=@item.ID">Chi tiết</a>
+                </td>
+            </tr>
+        }
+
+
+    </table>

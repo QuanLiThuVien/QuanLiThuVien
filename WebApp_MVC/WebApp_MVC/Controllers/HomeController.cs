@@ -12,7 +12,7 @@ namespace WebApp_MVC.Controllers
 {
     public class HomeController : Controller
     {
-        QuanLiThuVienEntities1 db1 = new QuanLiThuVienEntities1();
+        QuanLiThuVienEntities db1 = new QuanLiThuVienEntities();
         public ActionResult Index()
         {
             return View();
@@ -39,23 +39,23 @@ namespace WebApp_MVC.Controllers
         }
         public ActionResult MuonSach()
         {
-            var model = (from d in db1.DauSaches
+            ViewBag.thongtinsach = (from d in db1.DauSaches
                               join s in db1.Saches on d.ID equals s.ID_DauSach
                               where d.ID == s.ID_DauSach && s.TinhTrang=="Khả Dụng"
                               select new Sachinfo
                               {
                                   ten=d.Ten,
                                   id=s.ID,
-                                 Id_dausach=d.ID}).ToList();        
-            return View( model);
+                                 Id_dausach=d.ID}).ToList();
+            var phieumuon = db1.PhieuMuons.ToList(); 
+            return View(phieumuon);
         }
         [HttpPost]
         public ActionResult MuonSach(FormCollection form)
         {
-            try
-            {
+           // try
+           // {
                 var idphieumuon = db1.PhieuMuons.OrderByDescending(i => i.ID).Select(i => i.ID).FirstOrDefault();
-                idphieumuon = idphieumuon + 1;
                 // nhận dữ liệu từ form
                 var iddocgia = Request.Form["madocgia"];
                 var idsach = Request.Form["ma"];
@@ -69,10 +69,14 @@ namespace WebApp_MVC.Controllers
                 string[] angaymuon = ngaymuon.Split(new Char[] { ',' });
                 var ngaytra = Request.Form["ngaytra"];
                 string[] angaytra = ngaytra.Split(new Char[] { ',' });
-                // tạo đối tượng insert vào database
-                // tạo đối tượng phiếu mượn và insert vào database
-                db1.NhapPhieuMuon(iddocgia, angaymuon[0], angaytra[0]);
-                db1.SaveChanges();
+            // tạo đối tượng insert vào database
+            // tạo đối tượng phiếu mượn và insert vào database
+            PhieuMuon pm = new PhieuMuon();
+            pm.ID_DocGia = iddocgia;
+            pm.NgayMuon = Convert.ToDateTime(angaymuon[0]);
+            pm.NgayGHTra = Convert.ToDateTime(angaytra[0]);
+            db1.PhieuMuons.Add(pm);
+            db1.SaveChanges();
                 // tạo đối tượng chi tiết phiếu mượn và insert vào database
                 for (var i = 0; i < aiddausach.Length; i++)
                 {
@@ -95,39 +99,32 @@ namespace WebApp_MVC.Controllers
                     a.TinhTrang = "Đã Mượn";
                     db1.SaveChanges();
                 }
-                var model = (from d in db1.DauSaches
-                             join s in db1.Saches on d.ID equals s.ID_DauSach
-                             where d.ID == s.ID_DauSach && s.TinhTrang == "Khả Dụng"
-                             select new Sachinfo
-                             {
-                                 ten = d.Ten,
-                                 id = s.ID,
-                                 Id_dausach = d.ID
-                             }).ToList();
                 ModelState.AddModelError("", "Mượn sách thành công");
-                return View("MuonSach", model);
-               
-               // return RedirectToAction("MuonSach");
 
-            }
-            catch(Exception)
-            {
-                var model = (from d in db1.DauSaches
-                             join s in db1.Saches on d.ID equals s.ID_DauSach
-                             where d.ID == s.ID_DauSach && s.TinhTrang == "Khả Dụng"
-                             select new Sachinfo
-                             {
-                                 ten = d.Ten,
-                                 id = s.ID,
-                                 Id_dausach = d.ID
-                             }).ToList();
-                ModelState.AddModelError("", "Lỗi");
-                return View("MuonSach", model);
-            }
+            // return RedirectToAction("MuonSach");
+
+            //}
+            //catch(Exception)
+            //{
+
+            //    ModelState.AddModelError("", "Lỗi");
+
+            //}
+            ViewBag.thongtinsach = (from d in db1.DauSaches
+                                    join s in db1.Saches on d.ID equals s.ID_DauSach
+                                    where d.ID == s.ID_DauSach && s.TinhTrang == "Khả Dụng"
+                                    select new Sachinfo
+                                    {
+                                        ten = d.Ten,
+                                        id = s.ID,
+                                        Id_dausach = d.ID
+                                    }).ToList();
+            var phieumuon = db1.PhieuMuons.ToList();
+            return View("MuonSach",phieumuon);
         }
         public ActionResult TraSach()
         {
-            var model = (from d in db1.DauSaches
+            ViewBag.thongtinsach = (from d in db1.DauSaches
                          join s in db1.Saches on d.ID equals s.ID_DauSach
                          where d.ID == s.ID_DauSach && s.TinhTrang=="Đã Mượn"
                          select new Sachinfo
@@ -136,13 +133,14 @@ namespace WebApp_MVC.Controllers
                              id = s.ID,
                              Id_dausach=d.ID
                          }).ToList();
+            var model=db1.PhieuTras.ToList();
             return View(model);
         }
         [HttpPost]
         public ActionResult TraSach(FormCollection form)
         {
-            try
-            {
+            //try
+          //  {
                 var idphieutra = db1.PhieuTras.OrderByDescending(i => i.ID).Select(i => i.ID).FirstOrDefault();
                 //idphieutra = idphieutra + 1;
                 // nhận dữ liệu từ form
@@ -154,9 +152,12 @@ namespace WebApp_MVC.Controllers
                 var tensach = Request.Form["ten"];
                 var ngaytra = Request.Form["ngaytra"];
                 string[] angaytra = ngaytra.Split(new Char[] { ',' });
-                // tạo đối tượng insert vào database
-                // tạo đối tượng phiếu trả và insert vào database
-                db1.NhapPhieuTra(iddocgia, angaytra[0]);
+            // tạo đối tượng insert vào database
+            // tạo đối tượng phiếu trả và insert vào database
+            PhieuTra pt = new PhieuTra();
+            pt.ID_DocGia = iddocgia;
+            pt.NgayTra = Convert.ToDateTime(angaytra[0]);
+            db1.PhieuTras.Add(pt);
                 db1.SaveChanges();
                 // tạo đối tượng chi tiết phiếu mượn và insert vào database
                 for (var i = 0; i < aiddausach.Length; i++)
@@ -189,36 +190,31 @@ namespace WebApp_MVC.Controllers
                     a.TinhTrang = "Đã Trả";
                     db1.SaveChanges();
                 }
-
-                var model = (from d in db1.DauSaches
-                             join s in db1.Saches on d.ID equals s.ID_DauSach
-                             where d.ID == s.ID_DauSach && s.TinhTrang == "Đã Mượn"
-                             select new Sachinfo
-                             {
-                                 ten = d.Ten,
-                                 id = s.ID,
-                                 Id_dausach = d.ID
-                             }).ToList();
                 ModelState.AddModelError("", "Trả sách thành công");
-                return View("TraSach", model);
+            //  }
+            //catch (Exception)
+            //{
+            //    var model = (from d in db1.DauSaches
+            //                 join s in db1.Saches on d.ID equals s.ID_DauSach
+            //                 where d.ID == s.ID_DauSach && s.TinhTrang == "Đã Mượn"
+            //                 select new Sachinfo
+            //                 {
+            //                     ten = d.Ten,
+            //                     id = s.ID,
+            //                     Id_dausach = d.ID
+            //                 }).ToList();
+            ViewBag.thongtinsach = (from d in db1.DauSaches
+                                    join s in db1.Saches on d.ID equals s.ID_DauSach
+                                    where d.ID == s.ID_DauSach && s.TinhTrang == "Đã Mượn"
+                                    select new Sachinfo
+                                    {
+                                        ten = d.Ten,
+                                        id = s.ID,
+                                        Id_dausach = d.ID
+                                    }).ToList();
+            var model = db1.PhieuTras.ToList();
+            return View("TraSach",model);
 
-            }
-            catch (Exception)
-            {
-                var model = (from d in db1.DauSaches
-                             join s in db1.Saches on d.ID equals s.ID_DauSach
-                             where d.ID == s.ID_DauSach && s.TinhTrang == "Đã Mượn"
-                             select new Sachinfo
-                             {
-                                 ten = d.Ten,
-                                 id = s.ID,
-                                 Id_dausach = d.ID
-                             }).ToList();
-                ModelState.AddModelError("", "Xảy ra lỗi");
-                return View("TraSach",model);
-
-
-            }
         }
         
         public ActionResult ThongKe()
@@ -243,5 +239,22 @@ namespace WebApp_MVC.Controllers
             ViewBag.NgayKetThuc = ngaykethuc2;
             return View("ThongKe",ketqua);
         }
+        public ActionResult chitietphieumuon(int id)
+        {
+            var model = (from n in db1.ChiTietPhieuMuons
+                         where n.ID_PhieuMuon == id
+                         select n).ToList();
+            return View(model);
+        }
+        public ActionResult chitietphieutra(int id)
+        {
+            var model = (from n in db1.ChiTietPhieuTras
+                         where n.ID_PhieuTra == id
+                         select n).ToList();
+            return View(model);
+        }
+
+
+
     }
 }

@@ -244,7 +244,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="QuanLiThuVienEntities1" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="QuanLiThuVienEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="ChiTietPhieuMuons" EntityType="Self.ChiTietPhieuMuon" />
     <EntitySet Name="ChiTietPhieuTras" EntityType="Self.ChiTietPhieuTra" />
     <EntitySet Name="DauSaches" EntityType="Self.DauSach" />

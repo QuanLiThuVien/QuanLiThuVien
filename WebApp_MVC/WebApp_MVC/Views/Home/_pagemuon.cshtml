@@ -1,0 +1,24 @@
+﻿
+<table class="table table-responsive">
+        <tr>
+            <th>Mã phiếu mượn</th>
+            <th>Ngày mượn</th>
+            <th> Ngày phải trả</th>
+            <th>Đọc giả</th>
+            <th></th>
+        </tr>
+        @foreach (Model4.PhieuMuon item in ViewBag.phieumuon)
+        {
+            <tr>
+                <td>@item.ID</td>
+                <td>@Html.FormatValue(item.NgayMuon,"{0:dd/MM/yyyy}")</td>
+                <td>@Html.FormatValue(item.NgayGHTra, "{0:dd/MM/yyyy}")</td>
+                <td>@item.ID_DocGia</td>
+                <td>
+                    <a href="/Home/chitietphieumuon?id=@item.ID">Chi tiết</a>
+                </td>
+            </tr>
+        }
+
+
+    </table>

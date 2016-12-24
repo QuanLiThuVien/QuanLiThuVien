@@ -326,6 +326,8 @@
     <Content Include="bin\WebApp_MVC.dll.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\DocGia\muonsach.js" />
+    <Content Include="Scripts\DocGia\phantrangmuom.js" />
+    <Content Include="Scripts\DocGia\phantrangtra.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -379,6 +381,12 @@
     <Content Include="Views\Home\TraSach.cshtml" />
     <Content Include="Views\Account\ThongKe.cshtml" />
     <Content Include="Views\Home\ThongKe.cshtml" />
+    <Content Include="Views\Home\chitietphieumuon.cshtml" />
+    <Content Include="Views\Home\chitietphieutra.cshtml" />
+    <Content Include="Views\Shared\_paginate.cshtml" />
+    <Content Include="Views\Home\_pagemuon.cshtml" />
+    <Content Include="Views\Home\_pagetra.cshtml" />
+    <Content Include="Views\Shared\_paginatemuon.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

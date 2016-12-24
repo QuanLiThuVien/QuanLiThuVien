@@ -9,7 +9,7 @@ namespace BUS
 {
      public class Bus_quanly
     {
-       QuanLiThuVienEntities1 db = new QuanLiThuVienEntities1();
+        QuanLiThuVienEntities db = new  QuanLiThuVienEntities();
         public List<DocGia> dsdocgia()
         {
             return db.DocGias.ToList();
